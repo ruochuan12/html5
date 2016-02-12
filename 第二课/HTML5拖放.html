@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5拖放</title>
+	<style>
+	*{margin: 0;padding: 0;}
+	li{
+		list-style: none;
+		height: 50px;
+		width: 100px;
+		background: pink;
+		margin: 20px;
+	}
+	#div1{
+		margin: 100px;
+		width: 200px;
+		height: 200px;
+		background: blue;
+	}
+	</style>
+	<script>
+		window.onload=function(){
+			var oDiv=document.getElementById('div1');
+			var oUl=document.getElementsByTagName('ul')[0];
+			var aLi=oUl.getElementsByTagName('li');
+
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].ondragstart=function(ev){
+					var ev=ev||window.event;
+					this.style.background="red";
+					ev.dataTransfer.setData("name","Rowboat");
+				}
+				aLi[i].ondrag=function(){
+					document.title=i++;
+				}
+				aLi[i].ondragend=function(){
+					this.style.background="blue";
+				}
+			}
+			oDiv.ondragenter=function(){
+				this.style.background="black";
+				console.log("123");
+			}
+
+			oDiv.ondragover=function(ev){
+				this.style.background="red";
+				ev.preventDefault();
+			}
+			oDiv.ondragleave=function(){
+				this.style.background="blue";
+			}
+			oDiv.ondrop=function(ev){		
+				alert(ev.dataTransfer.getData("name"));
+			}
+		}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li class="item" draggable="true"></li>
+		<li class="item" draggable="true"></li>
+		<li class="item" draggable="true"></li>
+	</ul>
+	<div id="div1"></div>
+</body>
+</html>

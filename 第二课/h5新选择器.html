@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html5新选择器</title>
+	<script>
+		window.onload=function(){
+			aDiv=document.querySelectorAll("#div1");
+			for(var i=0;i<aDiv.length;i++){
+			aDiv[i].style.background="blue";
+		}
+
+		}
+	</script>
+</head>
+<body>
+	<div id="div1" class="box">div1</div>
+	<div id="div2" class="box">div2</div>
+	<div id="div2" class="box">div2</div>
+</body>
+</html>
