@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上下抖动-2</title>
+	<style>
+	/*清空浮动*/
+	.clearfix:after{
+		content: ".";
+		display: block;
+		clear: both;
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+	}
+	.clearfix{
+		zoom：1;
+	}
+	img{
+		margin-left: 20px;
+		position: absolute;
+		top: 80px;
+		width: 180px;
+		height: 180px;
+	}
+	#ul1{
+		width: 1000px;
+		height: 125px;
+		display: none;
+	}
+	li{
+		list-style: none;
+		float: left;
+		margin-top: 76px;
+		margin-left: 62px;
+
+	}
+	#div1{
+		width: 160px;
+		height: 160px;
+		border-radius: 50%;
+		background: #F97834;
+		font-size: 90px;
+		color: #fff;
+		text-align: center;
+		line-height: 160px;
+		box-shadow:5px 5px 5px gray;
+	}
+	</style>
+	<script>
+			function getStyle(obj,attr){
+				return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
+
+			}
+			
+			function shake(obj,attr,endFn){
+				var arr=[];		// 20, -20, 18, -18 ..... 0
+				var	num=0;
+
+				var pos=parseInt(getStyle(obj,attr));
+				for(var i=20;i>0;i-=2){
+					arr.push(i,-i);
+				}
+				arr.push(0);
+				// console.log(arr);
+				clearInterval(obj.shake);
+				obj.shake=setInterval(function(){
+					obj.style[attr]=pos+arr[num]+"px";
+					num++;
+					if(num==arr.length){
+						clearInterval(obj.shake);
+						endFn&&endFn();
+
+					}
+				},30);
+			}
+			function startMove(obj,speed,attr,target,endFn){
+				clearInterval(obj.timer);	//清除undefined、null都行
+				var speed=parseInt(getStyle(obj,attr))<target?speed:-speed;
+				obj.timer=setInterval(
+					function(){
+						
+						//当前的位置
+						var nowPos=parseInt(getStyle(obj,attr))+speed;
+					
+						if(nowPos>target&&speed>0||nowPos<target&&speed<0){
+
+							nowPos = target;
+						}
+
+						obj.style[attr]=nowPos+"px";
+
+						if(nowPos==target){
+							clearInterval(obj.timer);
+							endFn&&endFn();
+						}
+
+
+					},30);
+
+			}
+		window.onload=function() {
+			var aImg=document.getElementsByTagName('img');
+			var oUl=document.getElementById('ul1');
+			
+			function fnShake(){
+				var that=this;
+				shake(that,"left",function(){
+					startMove(that,5,"top",700,function(){
+						startMove(that,20,"top",260);
+					});
+				});
+			}
+			for(var i=0;i<aImg.length;i++){
+			aImg[i].style["left"]=80+i*220+"px";
+			aImg[i].onclick=fnShake;
+
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<img src="img1.png" alt="图片1">
+	<img src="img2.png" alt="图片2">
+	<img src="img3.png" alt="图片3">
+	<img src="img4.png" alt="图片4">
+	<img src="img5.png" alt="图片5">
+	<ul id="ul1 clearfix">
+		<li><div id="div1">祝</div></li>
+		<li><div id="div1">鸿</div></li>
+		<li><div id="div1">喜</div></li>
+		<li><div id="div1">云</div></li>
+		<li><div id="div1">集</div></li>
+	</ul>
+</body>
+</html>

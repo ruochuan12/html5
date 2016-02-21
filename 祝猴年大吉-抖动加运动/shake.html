@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上下抖动</title>
+	<style>
+	img{
+		margin-left: 20px;
+		position: absolute;
+		top: 100px;
+		left: 340px;
+		width: 180px;
+		height: 125px;
+	}
+	#img1{
+		left: 120px;
+	}
+	</style>
+	<script>
+		window.onload=function() {
+			var oImg1=document.getElementById('img1');
+			var oImg2=document.getElementById('img2');
+			
+			function getStyle(obj,attr){
+				return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
+
+			}
+
+			function startMove(obj,speed,attr,target,endFn){
+				clearInterval(obj.timer);	//清除undefined、null都行
+				var speed=parseInt(getStyle(obj,attr))<target?speed:-speed;
+				obj.timer=setInterval(
+					function(){
+						
+						//当前的位置
+						var nowPos=parseInt(getStyle(obj,attr))+speed;
+					
+						if(nowPos>target&&speed>0||nowPos<target&&speed<0){
+
+							nowPos = target;
+						}
+
+						obj.style[attr]=nowPos+"px";
+
+						if(nowPos==target){
+							clearInterval(obj.timer);
+							endFn&&endFn();
+						}
+
+
+					},30);
+
+			}
+			function shake(obj,attr,endFn){
+				var arr=[],		// 20, -20, 18, -18 ..... 0
+					num=0;
+					//
+				var pos=parseInt(getStyle(obj,attr));
+				for(var i=20;i>0;i-=2){
+					arr.push(i,-i);
+				}
+				arr.push(0);
+				// console.log(arr);
+				clearInterval(obj.shake);
+				obj.shake=setInterval(function(){
+					obj.style[attr]=pos+arr[num]+"px";
+					num++;
+					if(num==arr.length){
+						clearInterval(obj.shake);
+						endFn&&endFn();
+
+					}
+				},30);
+			}
+			function fnShake(){
+				var that=this;
+				shake(that,"left",function(){
+					shake(that,"top");
+				});
+			}
+			oImg1.onclick=fnShake;
+			oImg2.onclick=fnShake;
+
+			//这是运动的调用。
+			// oImg.onclick=function(){
+			// 	var that=this;
+			// 	startMove(that,7,"left",1000,function(){
+			// 		startMove(that,9,"top",350);
+			// 	});
+			// }
+
+		}
+	</script>
+</head>
+<body>
+	<img id="img1" src="img1.jpg" alt="图片1">
+	<img id="img2" src="img2.jpg" alt="图片2">
+</body>
+</html>
