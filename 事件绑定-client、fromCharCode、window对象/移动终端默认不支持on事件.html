@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>移动终端默认不支持on事件</title>
+<style>
+#div{
+  width: 100px;
+  height:  100px;
+  background: red;
+}
+</style>
+<script>
+window.onload=function(){
+  function $(id){
+    return document.getElementById(id);
+  }
+  // 移动终端默认不支持on事件添加的方案，模拟器中需在谷歌浏览器中添加
+  $('div').ontouchend=function(){
+    alert("Emulation");
+  }
+
+}
+</script>
+</head>
+<body>
+<div id="div">Emulation</div>
+</body>
+</html>

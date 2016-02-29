@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	var str='';
+	var num=0;
+	for(var attr in window){
+		str += num +"."+attr+':'+ window[attr]+'<br/>';
+		num++
+	}
+	document.body.innerHTML=str;
+}
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

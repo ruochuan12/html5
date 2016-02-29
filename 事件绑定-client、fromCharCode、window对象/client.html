@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	function fn(ev){
+		var ev = ev || event;
+		alert(ev.clientX+"\n"+ev.clientY);
+		console.log(ev);
+		var con=confirm("你确定吗");
+		alert(con);
+		var pro=prompt("请输入");
+		alert(pro);
+
+	}
+	// document.onclick=fn;
+	// 绑定事件，兼容到IE6，不捕获。
+	function bind(obj,evname,fn){
+		if(obj.addEventListener){
+			obj.addEventListener(evname,fn,false);
+		}else{
+			obj.attachEvent("on"+evname,function(){
+				fn.call(obj);
+			});
+		}
+	}
+	//document.addEventListener('click',fn,false);
+	bind(document,'click',fn);
+	
+}
+</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件绑定的第二种方法</title>
+    <script>
+    window.onload=function(){
+      function fn1(){
+        alert(1);
+      }
+      function fn2(){
+        alert(2);
+      }
+      //第一种方式
+      // document.onclick=fn1;
+      // document.onclick=fn2;这种方式会被覆盖
+      /**
+       * 第二种方式：兼容IE，不会被覆盖，推荐使用。
+       * @param  {[type]}   obj    [对象]
+       * @param  {[type]}   evname [事件名称，不加on]
+       * @param  {Function} fn     [事件触发要执行的函数]
+       * @return {[type]}          [description]
+       */
+      function bind(obj,evname,fn){
+        if(obj.addEventListener){
+          /**
+           * false表示不捕获，true表示捕获，ie中，attachEvent没有这个参数
+           */
+          obj.addEventListener(evname,fn,false);
+        }else{
+          obj.attachEvent('on'+evname,function(){
+            fn.call(obj);
+          });
+        }
+      }
+      bind(document,'click',fn1);
+      bind(document,'click',fn2);
+    }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
