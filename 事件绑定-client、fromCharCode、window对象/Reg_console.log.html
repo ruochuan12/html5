@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>console.log</title>
+	<script type="text/javascript">
+		// var str='hello sublime,this is sublime!';
+		// var patt1=/sublime/g;
+		// // 正则，规则，模式不需要引号
+		// console.log(str.match(patt1));
+		// // 输出Array["sublime","sublime"]
+		// alert(str.match(patt1));
+		// // 输出sublime，sublime
+		window.onload=function(){
+			var oBtn=document.getElementById('btn');
+			var oTxt=document.getElementById('txt');
+			// var str="rowboat";
+			// var age=22;
+			//C语言写法
+			// console.log("s% d%",str,age);
+			// 邮箱验证正则表达式
+			var patt1=/(\S)+[@]{1}(\S)+[.]{1}(\w)+/	//错误
+			// var patt1=/\S+[@]{1}\S+[.]{1}\S+/i;		//错误
+			var patt2=/^[\w]+[@]{1}(\w)+[.]+(\w)+$/i;	//正确
+			oBtn.onclick=function(){
+				if(patt2.test(oTxt.value)){
+					// test() 方法用于检测一个字符串是否匹配某个模式.		
+					// RegExpObject.test(string)
+
+					alert("邮箱验证通过");
+					
+					
+
+				}else{
+
+					alert("邮箱写错了");
+				}
+				
+				  
+				
+
+			}
+
+
+		}
+
+	</script>
+</head>
+<body>
+<input type="text" value="" id="txt" />
+<input type="button" value="验证" id="btn" />
+	
+</body>
+</html>

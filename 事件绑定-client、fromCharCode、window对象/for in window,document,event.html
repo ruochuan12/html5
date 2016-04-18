@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js-for in window,document,event</title>
+
+</head>
+<body>
+	<script>
+	/*var num = 0;
+	for(var i in window){
+		//读取事件
+		if(/^on/.test(i)){
+			document.write(num+"  "+i+"<br/>");
+		};
+		num ++;
+	}*/
+	/*window.onload=function(){
+		var num = 0;
+		function log(ev){
+			var ev = ev||window.event;
+			console.log(ev);
+			for(var i in ev){
+				//读取事件
+				// if(/^on/.test(i)){
+					document.write(num+"  "+i+"<br/>");
+				// };
+				num ++;
+			}
+		};
+		log();
+	}*/
+
+	var num = 0;
+	for(var i in document){
+		//读取事件
+		// if(/^on/.test(i)){
+			document.write(num+"  "+i+"<br/>");
+		// };
+		num ++;
+	}
+	</script>
+</body>
+</html>

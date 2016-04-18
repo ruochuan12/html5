@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title>电影轮播图</title>
+	    <style type="text/css">
+	        *{margin:0;padding: 0;list-style: none;}
+	        body{}
+	        #container{width:1000px;height:409px;position:relative;margin:20px auto;overflow: hidden;}
+	        #list{width:5000px;height:409px;position:absolute;z-index: 1}
+	        #list img{float:left;display: block;}
+	        #pre{background-image:urlhttp://www.w3cfuns.com/data/attachment/album/201411/17/153459b7h8s70shfr2hwrd.png);width:45px;height:45px;float:left;position:absolute;top:190px;left:10px;cursor:pointer;display:none;z-index: 2;}
+	        #next{background-image: url(http://www.w3cfuns.com/data/attachment/album/201411/17/153459g52888zwz1wa11tm.png);width:45px;height:45px;float: left;position:absolute;top:190px;right:10px;cursor:pointer;display:none;z-index: 2;}
+
+	        #container:hover #pre,#container:hover #next{display: block;}
+	        #pre:hover,#next:hover{background-color: rgba(0,0,0,0.7);   }
+	        #dot{width:1000px;height:10px;position:absolute;bottom:15px;left:450px;z-index: 10;}
+
+	 
+
+	        #dot span{width:10px;height:10px;display:block;border-radius:10px;background-color: #fff;margin:0 5px;float: left;cursor:pointer;}
+
+	        
+
+	        #dot .on{background-color: #69aaec;}
+
+	    </style>
+
+	    <script type="text/javascript">
+
+	        window.onload = function(){
+
+	            var container = document.getElementById('container');//定义container，获取container id；
+
+	            var list = document.getElementById('list');//定义list，获取list id；
+
+	            var dot = document.getElementById('dot').getElementsByTagName('span');//定义dot ，获取dot id；
+
+	            var pre = document.getElementById('pre');//定义 pre（上一张），获取pre id；
+
+	            var next = document.getElementById('next');//定义next(下一张)，获取next id;
+
+	            var index = 1;//定义index初始值
+
+	 
+
+	            var animated = false;
+
+	 
+
+	            function showDot(){//遍历圆点的滚动状态
+
+	                for(var i = 0;i < dot.length;i++){
+
+	                    if(dot[i].className == 'on')//判断圆点的className是否为'on'的状态，
+
+	                    {
+
+	                        dot[i].className = '';//如果是的话，就显示初始值;
+
+	                        break;//显示初始值之后跳出函数；
+
+	                    }
+
+	                }
+
+	                dot[index - 1].className = 'on';//因为数组第一个从0开始
+
+	            }
+
+	            function animate(offset){//定义animated（offset）函数
+
+	                animated = true;
+
+	                var newLeft = parseInt(list.style.left) + offset  //定义一个newLeft 变量，赋值parseInt(list.style.left) + offset;
+
+	                var time = 500;//位移时间；
+
+	                var interval = 10;//位移间隔时间
+
+	                var speed = offset/(time/interval);//每次位移的距离；
+
+	                function go(){
+ 
+
+	                    if( (speed < 0 && parseInt(list.style.left) > newLeft) || (speed > 0 && parseInt(list.style.left) < newLeft)){
+
+	                        list.style.left = parseInt(list.style.left) + speed + 'px';
+
+	                        setTimeout(go,interval);
+
+	 
+
+	                    }
+
+	                    else{
+
+	                        animated = false;
+
+	                        list.style.left = newLeft   +'px';//list.style.left的使用parseInt转换为数字
+
+	                        if(newLeft > 0 ){//判断left是否大于初始位置，如果大于返回最小值
+
+	                            list.style.left = -4000 + 'px';
+
+	                        }
+
+	                        if(newLeft < -4000){//判断left是否小于最小值，如果小于返回初始值
+
+	                            list.style.left = 0 + 'px';
+
+	                        }
+
+	                    }
+
+	 
+
+	                }
+
+	                go();
+
+
+	             
+
+	            }
+
+	            next.onclick = function(){
+
+	                if(index == 5){//判断index圆点的状态，如果等于最大值，那下一次就会回到最小值
+
+	                    index =1;
+
+	                }else{//否则就按正常步骤，显示index+1；
+
+	                    index += 1;
+
+	                }
+
+	 
+
+	                showDot();//调用函数showDot()，显示className='on';
+
+	                if(!animated){
+
+	                animate(-1000);//调用function animate（offset）函数，进行-1000操作，显示下一张图片
+
+	                   }
+
+	            }
+
+	 
+
+	            pre.onclick = function(){
+
+	                if(index == 1){//判断index圆点的状态，如果等于最小值，那下一次就会回到最大值
+
+	                    index =5;
+
+	                }else{//否则就按正常步骤，显示index-1；
+
+	                    index -= 1;
+
+	                }
+
+	 
+
+	                showDot();//调用函数showDot()，显示className='on';
+
+	                if(!animated){
+
+	                animate(+1000);//调用function animate（offset）函数，进行+1000操作，显示上一张图片
+
+	                }
+
+	            }
+
+	            for(var i = 0;i < dot.length; i++){// 遍历dot长度
+
+	                dot[i].onclick = function(){//圆点单击时间函数
+
+	                    if(this.className == 'on'){//判断该圆点是否已经被选中，如选中就返回，不执行之后的函数
+
+	                        return;
+
+	                    }
+
+	                    var myIndex = parseInt(this.getAttribute('index'));//定义myIndex函数目标index（圆点）
+
+	                    var offset = -1000 * (myIndex - index); //计算目标偏移的坐标    计算方式（目标index（myIndex） - 原index ）* -1000
+
+	                    if(!animated){
+
+	                    animate(offset);//调用animated（offset）函数执行偏移的坐标值
+
+	                    }
+
+	                    index = myIndex;//将index函数返回为最新的myIndex数值
+
+	                    showDot();//调用shouDot函数
+
+	                    
+
+	                }
+
+	            }
+
+	 
+
+	            var timer = setInterval(next.onclick,3000) //自动切换时间设置 调用setInterval()函数，参数为：next.onclick,时间为3000
+
+	            container.onmouseover = function(){//当鼠标悬在container容器上时，调用clearInterval，清除timer；
+
+	                    clearInterval(timer);
+
+	                }
+
+	            container.onmouseout = function(){//当鼠标移出container容器时，开始执行setInterval函数
+
+	                timer = setInterval(next.onclick,3000);//调用setInterval()函数，参数为：next.onclick,时间为3000
+	            }
+	        }
+	    </script>
+	</head>
+	<body>
+	    <div id="container">
+	        <div id="pre"></div>
+
+	        <div id="next"></div>
+	        <div id="list" style="left:0px;">
+
+	            <a href="#"><img src="http://www.w3cfuns.com/data/attachment/album/201411/17/153455iy401r4bm04456lr.jpg"></a>
+
+	            <a href="#"><img src="http://www.w3cfuns.com/data/attachment/album/201411/17/153458yjegky9j4bigrkfy.jpg"></a>
+
+	            <a href="#"><img src="http://www.w3cfuns.com/data/attachment/album/201411/17/153457zj2mtzcs40jtt2jt.jpg"></a>
+
+	            <a href="#"><img src="http://www.w3cfuns.com/data/attachment/album/201411/17/153457t8loc5d5loylc6cg.jpg"></a>
+
+	            <a href="#"><img src="http://www.w3cfuns.com/data/attachment/album/201411/17/153456zetzcexkk0npknnn.jpg"></a>
+
+	        </div>
+        <div id="dot">
+
+	 
+
+	                <span index="1"class="on"></span>
+
+	                <span index="2"></span>
+	                <span index="3"></span>
+	                <span index="4"></span>
+	                <span index="5"></span>
+	 
+	        </div>
+	    </div>
+	</body>
+	</html>

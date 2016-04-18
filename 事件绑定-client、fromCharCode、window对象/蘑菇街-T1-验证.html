@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>T2-蘑菇街在线笔试</title>
+</head>
+<body>
+<script type="text/javascript">
+// 密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符。
+
+	// var reg = new RegExp('(!?,._*[0-9])(!?,._*[a-zA-Z])(!?,._*[^a-zA-Z0-9]).{5,100}');
+	// var reg =new RegExp('([!?,._]*[a-z]+[A-Z]+[0-9]+){5,100}');
+	var reg =new RegExp('([0-9]+[a-z]+[A-Z]+){5,100}','g');
+	if(reg.test('YouareNo1')){
+    	console.log("Correct");
+    }else{
+		console.log("Too weak");
+    }
+</script>
+</body>
+</html>
