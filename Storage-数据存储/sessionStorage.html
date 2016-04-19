@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html5,sessionStorge</title>
+</head>
+<body>
+	<span id="txt">0</span>
+	<button id="btn">点击加一</button>
+	<script>
+		var num = 0;
+		var oTxt = document.getElementById('txt');
+		var oBtn = document.getElementById('btn');
+		if(sessionStorage.name){
+			num = sessionStorage.name;
+			oTxt.innerHTML = num;
+		}else{
+			num = 0;
+		}
+		oBtn.onclick= function(){
+			num++;
+			sessionStorage.name = num;
+			oTxt.innerHTML = num;
+		}
+		console.log(sessionStorage.getItem("name"));
+		
+	</script>
+</body>
+</html>

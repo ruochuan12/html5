@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html5,localStorage</title>
+</head>
+<body>
+	<input id="txt" type="text">
+	<button id="btn">保存</button>
+	<script>
+		/**
+		 * localStorage有效期是永久的。sessionStorage默认的有效期是浏览器的会话时间。
+		 * 作用域：localStorage——协议，主机名，端口；sessionStorage加上浏览器窗口。
+		 * 一般的浏览器器大小是5MB左右。
+		 * 读取：localStorage.name
+		 * 添加/修改：localStorage.name = "String"暂时只支持
+		 * 删除：delete localStorage.name
+		 * 获取键值对数量：localStorage.length
+		 * 读取：localStorage.getItem("name"),localStorage.key(i)
+		 * 添加/修改：localStorage.setItem("name","String")
+		 * 删除对应的键值：localStorage.removeItem("name")
+		 * 删除所有数据：localStorage.clear()
+		 */
+		var oTxt = document.getElementById('txt');
+		var oBtn = document.getElementById('btn');
+		if(localStorage.name){
+			oTxt.value = localStorage.name;
+		}
+		oBtn.onclick= function(){
+			localStorage.name = oTxt.value;
+		}
+		console.log(localStorage.getItem("name"));
+	</script>
+</body>
+</html>
