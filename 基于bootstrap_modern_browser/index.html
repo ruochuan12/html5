@@ -12,37 +12,40 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
     <style>
-	 body {
-            padding-top: 50px;
-            padding-bottom: 40px;
-            color: #5a5a5a;
-        }
-
-        /* 轮播广告 */
-
-        .carousel {
-            height: 500px;
-            margin-bottom: 60px;
-        }
-
-        .carousel .item {
-            height: 500px;
-            background-color: #000;
-        }
-
-        .carousel .item img {
-            width: 100%;
-        }
-
-        .carousel-caption {
-            z-index: 10;
-        }
-
-        .carousel-caption p {
-            margin-bottom: 20px;
-            font-size: 20px;
-            line-height: 1.8;
-        }
+	body {
+        padding-top: 50px;
+        padding-bottom: 40px;
+        color: #5a5a5a;
+    }
+    /* 轮播广告 */
+    .carousel {
+        height: 500px;
+        margin-bottom: 60px;
+    }
+    .carousel .item {
+        height: 500px;
+        background-color: #000;
+    }
+    .carousel .item img {
+        width: 100%;
+    }
+    .carousel-caption {
+        z-index: 10;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px;
+        line-height: 1.8;
+    }
+    /* 简介 */
+    .summary {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .summary .col-md-4 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
     </style>
 </head>
 <body>
@@ -90,13 +93,10 @@
     <div class="carousel-inner">
         <div class="item active">
             <img src="images/chrome-big.jpg" alt="1 slide">
-
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Chrome</h1>
-
                     <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
-
                     <p><a class="btn btn-lg btn-primary" href="http://www.google.cn/intl/zh-CN/chrome/browser/"
                           role="button" target="_blank">点我下载</a></p>
                 </div>
@@ -104,13 +104,10 @@
         </div>
         <div class="item">
             <img src="images/firefox-big.jpg" alt="2 slide">
-
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Firefox</h1>
-
                     <p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>
-
                     <p><a class="btn btn-lg btn-primary" href="http://www.firefox.com.cn/download/" target="_blank"
                           role="button">点我下载</a></p>
                 </div>
@@ -118,13 +115,10 @@
         </div>
         <div class="item">
             <img src="images/safari-big.jpg" alt="3 slide">
-
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Safari</h1>
-
                     <p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>
-
                     <p><a class="btn btn-lg btn-primary" href="http://www.apple.com/cn/safari/" target="_blank"
                           role="button">点我下载</a></p>
                 </div>
@@ -132,13 +126,10 @@
         </div>
         <div class="item">
             <img src="images/opera-big.jpg" alt="4 slide">
-
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Opera</h1>
-
                     <p>Opera浏览器，是一款挪威Opera Software ASA公司制作的支持多页面标签式浏览的网络浏览器。</p>
-
                     <p><a class="btn btn-lg btn-primary" href="http://www.opera.com/zh-cn" target="_blank"
                           role="button">点我下载</a></p>
                 </div>
@@ -146,13 +137,10 @@
         </div>
         <div class="item">
             <img src="images/ie-big.jpg" alt="5 slide">
-
             <div class="container">
                 <div class="carousel-caption">
                     <h1>IE</h1>
-
                     <p>Internet Explorer，简称 IE，是微软公司推出的一款网页浏览器。</p>
-
                     <p><a class="btn btn-lg btn-primary" href="http://ie.microsoft.com/" target="_blank"
                           role="button">点我下载</a></p>
                 </div>
@@ -166,12 +154,41 @@
 </div>
 
 <!-- /广告轮播 -->
+
+<div class="container summary">
+
+    <!-- 简介 -->
+    <div class="row" id="summary-container">
+        <div class="col-md-4">
+            <img class="img-circle" src="images/chrome-logo-small.jpg" alt="chrome">
+            <h2>Chrome</h2>
+            <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
+            <p><a class="btn btn-default" href="#" role="button">点我下载</a></p>
+        </div>
+        <div class="col-md-4">
+            <img class="img-circle" src="images/firefox-logo-small.jpg" alt="firefox">
+            <h2>Firefox</h2>
+            <p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>
+            <p><a class="btn btn-default" href="#" role="button">点我下载</a></p>
+        </div>
+        <div class="col-md-4">
+            <img class="img-circle" src="images/safari-logo-small.jpg" alt="safari">
+            <h2>Safari</h2>
+            <p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>
+            <p><a class="btn btn-default" href="#" role="button">点我下载</a></p>
+        </div>
+    </div>
+    <!-- /简介 -->
+
+</div>
+
+
 <script src="js/jquery-1.12.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
 	$(function () {
-		$(".container").html("123");
-	}
+		// $(".container").html("123");
+	})
 </script>
 </body>
 </html>
