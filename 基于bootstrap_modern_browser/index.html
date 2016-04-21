@@ -11,6 +11,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+
     <style>
 	body {
         padding-top: 50px;
@@ -45,6 +46,20 @@
     .summary .col-md-4 {
         margin-bottom: 20px;
         text-align: center;
+    }
+    /* 特性 */
+    .feature-divider {
+        margin: 40px 0;
+    }
+    .feature {
+        padding: 30px 0;
+    }
+    .feature-heading {
+        font-size: 50px;
+        color: #2a6496;
+    }
+    .feature-heading .text-muted {
+        font-size: 28px;
     }
     </style>
 </head>
@@ -179,7 +194,18 @@
         </div>
     </div>
     <!-- /简介 -->
+    <!-- 特性 -->
 
+    <hr class="feature-divider">
+
+    <ul class="nav nav-tabs" role="tablist" id="feature-tab">
+        <li class="active"><a href="#tab-chrome" role="tab" data-toggle="tab">Chrome</a></li>
+        <li><a href="#tab-firefox" role="tab" data-toggle="tab">Firefox</a></li>
+        <li><a href="#tab-safari" role="tab" data-toggle="tab">Safari</a></li>
+        <li><a href="#tab-opera" role="tab" data-toggle="tab">Opera</a></li>
+        <li><a href="#tab-ie" role="tab" data-toggle="tab">IE</a></li>
+    </ul>
+    <!-- /特性 -->
 </div>
 
 
