@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-3-工具方法</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+	// 查看版本
+	console.log(angular.version);
+
+	var a=[];
+	var b=[];
+	var c=NaN;
+	var d=NaN;
+	console.log(angular.isArray(a)); //true
+	console.log(a==b);				//原生js,false
+	console.log(angular.equals(a,b)); //true
+
+	console.log(c==d);				//原生js,false
+	console.log(angular.equals(c,d)); //true
+
+	
+	var e='{"name":"hi","age":"20"}';  //这里不能用双引号，否则报错。
+	console.log(angular.fromJson(e));
+	var f={"name":"hi","age":"20"};
+	console.log(angular.toJson(f,true));
+
+	// 类似于原生json.parse(),json.stringify()
+
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>

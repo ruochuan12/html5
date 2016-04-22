@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-2-购物金额实例操作</title>
+	<style></style>
+	<script src="js/angular.min.js"></script>
+	<script>
+		function push($scope){
+			$scope.iPhone={
+				money:10,
+				num:1,
+				fre:10
+			};
+			$scope.sum=function(){
+				return $scope.iPhone.money*$scope.iPhone.num;
+			}
+			// 三个参数，监听值（可以是函数），最后一个是true。
+			$scope.$watch($scope.sum,function(newVal,oldVal){
+				$scope.iPhone.fre = newVal>=100?0:10;
+			});
+
+		}
+	</script>
+</head>
+<body>
+	<div ng-controller="push">
+		<p>价格：<input type="text" ng-model="iPhone.money"></p>
+		<p>数量：<input type="text" ng-model="iPhone.num"></p>
+		<p>费用：{{sum() |currency:"￥"}}</p>
+		<p>运费：{{iPhone.fre |currency:"￥"}}</p>
+		<p>总额：{{sum()+iPhone.fre|currency:"￥"}}</p>
+	</div>
+</body>
+</html>
