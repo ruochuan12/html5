@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>5_工具方法_run</title>
+	<style></style>
+	<script src="js/angular.min.js"></script>
+	<script>
+		/*var m1 = angular.module("myApp",[]);
+		m1.controller = ("Aaa",['$scope',function($scope){
+			$scope.name = "hello";
+		}]);*/
+		var m2 = angular.module('myApp',[]);
+		m2.run(['$rootScope',function($rootScope){
+			$rootScope.name = "hello";
+		}]);
+		//数据未加载
+		console.log(m2);
+	</script>
+</head>
+<body>
+	 <!-- "//cdn.bootcss.com/angular.js/1.5.0/angular.min.js" -->
+	<!-- <div ng-controller="Aaa">
+		<p>{{name}}</p>
+	</div> -->
+	<div>
+		<p>{{name}}</p>
+	</div>
+</body>
+</html>

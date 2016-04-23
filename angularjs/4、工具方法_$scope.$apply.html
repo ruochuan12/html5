@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-1-MVVM</title>
+	<style></style>
+	<script src="js/angular.min.js"></script>
+	<script>
+		function push($scope,$timeout){
+			$scope.name="hello";
+			/*$timeout(function(){
+				$scope.name="hi";
+			},3000);*/
+
+			setTimeout(function(){
+				$scope.$apply(function(){
+					$scope.name="hi";	
+				})
+				
+			},2000)
+
+			$scope.show=function(){
+				$scope.name="click";
+			}
+		}
+	</script>
+</head>
+<body>
+	 <!-- "//cdn.bootcss.com/angular.js/1.5.0/angular.min.js" -->
+	<div ng-controller="push">
+	<input type="text"  ng-model="name">
+		<p>{{name}}</p>
+	</div>
+	<div ng-controller="push" ng-click="show()">
+		<p>{{name}}</p>
+	</div>
+</body>
+</html>
