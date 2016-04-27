@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="angular.min.js"></script>
+<script>
+
+var m1 = angular.module('myApp',[]);
+m1.controller('Aaa',['$scope','$filter',function($scope,$filter){
+	
+	var oriArr = [
+		{ name : "red" , age : "20" },
+		{ name : "yellow" , age : "40" },
+		{ name : "blue" , age : "30" },
+		{ name : "green" , age : "10" }
+	];
+	
+	$scope.dataList = oriArr;
+
+	$scope.fnSort = function(arg){
+		arguments.callee['fnSort'+arg] = !arguments.callee['fnSort'+arg];
+		$scope.dataList = $filter('orderBy')($scope.dataList , arg , arguments.callee['fnSort'+arg] );
+		
+	};
+	$scope.fnFilter = function(){
+			$scope.dataList = $filter('filter')( oriArr , $scope.filterVal );
+	};
+
+}]);
+
+
+
+</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	<input type="text" ng-model="filterVal"><input type="button" ng-click="fnFilter()" value="搜索">
+	<table border="1">
+    	<tr>
+        	<th ng-click="fnSort('name')">姓名</th>
+            <th ng-click="fnSort('age')">年龄</th>
+        </tr>
+        <tr ng-repeat="data in dataList">
+        	<td>{{ data.name }}</td>
+            <td>{{ data.age }}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
