@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>笔试题部分</title>
+</head>
+<body>
+	<script>
+		/*
+		//this 指向
+		var user = {
+			count :3,
+			getCount :function (){
+				return this.count;
+			}
+		}
+		console.log(user.getCount());	//3
+		var func = user.getCount;
+		console.log(func());	//undefined
+		//console.log(window.a);	//undefined(属性)
+		//console.log(a);			//报错(变量)
+		*/
+		//写一个函数，每一个字符加一个空格返回，例如：'hello world'，返回'h e l l o  w o r l d';
+		function formatStr(str){
+			var strArr = [];
+			var newStr = '';
+			strArr = str.split('');
+			for(var i=0;i<strArr.length-1;i++){
+
+				newStr += strArr[i]+' ';
+
+			}
+			newStr +=strArr[i];
+			return newStr;
+
+		}
+		console.log(formatStr('hello world'));
+
+
+
+	</script>
+</body>
+</html>
