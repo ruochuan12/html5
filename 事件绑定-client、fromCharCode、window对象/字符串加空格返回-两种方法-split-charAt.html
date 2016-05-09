@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串加空格返回-两种方法</title>
+</head>
+<body>
+	<script>
+		//写一个函数，每一个字符加一个空格返回，例如：'hello world'，返回'h e l l o  w o r l d';
+		/* 方法一:split */
+		function formatStr1(str){
+			var strArr = [];
+			var newStr = '';
+			strArr = str.split('');
+			for(var i=0;i<strArr.length-1;i++){
+
+				newStr += strArr[i]+' ';
+
+			}
+			newStr +=strArr[i];
+			return newStr;
+
+		}
+		console.log(formatStr1('hello world'));
+
+		/* 方法二:charAt */
+		function formatStr2(str) {
+			var newStr = '';
+			for(var i=0;i<str.length-1;i++){
+				newStr += str.charAt(i)+' ';
+			}
+			newStr += str.charAt(i);
+			return newStr;
+		}
+		console.log(formatStr2('hello world'));
+	</script>
+</body>
+</html>
