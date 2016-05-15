@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp-下拉提示框</title>
+	<style>
+	#Q{
+		width: 500px;
+		height: 30px;
+		font-size: 16px;
+		border: 1px solid #CCC;
+	}
+	ul,
+	li{
+		padding: 0;margin: 0;
+	}
+	li{
+		list-style: none;
+		height: 30px;
+		text-indent: 4px;
+		line-height: 30px;
+	}
+	li:hover{
+		background-color: #ccf;
+	}
+	#ul1{
+		border: 1px solid #CCC;	
+		border-top: none;
+		width: 500px;
+	}
+	</style>
+	<script>
+		window.onload=function(){
+			var oQ = document.getElementById('Q');
+			var oUl = document.getElementById('ul1');
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="Q">
+	<ul id="ul1">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+	</ul>
+</body>
+</html>
