@@ -1,0 +1,65 @@
+/* Download by http://www.codefans.net */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 14px Verdana,Arial;
+	color: #777;
+	background: #222;
+}
+
+a {
+	color: #999;
+	text-decoration: none;
+}
+a:hover {
+	color: #bbb;
+}
+
+#wrapper {
+	width: 500px;
+	margin: 75px auto;
+}
+
+#buttons {
+	height: 35px;
+}
+
+.button {
+	border: 1px solid #eee;
+	background: #ccc;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding: 4px 0 5px;
+	width: 245px;
+	text-align: center;
+	cursor: pointer;
+	float: left;
+	color: #555;
+}
+
+.button:hover {
+	border: 1px solid #fff;
+	background: #d9d9d9;
+	color: #333;
+}
+
+.fr {
+	float: right;
+}
+
+#fade {
+	opacity: 0;
+	filter: alpha(opacity='0');
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	margin-bottom: 10px;
+	padding: 9px 10px 0;
+	height: 106px;
+	border: 1px solid #548954;
+	background: #449D44;
+	color: #fff;
+	text-shadow: 1px 1px #21341d;
+}
