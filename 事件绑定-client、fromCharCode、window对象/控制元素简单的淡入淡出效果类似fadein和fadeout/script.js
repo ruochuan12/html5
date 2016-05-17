@@ -4,9 +4,8 @@
 var fadeEffect = function() {
     
     var buttons = document.getElementById('buttons');
-	// var fadeIn = buttons.getElementsByTagName('button')['0'];
-	// var fadeOut = buttons.getElementsByTagName('button')['1'];
-	console.log(buttons);
+	var fadeIn = buttons.getElementsByTagName('button')['0'];
+	var fadeOut = buttons.getElementsByTagName('button')['1'];
 	
 	var fadeIn_Out = function() {
 	    return {
@@ -34,5 +33,12 @@ var fadeEffect = function() {
 	    }
 	}();
 
-	fadeIn_Out.init('fade','1');
+	fadeIn.onclick = function(){
+		fadeIn_Out.init('fade',1);
+		console.log('1');
+	}
+	fadeOut.onclick = function(){
+		console.log('2');
+		fadeIn_Out.init('fade',0);
+	}
 } ();
