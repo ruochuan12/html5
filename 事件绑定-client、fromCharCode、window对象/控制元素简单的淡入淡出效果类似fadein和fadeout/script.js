@@ -18,7 +18,7 @@ var fadeEffect = function() {
 	            this.si = setInterval(function() {
 	                fadeIn_Out.tween();
 	            },
-	            20);
+	            50);
 	        },
 	        tween: function() {
 	            if (this.alpha == this.target) {
@@ -35,10 +35,8 @@ var fadeEffect = function() {
 
 	fadeIn.onclick = function(){
 		fadeIn_Out.init('fade',1);
-		console.log('1');
 	}
 	fadeOut.onclick = function(){
-		console.log('2');
 		fadeIn_Out.init('fade',0);
 	}
 } ();
