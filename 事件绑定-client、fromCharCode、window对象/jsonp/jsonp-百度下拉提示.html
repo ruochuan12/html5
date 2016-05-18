@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>jsonp-下拉提示框</title>
+	<title>jsonp-百度下拉搜索框</title>
 	<style>
 	#Q{
 		width: 500px;
@@ -14,37 +14,70 @@
 	li{
 		padding: 0;margin: 0;
 	}
-	li{
+	#ul1{
+		border: 1px solid #CCC;	
+		border-top: none;
+		width: 500px;
+		display: none;
+	}
+	#ul1 li{
 		list-style: none;
 		height: 30px;
 		text-indent: 4px;
 		line-height: 30px;
 	}
-	li:hover{
+	#ul1 li a{
+		display: inline-block;
+		text-decoration: none;
+		height: 30px;
+		color: #000;
+	}
+	#ul1 li:hover{
 		background-color: #ccf;
 	}
-	#ul1{
-		border: 1px solid #CCC;	
-		border-top: none;
-		width: 500px;
-	}
 	</style>
+	<script>
+		function lxchuan12(data){
+			var oUl = document.getElementById('ul1');
+			var html = '';
+			// console.log(data.s.length);
+			
+			if(data.s.length){
+				oUl.style.display = 'block';
+				for(var i=0;i<data.s.length;i++){
+					html += '<li><a target="_blank" href="http://www.baidu.com/s?wd='+data.s[i]+'">'+ data.s[i] +'</a></li>';
+				}
+				oUl.innerHTML = html;
+			}else{
+				oUl.style.display = 'none';
+			}
+
+		}
+	</script>
 	<script>
 		window.onload=function(){
 			var oQ = document.getElementById('Q');
 			var oUl = document.getElementById('ul1');
+			//所有主流浏览器都支持 onkeyup 事件属性
+			oQ.onkeyup = function(){ 
+			//oQ.oninput = function(){ //事件也行,不过不支持IE6,7,8
+			//参见：（ 总结oninput、onchange与onpropertychange事件的用法和区别 ）http://blog.csdn.net/freshlover/article/details/39050609
+			
+				if(this.value !=""){
+					oScript = document.createElement('script');
+					oScript.src = 'http://suggestion.baidu.com/su?wd='+this.value+'&cb=lxchuan12';
+					document.body.appendChild(oScript);
+				}else{
+					oUl.style.display = 'none';
+				}
+
+			}
 		}
 	</script>
 </head>
 <body>
 	<input type="text" id="Q">
 	<ul id="ul1">
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
-		<li>5</li>
-		<li>6</li>
 	</ul>
 </body>
 </html>
