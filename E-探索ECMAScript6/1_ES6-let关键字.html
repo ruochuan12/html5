@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6 -let关键字</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/**
+	 * 1、let关键字没有预解析
+	 * 2、let有块级作用域
+	 * 3、前面定义赋值过，后面不能在定义赋值。
+	 */
+	console.log(a);		//undefined
+	var a=1;
+	var a=3;
+	console.log(a);		//3
+	{
+		let b = 5;
+		//let b = 6;		//报错：Identifier 'b' has already been declared
+		console.log(b);	//5
+	}
+	//console.log(b);		//Uncaught ReferenceError: b is not defined
+
+	for(var i=0;i<10;i++){
+		setTimeout(function(){
+			console.log(i);		//输出：10次10
+		});
+	}
+	for(var i=0;i<10;i++){
+		(function(i){
+			setTimeout(function(){
+				console.log(i);		//输出：0-9
+			});
+		})(i);
+	}
+	for(let i=0;i<10;i++){
+		setTimeout(function(){
+			console.log(i);		//输出：0-9
+		});
+	}
+	</script>
+</body>
+</html>

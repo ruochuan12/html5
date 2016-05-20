@@ -15,6 +15,24 @@ myJquery.prototype.getId = function (id) {
 	return this;
 };
 
+//获取CLASS节点数组
+Base.prototype.getClass = function (className, idName) {
+	var node = null;
+	if (arguments.length == 2) {
+		node = document.getElementById(idName);
+	} else {
+		node = document;
+	}
+	var all = node.getElementsByTagName('*');
+	for (var i = 0; i < all.length; i ++) {
+		if (all[i].className == className) {
+			this.elements.push(all[i]);
+		}
+	}
+	return this;
+}
+
+
 //获取TagName
 myJquery.prototype.getTagName = function(tag) {
 	this.elements.push(document.getElementsByTagName(tag));
