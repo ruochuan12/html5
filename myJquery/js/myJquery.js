@@ -85,3 +85,15 @@ Base.prototype.hide = function () {
 	}
 	return this;
 }
+
+
+//设置物体居中
+Base.prototype.center = function (width, height) {
+	var top = (document.documentElement.clientHeight - 250) / 2;
+	var left = (document.documentElement.clientWidth - 350) / 2;
+	for (var i = 0; i < this.elements.length; i ++) {
+		this.elements[i].style.top = top + 'px';
+		this.elements[i].style.left = left + 'px';
+	}
+	return this;
+}
