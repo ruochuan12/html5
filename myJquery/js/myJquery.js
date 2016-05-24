@@ -97,3 +97,10 @@ Base.prototype.center = function (width, height) {
 	}
 	return this;
 }
+
+
+//触发浏览器窗口事件
+Base.prototype.resize = function (fn) {
+	window.onresize = fn;
+	return this;
+}
