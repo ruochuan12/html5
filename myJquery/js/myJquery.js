@@ -39,6 +39,15 @@ myJquery.prototype.getTagName = function(tag) {
 	return this;
 };
 
+//获取某一个节点
+Base.prototype.getElement = function (num) {	
+	var element = this.elements[num];
+	this.elements = [];
+	this.elements[0] = element;
+	return this;
+};
+
+
 //设置innerHTML
 myJquery.prototype.html = function(str){
 	for(var i=0;i<this.elements.length;i++){
