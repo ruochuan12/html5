@@ -47,6 +47,21 @@ Base.prototype.getElement = function (num) {
 	return this;
 };
 
+//添加link或style的CSS规则
+Base.prototype.addRule = function (num, selectorText, cssText, position) {
+	var sheet = document.styleSheets[num];
+	insertRule(sheet, selectorText, cssText, position);
+	return this;
+}
+
+//移除link或style的CSS规则
+Base.prototype.removeRule = function (num, index) {
+	var sheet = document.styleSheets[num];
+	deleteRule(sheet, index);
+	return this;
+}
+
+
 
 //设置innerHTML
 myJquery.prototype.html = function(str){
