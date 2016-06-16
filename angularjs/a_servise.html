@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myModule'>
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-youtube</title>
+</head>
+<body>
+	<h1>10+20={{10+20}}</h1>
+	<h1>{{'1'==1}}</h1>
+	<h2>{{['data','service','angular'].length}}</h2>
+	<h2>{{['data','service','angular'][2]}}</h2>
+	<h2>{{{'data':'3','service':'2','angular':'1'}.service}}</h2>
+	<div ng-controller="myController">
+		{{message}}
+	</div>
+	<span ng-show='true'>111</span>
+	<script src="js/angular.min.js"></script>
+	<script>
+	//快速入门指南：http://www.cnblogs.com/jaxu/archive/2015/05/21/4516128.html
+		var value = new Date().getFullYear();
+		console.log(angular.isDate(value));//false
+		console.log(value,angular.isDate(new Date()));//2016,true
+
+		var json = angular.fromJson('{"name":"xxx","age":34}');
+		console.log(json); //$ Object {name: "xxx", age: 34}
+
+
+		var newString = angular.lowercase('XXyyZZ');
+		console.log(newString); //$ XXYYZZ
+		
+
+		var myApp = angular.module('myModule',[]);
+
+
+
+		myApp.controller('myController',function($scope,$timeout){
+			$scope.message = 'Hello,AngularJs!';
+			$timeout(function() {
+			$scope.message = 'Hello,AngularJs Api Timeout!';
+		}, 3000);
+		})
+	</script>
+</body>
+</html>
