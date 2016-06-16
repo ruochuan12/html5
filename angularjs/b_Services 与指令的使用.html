@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myModule'>
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-Services与指令的使用</title>
+</head>
+<body>
+	<div ng-controller="myController">
+		{{message}}<br/>{{name}}<br/>{{http}}
+	</div>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+	angular.module('myModule',[])
+	.value('name','xuanyuan')
+	.value('name','Rowboat')			//可以改写。
+	.constant('http','http://lxchuan12.github.io')
+	.constant('http','http://github.com/lxchuan12')		//无法改写。
+	.controller('myController',function($scope,name,http){
+
+		$scope.message = 'message';
+		$scope.name = name;
+		$scope.http = http;
+	})
+	</script>
+</body>
+</html>

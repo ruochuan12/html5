@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>【javascript】js获取 url 后的参数值</title>
+</head>
+<body>
+<script type="text/javascript">
+		function getUrl(para){
+
+
+		    var paraArr = window.location.search.substring(1).split('&');
+		    for(var i = 0;i < paraArr.length;i++){
+		        if(para == paraArr[i].split('=')[0]){
+		            return paraArr[i].split('=')[1];
+		        }
+		    }
+		    return '';
+		}
+		getUrl('name');
+</script>
+</body>
+</html>
