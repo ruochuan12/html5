@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生js实现选项卡&&getAttribute()方法</title>
+	<style>
+	#tab>div{		/*这样写，也会提升优先级*/
+		width: 100px;
+		height: 100px;
+		background: #CCC;
+		display: none;
+	}
+	#tab>.show{
+		display: block;
+	}
+	.active{
+		background: red;
+	}
+	</style>
+</head>
+<body>
+	<div id="tab" attr='tab'>
+		<button class="active">1</button>
+		<button>2</button>
+		<button>3</button>
+		<div class="show">1111</div>
+		<div>2222</div>
+		<div>3333</div>
+	</div>
+	<script src="../jqueryVesion/jquery-1.12.2.js"></script>
+	<script>
+		/**
+		 * 原生js实现选项卡&&getAttribute()方法
+		 * @type {[type]}
+		 */
+
+		var oTab = document.getElementById('tab');
+		var oBtn = oTab.getElementsByTagName('button');
+		var oCon = oTab.getElementsByTagName('div');
+		for(var i = 0;i<oBtn.length;i++){
+			oBtn[i].index = i;
+			oBtn[i].onclick = function(){
+				for(var i=0;i<oBtn.length;i++){
+					oBtn[i].className = '';
+					oCon[i].className = '';
+				}
+				this.className = 'active';
+				oCon[this.index].className = 'show';
+				console.log(this.index); //0,1,2 
+				console.log(this.getAttribute('index'));//null
+				console.log(this.getAttributeNode('index'));//null
+				console.log(oTab.getAttribute('attr'));//tab
+				console.log(oTab.getAttributeNode('attr'));//attr="tab"
+				console.log(oTab.attr); //undefined
+				/**
+				 * getAttribute() 方法返回指定属性名的属性值。
+				 *getAttribute() 方法返回指定属性名的属性值。
+				 *提示：如果您希望以Attr对象返回属性，请使用 getAttributeNode。
+				 * 对象上的属性和html标签上的attribute不是一个东西
+				 *参见：https://segmentfault.com/q/1010000003875705/a-1020000003875783
+				 *参见：http://www.w3school.com.cn/jsref/met_element_getattribute.asp
+				 * 在FF中，自己定义的属性必须 getAttribute() 取得
+				 */
+			}
+			
+
+
+		}
+
+	</script>
+</body>
+</html>

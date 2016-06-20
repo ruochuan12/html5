@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery实现选项卡</title>
+	<style>
+	#tab>div{		/*这样写，也会提升优先级*/
+		width: 100px;
+		height: 100px;
+		background: #CCC;
+		display: none;
+	}
+	#tab>.show{
+		display: block;
+	}
+	.active{
+		background: red;
+	}
+	</style>
+</head>
+<body>
+	<div id="tab" attr='tab'>
+		<button class="active">1</button>
+		<button>2</button>
+		<button>3</button>
+		<div class="show">1111</div>
+		<div>2222</div>
+		<div>3333</div>
+	</div>
+	<script src="../jqueryVesion/jquery-1.12.2.js"></script>
+	<script>
+		/**
+		 * jquery实现选项卡
+		 * @type {[type]}
+		 */
+		console.log($().jquery); //vesion 1.12.2
+		$('#tab').find('button').click(function(){
+
+				$(this).addClass('active').siblings().removeClass('active');
+
+				// $('#tab').find('div').eq($(this).index()).show().siblings('div').hide(); //这种写法也行
+				
+				$(this).siblings('div').eq($(this).index()).show().siblings('div').hide();
+		})
+		
+
+	</script>
+</body>
+</html>
