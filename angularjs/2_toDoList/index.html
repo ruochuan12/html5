@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="toDoList">
+<head>
+	<meta charset="UTF-8">
+	<title>toDoList</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<button class="btn btn-success">anniu</button>
+	<script src="js/angular.min.js"></script>
+	<script>
+		angular.module('toDoList',[])
+		.controller('TaskCtrl',function($scope){
+			$scope.task="";
+			$scope.tasks=[];
+			$scope.add=function(){
+				$scope.tasks.push($scope.task);
+			}
+		})
+	</script>
+</body>
+</html>
