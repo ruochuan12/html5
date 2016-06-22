@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div ng-controller="myController">
-		{{message}}<br/>{{name}}<br/>{{http}}
+		{{message}}<br/>{{name}}<br/>{{http}}<br/>{{number}}
 	</div>
 
 	<script src="js/angular.min.js"></script>
@@ -14,13 +14,21 @@
 	angular.module('myModule',[])
 	.value('name','xuanyuan')
 	.value('name','Rowboat')			//可以改写。
+	.factory('myFactory',function(){
+		var factory = {};
+		factory.multiply = function(a,b){
+			return a*b;
+		}
+		return factory;
+	})
 	.constant('http','http://lxchuan12.github.io')
-	.constant('http','http://github.com/lxchuan12')		//无法改写。
-	.controller('myController',function($scope,name,http){
+	.constant('http','http://github.com/lxchuan12')		//无法改写,保持原先的。
+	.controller('myController',function($scope,name,http,myFactory){
 
 		$scope.message = 'message';
 		$scope.name = name;
 		$scope.http = http;
+		$scope.number = myFactory.multiply(5,7);
 	})
 	</script>
 </body>

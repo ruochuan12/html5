@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs依赖注入</title>
+</head>
+<body>
+	<!-- 只能有一个ng-app -->
+	<h2>AngularJS简单应用</h2>
+	<div ng-app='mainApp' ng-controller="calcCtrl">
+		<p>输入一个数字：<input type="number" ng-model="number"></p>
+		<button ng-click="square()">X<sup>2</sup></button>
+		<p>结果：{{result}}</p>
+		结果：<span ng-bind='result'></span>
+	</div>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+
+	//Value 是一个简单的 javascript 对象，用于向控制器传递值（配置阶段）：
+	//factory 是一个函数用于返回值。在 service 和 controller 需要时创建。
+	//通常我们使用 factory 函数来计算或返回值。
+	//AngularJS 中通过 provider 创建一个 service、factory等(配置阶段)。
+	// Provider 中提供了一个 factory 方法 get()，它用于返回 value/service/factory。
+	// constant(常量)用来在配置阶段传递数值，注意这个常量在配置阶段是不可用的。
+	
+	var mainApp = angular.module('mainApp',[]);
+
+	mainApp.config(function($provide){
+		$provide.provider('MathService',function(){
+			this.$get = function(){
+				var factory = {};
+				factory.multiply = function(a,b){
+					return a*b;
+				}
+				return factory;
+			};
+		});
+	});
+
+	mainApp.value("defaultInput",5);
+	mainApp.factory('MathService',function(){
+		var factory = {};
+		factory.multiply = function(a,b){
+			return a*b;
+		}
+		return factory;
+
+
+	});
+	mainApp.service('CalcService',function(MathService){
+		this.square = function(a){
+			return MathService.multiply(a,a);
+		}
+	});
+	mainApp.controller('calcCtrl',function($scope,CalcService,defaultInput){
+		$scope.number = defaultInput;
+		$scope.result = CalcService.square($scope.number);
+		$scope.square = function(){
+			$scope.result = CalcService.square($scope.number);
+		}
+	});
+
+	</script>
+</body>
+</html>
