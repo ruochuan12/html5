@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-9-工具方法-angular.bootstrap</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+	var m1 = angular.module('myApp1',[]);
+	var m2 = angular.module('myApp2',[]);
+	// 这种写法能避免压缩时，$scope压缩成$s出错
+	m1.controller('myCtrl1',['$scope',function($scope){
+		$scope.name = 'xuanyuan';
+		
+	}]);
+	m2.controller('myCtrl2',['$scope',function($scope){
+		$scope.email = 'lxchuan12@163.com';
+	}]);
+
+	
+
+	// 动态创建,多个初始化。ng-app形式只能初始化一个。
+	document.onclick=function(){
+
+		var oDiv = document.getElementsByTagName('div');
+		angular.bootstrap(oDiv[0],['myApp1']);
+		angular.bootstrap(oDiv[1],['myApp2']);
+	}
+	// 单独写，不执行
+	// angular.bootstrap(document,['myApp']);
+
+
+
+	</script>
+</head>
+<body>
+<div ng-controller="myCtrl1">{{name}}</div>
+<!-- <div ng-controller="myCtrl2">{{name}}</div> 如果是这样,会覆盖上面的name,只保留一个-->
+<div ng-controller="myCtrl2">{{email}}</div>
+</body>
+</html>
