@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs-10-工具方法-filter</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+	var m1 = angular.module('myApp',[]);
+	/*
+		firstUpper 首字母大写，截取num位字符串,如果没有传不截取。
+	 */
+	m1.filter('firstUpper',function(){
+
+		return function(str,num){
+		console.log(num);
+		return num?(str.charAt(0).toUpperCase()+str.substring(1)).substring(0,num):str.charAt(0).toUpperCase()+str.substring(1);
+	}});
+	m1.controller('myCtrl1',['$scope','$filter',function($scope,$filter){
+		// js代码里不支持&yen;写法，html里支持,需用￥，字体原因。
+		$scope.amount = $filter('currency')('136432748','￥',1);
+
+
+		// $scope.amount = $filter('number')('136432748','4');
+		$scope.name = $filter('firstUpper')('xuanyuan',4);
+
+		// $scope.name = 'xuanyuan';
+		$scope.date  = new Date();
+		
+	}]);
+
+
+
+
+	</script>
+</head>
+<body>
+<!-- <div ng-controller="myCtrl1">{{amount | currency:'&yen;':2}}</div> -->
+<div ng-controller="myCtrl1">{{amount}}<br/>{{name}}<br/>{{date | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
+</body>
+</html>
