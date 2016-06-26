@@ -11,32 +11,53 @@
 		display: block;
 	}
 	div{
+		width:100px;
+		height:100px;
 		display: none;
 	}
 	</style>
 </head>
 <body>
-<input type="button" value="1" class="active">
-<input type="button" value="2">
-<input type="button" value="3">
-<div class="show">1</div>
-<div>2</div>
-<div>3</div>
+<button class="active">1</button>
+<button>2</button>
+<button>3</button>
+<div class="show">1111</div>
+<div>2222</div>
+<div>3333</div>
 	<script type="text/javascript">
 	/**
-	 * 选项卡例子
+	 * var 选项卡例子
 	 */
-	var tabs = document.getElementsByTagName('input');
+/*
+	var tabs = document.getElementsByTagName('button');
 	var divs = document.getElementsByTagName('div');
 	for(var i=0;i<tabs.length;i++){
-		tabs[i].onclick =function(){
-			tabs[i].index = i;
-			for(var i=0;tabs.length;i++){
+		tabs[i].index = i;
+		tabs[i].onclick = function(){
+			for(var i=0;i<tabs.length;i++){
 				tabs[i].className = "";
 				divs[i].className = "";
 			}
 			this.className = 'active';
 			divs[this.index].className = 'show';
+		}
+	}
+*/	
+	/**
+	 * let 选项卡例子,不需要自定义索引值
+	 */
+	var tabs = document.getElementsByTagName('button');
+	var divs = document.getElementsByTagName('div');
+	for(let i=0;i<tabs.length;i++){
+		tabs[i].onclick = function(){
+
+			for(var j=0;j<tabs.length;j++){
+				tabs[j].className = "";
+				divs[j].className = "";
+			}
+			
+			this.className = 'active';
+			divs[i].className = 'show';
 		}
 	}
 	</script>
