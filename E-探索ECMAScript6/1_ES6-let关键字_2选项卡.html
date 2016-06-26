@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6 -let关键字_选项卡</title>
+	<style>
+	.active{
+		background-color: red;
+	}
+	.show{
+		display: block;
+	}
+	div{
+		display: none;
+	}
+	</style>
+</head>
+<body>
+<input type="button" value="1" class="active">
+<input type="button" value="2">
+<input type="button" value="3">
+<div class="show">1</div>
+<div>2</div>
+<div>3</div>
+	<script type="text/javascript">
+	/**
+	 * 选项卡例子
+	 */
+	var tabs = document.getElementsByTagName('input');
+	var divs = document.getElementsByTagName('div');
+	for(var i=0;i<tabs.length;i++){
+		tabs[i].onclick =function(){
+			tabs[i].index = i;
+			for(var i=0;tabs.length;i++){
+				tabs[i].className = "";
+				divs[i].className = "";
+			}
+			this.className = 'active';
+			divs[this.index].className = 'show';
+		}
+	}
+	</script>
+</body>
+</html>
