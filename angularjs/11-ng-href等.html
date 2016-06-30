@@ -3,6 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>angularjs-11-ng-href等</title>
+	<style>
+	.red{
+		background: red;
+	}
+	.font-txt{
+		font-size: 40px;
+	}
+	/*横线，ng-class中则写'font-txt'*/
+	</style>
+</head>
+<body>
+	<div ng-controller="myCtrl">
+		<a ng-href="http://{{amount.http}}.com" target="_blank" ng-bind="amount.http"></a>
+		<div ng-class="{red:true,'font-txt':true}">{{amount.name}}</div>
+	</div>
 	<script src="js/angular.min.js"></script>
 	<script>
 	var m1 = angular.module('myApp',[]);
@@ -10,7 +25,8 @@
 	m1.controller('myCtrl',['$scope','$interval',function($scope,$interval){
 
 		$scope.amount = {
-			http:'weibo'
+			http:'weibo',
+			name:'Rowboat'
 		};
 		$interval(function(num){
 			console.log(new Date());
@@ -21,10 +37,5 @@
 	}]);
 
 	</script>
-</head>
-<body>
-<div ng-controller="myCtrl">
-	<a ng-href="http://{{amount.http}}.com" target="_blank" ng-bind="amount.http"></a>
-</div>
 </body>
 </html>
