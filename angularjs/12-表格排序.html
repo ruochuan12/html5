@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>12-表格排序</title>
+    <style>
+    tr th {
+        cursor: pointer;
+    }
+    </style>
+    <script src="js/angular.min.js"></script>
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('orderByCtrl', function($scope) {
+        $scope.col = 'name'; //默认按name列排序
+        $scope.desc = 0; //默认排序条件升序
+        $scope.data = [{
+            name: 'name 1',
+            gender: 'male',
+            age: 26,
+            score: 70
+        }, {
+            name: 'name 2',
+            gender: 'female',
+            age: 24,
+            score: 84
+        }, {
+            name: 'name 3',
+            gender: 'male',
+            age: 20,
+            score: 76
+        }, {
+            name: 'name 4',
+            gender: 'female',
+            age: 22,
+            score: 64
+        }];
+
+
+    })
+    </script>
+</head>
+
+<body>
+    <table ng-controller="orderByCtrl">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th ng-click="col='name';desc=!desc">姓名</th>
+                <!-- 当点击列标题时，执行click事件，将排序条件反转，即，如果原来是升序则将按降序，降序亦如此 -->
+                <th ng-click="col='gender';desc=!desc">性别</th>
+                <th ng-click="col='age';desc=!desc">年龄</th>
+                <th ng-click="col='score';desc=!desc">成绩</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in data|orderBy:col:desc">
+                <td ng-bind="$index+1"></td>
+                <td ng-bind="d.name"></td>
+                <td ng-bind="d.gender"></td>
+                <td ng-bind="d.age"></td>
+                <td ng-bind="d.score"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
