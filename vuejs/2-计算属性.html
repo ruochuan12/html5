@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2-计算属性</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div class="example">
+      a={{ a }}, b={{ b }}
+      <div><a href="{{href}}" target="_blank">点击我打开{{href}}</a></div>
+    </div>
+
+    <script>
+    var vm = new Vue({
+      el: '.example',
+      //控制台修改vm.a=4,b也跟着变化，vm.b=9,无法修改b。
+      data: {
+        a: 1,
+        href:'http://www.baidu.com'
+      },
+      //computed不能修改
+      computed: {
+        // 一个计算属性的 getter
+        b: function () {
+          // `this` 指向 vm 实例
+          return this.a + 1
+        }
+      }
+    })
+    </script>
+</body>
+
+</html>

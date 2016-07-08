@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>4-组件</title>
+    <style>
+      .arrow-down{
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 0,0,0.1);
+        border-color:red;
+        border-width: 0 0 2px 2px;
+        border-style: solid;
+        transform:rotateZ(-45deg);  
+      }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div class="arrow-down"></div>
+    <div id="example">
+      <my-component></my-component>
+      <my-com></my-com>
+      <arrow-down></arrow-down>
+    </div>
+    
+    <script>
+    // 定义
+    var MyComponent = Vue.extend({
+      template: '<div>A custom component!</div>'
+    })
+
+    var MyCom = Vue.extend({
+      replace :false,//默认是true
+      template: '\
+        <span style="color:red">span元素!a的值是{{a}}</span>\
+        <span style="background-color:red;color:white">span元素!</span>'
+    })
+    var arrowDown = Vue.extend({
+      template:'<div class="arrow-down"></div>'
+    })
+
+    // 注册
+    // component不能修改。默认是替换了自定义元素(<my-com></my-com>)，并且替换自定义元素里的html.
+    Vue.component('my-component', MyComponent)
+    Vue.component('my-com', MyCom)
+    Vue.component('arrow-down',arrowDown)
+
+    // 创建根实例
+    new Vue({
+      el: '#example',
+      data:{
+        a:1
+      }
+    })
+
+    //Q:留下问题，模板中，如何数据绑定，和事件绑定
+    </script>
+</body>
+
+</html>

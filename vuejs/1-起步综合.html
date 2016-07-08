@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1-起步-官网综合案例</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="newTodo" v-on:keyup.enter="addTodo">
+        <ul>
+            <li v-for="todo in todos">
+            <!-- 支持表达式写法，不支持语句写法。 -->
+                <!-- 如果是string.split('').reverse().join()这样，abc,则是c,b,a. join('')则是cba-->
+                <span>{{ todo.text.split('').reverse().join('') | capitalize }}</span>
+                <!-- 过滤器，capitalize，首字母大写 -->
+                <button v-on:click="removeTodo($index)">X<sub>{{$index}}<sub></button>
+                <!-- $index是从0开始的。 -->
+            </li>
+        </ul>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            newTodo: '',
+            todos: [{
+                text: 'Add some todos'
+            }]
+        },
+        methods: {
+            addTodo: function() {
+                var text = this.newTodo.trim()
+                if (text) {
+                    this.todos.push({
+                        text: text
+                    })
+                    this.newTodo = ''
+                }
+            },
+            removeTodo: function(index) {
+                this.todos.splice(index, 1)
+                //字符串没有splice方法，数组有，index位置开始，截取一个
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>
