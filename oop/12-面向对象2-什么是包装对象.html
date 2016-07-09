@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12-面向对象2-什么是包装对象</title>
+</head>
+<body>
+    <script>
+    /*
+     *在js源码中，系统对象是基于原型的程序。
+     *尽量不要去添加或者修改系统对象下面的属性和方法。
+     *null,undefined
+     *基本类型都有自己对应的包装对象：String,Number,Boolean
+     *基本类型会找到对应的包装对象类型，然后包装对象把所有的属性和方法给了基本类型，然后包装对象消失。
+     */
+    
+    /*1、
+    // 包装对象
+    var str  = 'hello';
+    alert(typeof str); //string
+    alert(str.charAt(0));//'h'
+    alert(str.indexOf('e'));//'1'
+    */
+    /*2、
+    var str = new String('hello');
+    alert(typeof str);//object
+    */
+    /* 3、
+    var str = 'hello';
+    String.prototype.lastValue = function(){
+    return this.charAt(this.length-1);
+    };
+    alert(str.lastValue()); //o
+    alert(str);//hello
+    String.number=10;
+    alert(String.number);//10
+    str.number=10;
+    alert(str.number);//undefined
+    */
+   
+    </script>
+</body>
+</html>
