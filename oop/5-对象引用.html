@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5-对象引用</title>
+</head>
+<body>
+    <script>
+      // var a=[1,2,3];
+      // var b=[1,2,3];
+      // alert(a==b); // false
+      // //对象，需要值和引用都相同，才为true。
+      // //基本类型，值相同极为true。复制时只是值的复制。
+      
+      /*var a = 5;
+      var b = a;
+      b+=3;
+      alert(b); //8
+      alert(a); //5
+      */
+      /*      
+      var a = [1,2,3];
+      var b = a;
+      b.push(4);
+      alert(b);//[1,2,3,4]
+      alert(a);//[1,2,3,4]    //对象，赋值不仅是值的复制，而且也是引用的传递。
+      */
+      var a = [1,2,3];
+      var b = a;
+      b = [1,2,3,4];
+      alert(b);//[1,2,3,4]
+      alert(a);//[1,2,3]
+      // 只要出现是赋值，必须要在内存中重新生成。
+
+      
+
+       
+    </script>
+</body>
+</html>

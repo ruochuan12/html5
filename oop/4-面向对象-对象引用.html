@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4-面向对象-对象引用</title>
+</head>
+<body>
+    <script>
+      // 当new 关键字去调用一个函数：这个时候this就是创建出来的对象，而函数的返回值直接就是this。（隐式返回）
+      // new 后面调用的函数：叫做构造函数。
+      function CreatePerson(name){
+
+        this.name = name;
+        this.showName = function(){
+            alert(this.name);
+        }
+
+      }
+      var p1 = new CreatePerson('lxchuan12');
+      p1.showName();
+      var p2 = new CreatePerson('Rowboat');
+      p2.showName();
+      alert(p1.showName);
+      alert(p2.showName);
+      alert(p1.showName == p2.showName); //false,对象，需要值和引用都相同，才为true。
+      //如果创建多个showName()，那在内存中创建了很多，极大的消耗内存。
+
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10-面向对象-改写选项卡-3,多个复用</title>
+    <style>
+      #div1 div,#div2 div{
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: none;
+      }
+      .active{
+        background: #f00;
+      }
+    </style>
+    <script>
+   // 改成面向对象：
+   // 全局方法就是属性
+   // 函数就是方法
+   // onload中创建对象
+   // 修正this指向。(事件或者定时器)
+   window.onload = function(){
+    var t1 = new Tab('div1');
+    t1.init();
+    var t2 = new Tab('div2');
+    t2.init();
+    t2.autoPlay('autoPlay');
+   }
+   function Tab(id){
+      this.oParent = document.getElementById(id);
+      this.aBtn = this.oParent.getElementsByTagName('button');
+      this.aDiv = this.oParent.getElementsByTagName('div');
+      this.iNow = 0;
+   }
+   Tab.prototype.init = function(){
+    var This = this;//这个指向是对象
+    for(var i = 0,len = this.aBtn.length;i<len;i++){
+        this.aBtn[i].index = i;
+        this.aBtn[i].onclick = function(){
+          //this，指向按钮
+          This.change(this);
+          //修正指向为对象。
+        };
+    }
+   }
+   Tab.prototype.change = function(obj){
+    for(var i = 0,len = this.aBtn.length;i<len;i++){
+      this.aBtn[i].className = '';
+      this.aDiv[i].style.display = 'none';
+    }
+
+    obj.className = 'active';
+    this.aDiv[obj.index].style.display = 'block';
+   }
+   Tab.prototype.autoPlay = function(){
+      var This = this;
+      setInterval(function(){
+        if(This.iNow==This.aBtn.length-1){
+          This.iNow = 0;
+        }else{
+          This.iNow++;
+        }
+        for(var i = 0,len = This.aBtn.length;i<len;i++){
+          This.aBtn[i].className = '';
+          This.aDiv[i].style.display = 'none';
+        }
+
+        This.aBtn[This.iNow].className = 'active';
+        This.aDiv[This.iNow].style.display = 'block';
+      },2000);
+
+   }
+    </script>
+</head>
+<body>
+    <div id="div1">
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <div style="display: block;">1111</div>
+      <div>2222</div>
+      <div>3333</div>
+    </div>
+    <div id="div2">
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <div style="display: block;">1111</div>
+      <div>2222</div>
+      <div>3333</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>9-面向对象-改写选项卡-2</title>
+    <style>
+      #div1 div{
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: none;
+      }
+      .active{
+        background: #f00;
+      }
+    </style>
+    <script>
+    //先变形，
+    //尽量不要出现函数嵌套函数，
+    //可以有全局变量，
+    //把onload中不是赋值的语句放在单独的函数中。
+    /*var oParent = null,
+        aBtn = null,
+        aDiv = null;
+    window.onload =function(){
+      oParent = document.getElementById('div1');
+      aBtn = oParent.getElementsByTagName('button');
+      aDiv = oParent.getElementsByTagName('div');
+      init();
+    }
+    function init(){
+      for(var i = 0,len = aBtn.length;i<len;i++){
+        aBtn[i].index = i;
+        aBtn[i].onclick = change;
+      }
+
+    }
+    function change(){
+
+          for(var i = 0,len = aBtn.length;i<len;i++){
+            aBtn[i].className = '';
+            aDiv[i].style.display = 'none';
+          }
+
+          this.className = 'active';
+          aDiv[this.index].style.display = 'block';
+
+    }
+    */
+   // 改成面向对象：
+   // 全局方法就是属性
+   // 函数就是方法
+   // onload中创建对象
+   // 修正this指向。(事件或者定时器)
+   window.onload = function(){
+    var t1 = new Tab();
+    t1.init();
+   }
+   function Tab(){
+      this.oParent = document.getElementById('div1');
+      this.aBtn = this.oParent.getElementsByTagName('button');
+      this.aDiv = this.oParent.getElementsByTagName('div');
+   }
+   Tab.prototype.init = function(){
+    var This = this;//这个指向是对象
+    for(var i = 0,len = this.aBtn.length;i<len;i++){
+        this.aBtn[i].index = i;
+        this.aBtn[i].onclick = function(){
+          //this，指向按钮
+          This.change(this);
+          //修正指向为对象。
+        };
+    }
+   }
+   Tab.prototype.change = function(obj){
+    for(var i = 0,len = this.aBtn.length;i<len;i++){
+      this.aBtn[i].className = '';
+      this.aDiv[i].style.display = 'none';
+    }
+
+    obj.className = 'active';
+    this.aDiv[obj.index].style.display = 'block';
+   }
+    </script>
+
+    <script>
+      /*复习this指向。
+      oDiv.onclick = function(){
+        this : oDiv;
+      }
+      oDiv.onclick = show;
+      function show(){
+        this : oDiv;
+      }
+      oDiv.onclick = function(){
+        show();
+      };
+      function show(){
+        this : window;
+      }
+      */
+    </script>
+</head>
+<body>
+    <div id="div1">
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <div style="display: block;">1111</div>
+      <div>2222</div>
+      <div>3333</div>
+    </div>
+</body>
+</html>

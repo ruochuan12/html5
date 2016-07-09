@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6-面向对象-原型</title>
+</head>
+<body>
+    <script>
+      //原型：去改写对象下面公用的方法和属性，让共用的方法和属性在内存中只存在一份（提高性能）。
+
+      //原型：类比于css中的class
+      //普通方法：类比于css中的style，
+      //style优先级高于class，同样style不能复用，class可以复用
+      //原型(prototype)：写在构造函数的下面。
+      /*
+      var arr = [1,2,3,4,5];
+      var arr2 = [2,2,2,2,2];
+      arr.sum = function(){
+        var res = 0;
+        for(var i=0,len = this.length;i<len;i++){
+          res +=this[i];
+        }
+        return res;
+      }
+      alert(arr.sum());//15
+      // alert(arr2.sum());//这样写不行。
+      */
+      var arr = [1,2,3,4,5];
+      var arr2 = [2,2,2,2,2];
+      Array.prototype.sum = function() {
+        var res = 0;
+        for(var i=0,len = this.length;i<len;i++){
+          res +=this[i];
+        }
+        return res;
+      };
+      alert(arr.sum());//15
+      alert(arr2.sum());//10
+
+      arr.str = 'str';
+      Array.prototype.str = 'strprototype';
+      alert(arr.str);//str,去掉arr.str = 'str';这行，则是strprototype。
+    </script>
+</body>
+</html>

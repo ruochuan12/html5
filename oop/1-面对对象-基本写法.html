@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1-面向对象-基本写法</title>
+</head>
+<body>
+    <script>
+        var obj = new Object();
+        obj.name = 'lxchuan12';
+        obj.showName = function(){
+            window.alert(obj.name);
+        }
+        //this指向，谁调用的就是指向谁。
+        var obj2 = new Object();
+        obj2.name = 'Rowboat';
+        obj2.showName = function(){
+            window.alert(this.name);
+        }
+
+        obj.showName();
+        obj2.showName();
+    </script>
+</body>
+</html>

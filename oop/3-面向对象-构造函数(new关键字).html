@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-面向对象-构造函数(new关键字)</title>
+</head>
+<body>
+    <script>
+        /*
+       function createPerson(name){
+            //1、原料
+            var obj = new Object();
+            //2、加工
+            obj.name = name;
+            obj.showName = function(){
+                window.alert(this.name);
+            }
+            //3、出厂
+            return obj;
+       }
+
+       var p1 = createPerson('lxchuan12');
+       p1.showName();
+        var arr = new Array();
+       var p2 = createPerson('Rowboat');
+       p2.showName();
+       */
+      // var arr = new Array();
+      // var date = new Date();
+      
+
+
+      // 当new 关键字去调用一个函数：这个时候this就是创建出来的对象，而函数的返回值直接就是this。（隐式返回）
+      // new 后面调用的函数：叫做构造函数。
+      function CreatePerson(name){
+
+        this.name = name;
+        this.showName = function(){
+            alert(this.name);
+        }
+
+      }
+      var p1 = new CreatePerson('lxchuan12');
+      p1.showName();
+      var p2 = new CreatePerson('Rowboat');
+      p2.showName();
+
+       
+    </script>
+</body>
+</html>

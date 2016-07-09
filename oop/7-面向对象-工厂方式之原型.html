@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7-面向对象-工厂方式之原型</title>
+</head>
+<body>
+    <script>
+      /*//构造函数
+      function CreatePerson(name){
+        this.name = name;
+        this.showName = function(){
+          alert(this.name);
+        }
+      }
+
+      var p1 = new CreatePerson('lxchuan12');
+      p1.showName();
+      var p2 = new CreatePerson('Rowboat');
+      p2.showName();
+      alert(p1.showName = p2.showName);//false
+      */
+     function CreatePerson(name){
+      this.name = name;
+     }
+     CreatePerson.prototype.showName = function() {
+       alert(this.name);
+     };
+      var p1 = new CreatePerson('lxchuan12');
+      p1.showName();
+      var p2 = new CreatePerson('Rowboat');
+      p2.showName();
+      alert(p1.showName == p2.showName);//true
+
+      /*总结：面向对象的混合写法（属性写在构造函数上，方法写在原型上），（会变的属性不能写在原型上。不变的可写。）
+      function 构造函数(){
+        this.属性；
+      }
+      构造函数.原型.方法 = function(){};
+
+      使用:
+      var 对象1 = new 构造函数();
+      对象1.方法();
+      */
+
+    </script>
+</body>
+</html>

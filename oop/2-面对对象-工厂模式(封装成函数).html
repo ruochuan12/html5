@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2-面向对象-工厂模式(封装成函数)</title>
+</head>
+<body>
+    <script>
+        /*var obj = new Object();
+        obj.name = 'lxchuan12';
+        obj.showName = function(){
+            window.alert(obj.name);
+        }
+        //this指向，谁调用的就是指向谁。
+        //
+        //
+        var obj2 = new Object();
+        obj2.name = 'Rowboat';
+        obj2.showName = function(){
+            window.alert(this.name);
+        }
+
+        obj.showName();
+        obj2.showName();
+        */
+       
+       function createPerson(name){
+            //1、原料
+            var obj = new Object();
+            //2、加工
+            obj.name = name;
+            obj.showName = function(){
+                window.alert(this.name);
+            }
+            //3、出厂
+            return obj;
+       }
+
+       var p1 = createPerson('lxchuan12');
+       p1.showName();
+
+       var p2 = createPerson('Rowboat');
+       p2.showName();
+
+       
+    </script>
+</body>
+</html>
