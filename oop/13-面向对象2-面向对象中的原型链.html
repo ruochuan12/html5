@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>13-面向对象2-面向对象中的原型链</title>
+</head>
+<body>
+    <script>
+    /**
+     *实例对象与原型的链接：原型链
+     *__proto__隐式链接
+     *Object对象类型是原型类的最外层
+     *由内往外，向上查找
+     */
+    /*
+    function Obj(){
+        this.number =10;
+    }
+    Obj.prototype.number=20;
+    Object.prototype.number=30;
+    var p1 = new Obj();
+    alert(p1.number);//10
+    */
+    /*
+    function Obj(){
+        // this.number =10;
+    }
+    Obj.prototype.number=20;
+    Object.prototype.number=30;
+    var p1 = new Obj();
+    alert(p1.number);//20
+    */
+    
+    function Obj(){
+        // this.number =10;
+    }
+    // Obj.prototype.number=20;
+    Object.prototype.number=30;
+    var p1 = new Obj();
+    alert(p1.number);//30
+    
+    </script>
+</body>
+</html>

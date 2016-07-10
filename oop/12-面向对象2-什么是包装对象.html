@@ -34,10 +34,17 @@
     alert(str);//hello
     String.number=10;
     alert(String.number);//10
-    str.number=10;
-    alert(str.number);//undefined
+    str.number=10;//String包装对象，把属性和方法给基本类型，然后包装对象消失
+    alert(str.number);//undefined，创建新的包装对象，
     */
-   
+    //4、面试题
+    var str = 'hello';
+    str.number=10;
+    alert(String.number);//undefined，
+    var str2 = new String('hello');
+    str2.number=20;
+    alert(String.number);//undefined，
+    
     </script>
 </body>
 </html>

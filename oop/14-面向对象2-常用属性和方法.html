@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>14-面向对象2-常用属性和方法</title>
+</head>
+<body>
+    <script>
+    /**
+     *hasOwnProperty:判断是否是对象自身下面的属性(自己有，别人没有)
+     *此方法不会检查对象的原型链中是否存在该属性，该属性只有是对象本身的一个成员才会返回true
+     *isPrototypeOf是用来判断要检查其原型链的对象是否存在于指定对象实例中，是则返回true，否则返回false。
+     */
+    var arr = [1,2,3];
+    arr.number = 10;
+    console.log(arr.hasOwnProperty('number'));//true
+    Array.prototype.number2 = 20;
+    console.log(arr.hasOwnProperty('number2'));//false
+
+    //constructor
+    /*
+    function Box() {
+        
+    }
+    var obj = new Box();
+    console.log(obj.constructor); //Box函数体
+    var arr2 = [];
+    console.log(arr2.constructor); //Array函数体
+    console.log(arr2.constructor ==Array); //true
+    */
+    /*
+    function Box() {
+        
+    }
+    
+    //程序自动生成
+    //Box.prototype.constructor = Box; //每一个函数都会有的，自动生成的。
+    Box.prototype.constructor = Array;
+    var obj = new Box();
+    console.log(obj.constructor); //Array函数体
+    */
+   
+    /*
+    function Box() {
+        
+    }
+     var obj = new Box();
+    console.log(obj.hasOwnProperty == Object.prototype.hasOwnProperty); //true
+    //说明hasOwnProperty是最外层Object.prototype.hasOwnProperty
+    */
+   
+   // 有时候会不经意间修改了constructor
+    /*
+    function Box() {
+        
+    }
+    Box.prototype.name = 'lxchuan12';
+    Box.prototype.age = '10';
+    var obj2 = new Box();
+    console.log(obj2.constructor);//Box函数体
+    */
+   /*
+    function Box() {
+        
+    }
+    Box.prototype = {
+        name :'Rowboat',
+        age:10
+    }
+    var obj2 = new Box();
+    console.log(obj2.constructor);//Object函数体
+    */
+   //这时需要修正constructor
+   function Box() {
+        
+    }
+    Box.prototype = {
+        constructor:Box,
+        name :'Rowboat',
+        age:10
+    }
+    var obj2 = new Box();
+    console.log(obj2.constructor);//Box函数体
+    </script>
+</body>
+</html>
