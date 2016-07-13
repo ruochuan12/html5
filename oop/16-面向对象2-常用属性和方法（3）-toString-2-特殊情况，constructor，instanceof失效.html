@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>16-面向对象2-常用属性和方法（3）toString()</title>
+</head>
+<body>
+  <script>
+
+
+  /*
+
+    //toString :不管是自己创建的对象或者是系统对象，都有toString方法。
+    //系统对象下面都是自带的，自己写的对象都是通过原型链找Object下面的。
+    //作用：把对象转成字符串。
+    var arr = [];
+    console.log(arr.toString);//function toString(){[native code]}
+    console.log(arr.toString == Object.prototype.toString);//false
+    console.log(arr.toString == Array.prototype.toString);//true
+
+
+    function Box(){}
+    var b1 = new Box();
+
+    console.log(b1.toString);//function toString(){[native code]}
+    console.log(b1.toString == Object.prototype.toString);//true
+
+
+    //把对象转成字符串。
+    var arr2 = [1,2,3];
+
+    console.log(typeof arr2);//object
+    console.log(typeof arr2.toString());//string
+    console.log(arr2.toString());//'1,2,3'
+    //可以改写
+    Array.prototype.toString = function(){
+      return this.join('+');
+    }
+    console.log(arr2.toString());//'1+2+3'
+
+    //转进制
+    var num = 255;
+    console.log(typeof num.toString(16));//'ff',string
+
+    //利用toString()做类型的判断
+    var arr3 = [];
+    console.log(Object.prototype.toString.call(arr3)); //'[object Array]'
+    console.log(Object.prototype.toString.call(arr3).slice(8,-1)); //'Array',类型是string。
+    //如果null,toString之后是'[object Null]'
+    //如果是{},toString之后是'[object Object]'
+    //如果是Date,toString之后是'[object Date]'
+    //如果是RegExp,toString之后是'[object RegExp]'
+    //总之，靠谱！最好的判断数组的方法
+    
+
+    
+
+*/
+
+  </script>
+
+  <script type="text/javascript">
+      window.onload = function(){
+
+        //特殊情况下，比如iframe下，constructor，和instanceof不行。
+    //toString()可以。
+    
+        var oF = document.createElement('iframe');
+        document.body.appendChild(oF);
+        var ifArray = window.frames[0].Array;
+        var arr = new ifArray();
+        console.log(arr.constructor);//function Array(){[native code]}
+        console.log(arr.constructor == Array);//false
+        console.log(arr instanceof Array);//false
+        console.log(Object.prototype.toString.call(arr) == '[object Array]');//true
+      }
+  </script>
+</body>
+</html>
