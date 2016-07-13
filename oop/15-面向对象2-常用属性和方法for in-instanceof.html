@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>15-面向对象2-常用属性和方法（2）for in-instanceof</title>
+</head>
+<body>
+    <script>
+
+    //for in时，（系统自带的属性）是找不到的。
+    function Aaa(){
+
+    }
+    // var a = new Aaa();
+    Aaa.prototype.name = 'lxchuan12';
+    Aaa.prototype.email = 'lxchuan12@163.com';
+    //自己写constructor也不能找到。
+    Aaa.prototype.constructor = Aaa;
+    for (var attr in Aaa.prototype){
+        console.log('for in:'+attr);//不写name,email未执行。写上name后执行结果：for in:name,for in:email
+    }
+
+    
+
+    /**
+     *instanceof:对象与构造函数在原型链上是否有关系。
+     */
+   function Box() {
+        
+    }
+    var b=new Box();
+   console.log(b instanceof Box);//true
+   console.log(b instanceof Object);//true
+   console.log(b instanceof Array);//false
+   var arr =[];
+   console.log(arr instanceof Array);//true
+   console.log(arr instanceof Date);//false
+   // typeof 区别不出数组。
+   // 类型判断：1、constructor,
+   // 2、instanceof.也行，不过不是最好的方案。
+   // 3、最好的方案是toString().
+    </script>
+</body>
+</html>
