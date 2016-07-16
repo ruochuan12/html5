@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>3-在新页面中返回到前一页浏览的历史位置</title>
+	<style>
+	*{
+		margin: 0;padding: 0;
+	}
+	ul,li{
+		list-style: none;
+	}
+	div{
+		/*width: 100%;*/
+		height: 100px;
+		border: 1px solid #F00;
+		box-sizing:border-box; 
+	}
+	ul li{
+		/*width: 100px;*/
+		height: 20px;
+		border: 1px solid #CCC;
+		box-sizing:border-box; 
+	}
+	ul li a{
+		display: block;
+	}
+	ul li a:hover{
+		color: pink;
+	}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="">1</a></li>
+		<li><a href="">2</a></li>
+		<li><a href="">3</a></li>
+		<li><a href="">4</a></li>
+		<li><a href="">5</a></li>
+	</ul>
+	<div>div1</div>
+	<div>div2</div>
+	<div>div3</div>
+	<div>div4</div>
+	<div>div5</div>
+	<div>div6</div>
+	<ul>
+		<li><a href="index.html">6</a></li>
+		<li><a href="index.html">7</a></li>
+		<li><a href="index.html">8</a></li>
+		<li><a href="index.html">9</a></li>
+		<li><a href="index.html">10</a></li>
+	</ul>
+	<div>div6</div>
+	<div>div7</div>
+	<div>div8</div>
+	<div>div9</div>
+	<div>div10</div>
+	<div>div11</div>
+
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script src="jquery.cookie.js"></script>
+	<script src="jquery.cookie.js"></script>
+</body>
+</html>
