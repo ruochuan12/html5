@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>19-面向对象之类式继承</title>
+</head>
+<body>
+  <script type="text/javascript">
+        //类，js是没有类的概念，把js中的构造函数看成是类。
+        //要做属性和方法继承的时候要分开继承。
+      function CreatePerson(name,age){ //父类
+        this.name = name;
+        this.age = age;
+      }
+
+      CreatePerson.prototype.showName = function(){
+        console.log(this.name);
+      }
+
+      function CreateStar(name,age,job){ //子类
+        CreatePerson.call(this,name,age);
+      }
+
+
+      var F = function(){};
+      F.prototype = CreatePerson.prototype;
+      CreateStar.prototype = new CreatePerson('lxchuan12',20); //类式继承，一句话实现类式继承，不过这个有问题。(需要四句话)
+      CreateStar.prototype.constructor = CreateStar;//修正指向问题
+
+
+      var star = new CreateStar([1,2,3],20,'web');
+      console.log(star.constructor);
+      star.showName(); //[1,2,3]
+      var star2 = new CreateStar([1,2,3,4],20,'web');
+      star2.showName();//[1,2,3,4]
+      
+  </script>
+</body>
+</html>

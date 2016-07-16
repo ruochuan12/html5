@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17-面向对象的继承</title>
+</head>
+<body>
+  <script type="text/javascript">
+        //什么是继承，在原有对象的基础上，略作修改，得到一个新对象，不影响原有对象的功能。
+        //
+        //继承：子类不影响父类，子类可以继承父类的一些功能（代码复用）
+        //
+        //属性的继承：调用父类的构造函数。（call）
+        //
+        //方法的继承：
+      function CreatePerson(name,age){
+        this.name = name;
+        this.age = age;
+      }
+
+      var p1 = new CreatePerson('lxchuan12',20);
+
+      CreatePerson.prototype.showName = function(){
+        console.log(this.name);
+      }
+      
+      p1.showName();
+      function CreateStar(name,age,job){
+        CreatePerson.call(this,name,age);
+        this.job = job;
+      }
+
+      var p2 = new CreateStar('Rowboat',30,'演员');
+
+      CreateStar.prototype.showName = function(){
+        console.log(this.name);
+      }
+      CreateStar.prototype.showJob = function(){
+        console.log(this.job);
+      }
+      //对象的引用，子类会修改父类。不妥。这时候需要是对象的复制，而不是赋值。
+      CreateStar.prototype = CreatePerson.prototype;
+
+      p2.showName();
+      p2.showJob();
+
+  </script>
+</body>
+</html>
