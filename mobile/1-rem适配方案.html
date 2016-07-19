@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <title>1-rem适配方案（想去）</title>
+</head>
+<body>
+  <script type="text/javascript">
+       function RemInit(){
+            var dpr, rem, scale;
+            var docEl = window.document.documentElement;
+            var bodyEl = window.document.body;
+            var metaEl = window.document.querySelector('meta[name="viewport"]');
+            var psdWidth = 750/100;
+            var isAndroid = navigator.userAgent.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i);
+            dpr = window.devicePixelRatio || 1;
+            if(isAndroid){
+                dpr= 2;
+            }
+            dpr = 1;
+            rem = docEl.clientWidth * dpr / psdWidth;
+            docEl.style.fontSize = rem +'px'
+            scale = 1 / dpr;
+            metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
+            docEl.setAttribute('data-dpr', dpr);
+            window.dpr = dpr;
+            window.rem = rem;
+        }
+        RemInit();
+  </script>
+</body>
+</html>
