@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery-get(),jq,js不能混用，但能共存</title>
+	<style>
+	</style>
+</head>
+<body>
+	<div id="div1">1</div>
+	<div id="div2">2</div>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+	/**
+	 * jq,js不能混用，但能共存
+	 * get()就是把jq转成原生的方法
+	 */
+	
+	$(function(){
+		console.log(document.getElementById('div1').innerHTML);//1
+		
+		console.log($("#div2").html());//2
+		
+		console.log($("div2").get().innerHTML); //undefined,注意：即使是单个也是个集合。
+		
+		console.log($("div2").get(0)); //undefined
+
+		console.log($("div2").get()); //[]
+
+		console.log($("#div2").get()); //[div#div]-->0:div#div2-->length:1,__proto__,constructor:function Array(){}等等
+
+		console.log($("#div2").get(0).innerHTML);//2
+		// console.log($("#div2").get(0).html());//not a function
+
+		console.log($("#div2").get(0).length);//undefined
+
+		for(var i=0;i<$('li').get().length;i++){
+			
+			// jq下也有length属性，所以也可以改成如下。
+			// 也可以改成for(var i=0;i<$('li').length;i++){
+
+			$('li').get(i).style.background = "red";
+			//也可以写成下标的形式，但是jq中没说明，只是源码是这样实现的。
+			$('li')[i].style.background = "#0F0";
+		}
+
+
+	});
+	</script>
+</body>
+</html>

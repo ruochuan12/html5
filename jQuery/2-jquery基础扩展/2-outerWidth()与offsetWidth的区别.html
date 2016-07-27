@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2-outerWidth()与offsetWidth的区别</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">1</div>
+	<div id="div2">2</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * outerWidth()与offsetWidth的区别
+	 * outerWidth如果传参true，则获取到的值包含margin
+	 * outerWidth能获取到display：none元素的值。原生offsetWidth不行。
+	 * outerWidth:width+padding+border
+	 */
+	
+	$(function(){
+		console.log($("#div1").get(0).offsetWidth);//122
+		$("#div1").hide();
+		console.log($("#div1").get(0).offsetWidth);//0
+
+
+	});
+	</script>
+</body>
+</html>

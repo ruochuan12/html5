@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>js选项卡改写为jquery选项卡</title>
+	<style type="text/css">
+	#div1 div{width: 200px;height: 200px;border:1px solid yellow;display: none;}
+	#div1 .active{background: red;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+
+		var oDiv = document.getElementById('div1');
+		var aInput = oDiv.getElementsByTagName('input');
+		var aDiv = oDiv.getElementsByTagName('div');
+		
+		for(var i=0;i<aInput.length;i++){
+			aInput[i].index=i;
+			aInput[i].onclick=function(){
+
+			for(var i=0;i<aDiv.length;i++){
+				aInput[i].className='';
+				aDiv[i].style.display='none';
+				
+
+			}
+			this.className='active';
+			aDiv[this.index].style.display='block';
+
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+<div id="div1">
+	<input type="button" value="1" class="active" />
+	<input type="button" value="2" />
+	<input type="button" value="3" />
+	<div style="display:block;">1111</div>
+	<div>2222</div>
+	<div>3333</div>
+</div>	
+</body>
+</html>

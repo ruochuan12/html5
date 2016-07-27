@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>jquery回到顶部</title>
+	<style type="text/css">
+	#circle{width: 40px;height: 40px;border-radius: 50%;background:#F97834;box-shadow: 5px 5px 15px rgba(42,56,123,0.5);position:fixed;right: 20px;bottom: 20px;display: none;}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+	// 1、页面加载完后执行
+	$(function(){
+
+
+		//2、获取元素、判断
+		$(window).on('scroll',function(){
+			var	scroll=$(window).scrollTop();
+			if(scroll <= $(window).height()/2){
+
+				$('#circle').css('display','none');
+
+			}else{
+				$('#circle').css('display','block');
+				console.log($(window).height()/2);
+			}
+		});
+		// 3、点击事件、animate
+		$('#circle').click(function(){
+				$('body,html').animate({'scrollTop':0},300);
+				
+		});
+
+	});
+	
+	</script>
+</head>
+<body style="height:3000px;">
+	<a href="javascript:void(0);" id="circle"></a>
+</body>
+</html>

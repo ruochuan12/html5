@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>jquery编写拖拽</title>
+	<style type="text/css">
+	#circle{width: 100px;height: 100px;border-radius: 50%;background:#F97834;box-shadow: 5px 5px 15px rgba(42,56,123,0.5);position:absolute;}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		
+		var disX=0;
+		var disY=0;
+		//1、鼠标按下，存储鼠标位置到物体边缘距离
+		$("#circle").mousedown(function(ev){
+			disX=ev.pageX-$(this).offset().left;
+			disY=ev.pageY-$(this).offset().top;
+			//2、事件加在document上，移动
+			$(document).mousemove(function(ev){
+				$("#circle").css('left',ev.pageX-disX);
+				$("#circle").css('top',ev.pageY-disY);
+			});
+
+			//3、鼠标抬起，把这两事件取消。
+			$(document).mouseup(function(){
+
+				$(document).off();
+			});
+			//4、阻止默认事件和冒泡（jQuery里有这功能）
+			return false;
+		});
+
+	});
+	</script>
+</head>
+<body>
+	<div id="circle"></div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>12-编写弹窗</title>
+	<style type="text/css">
+	#div1{width: 300px;height: 300px;border: 1px solid #000;position: absolute;}
+	#close{right: 0;top: 0;position: absolute;}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.js">
+	</script>
+	<script type="text/javascript">
+	$(function(){
+
+		$('#input1').click(function(){
+
+			// 1、动态创建append
+			var oLogin=$('<div id="div1">用户名：<input type="text" value="" /><br />密码：<input type="text" value="" /><input type="button" value="关闭" id="close" /></div>');
+			$('body').append(oLogin);
+			
+			// 2、居中显示
+
+			oLogin.css('left',($(window).width()-oLogin.outerWidth())/2);
+			oLogin.css('top',($(window).height()-oLogin.outerHeight())/2);
+			// 4、关闭按钮，remove
+			$('#close').click(function() {
+				oLogin.remove();
+			});
+
+			// 3、滚动，改变窗口大小依旧居中显示
+
+			$(window).on('resize scroll',function(){
+				oLogin.css('left',($(window).width()-oLogin.outerWidth())/2);
+			oLogin.css('top',($(window).height()-oLogin.outerHeight())/2+$(window).scrollTop());
+			});
+		});
+	});
+	</script>
+</head>
+<body style="height:2000px;width:2000px;">
+<input type="button" value="点击" id="input1" />
+<!-- <div id="div1">用户名：<input type="text" value="" /><br />密码：<input type="text" value="" /><input type="button" value="关闭" id="close" /></div> -->
+</body>
+</html>
