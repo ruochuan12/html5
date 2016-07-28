@@ -24,6 +24,7 @@
 	 * outerWidth()与offsetWidth的区别
 	 * outerWidth如果传参true，则获取到的值包含margin
 	 * outerWidth能获取到display：none元素的值。原生offsetWidth不行。
+	 * 原生offsetWidth获取不到隐藏元素的值。
 	 * outerWidth:width+padding+border
 	 */
 	
@@ -31,6 +32,10 @@
 		console.log($("#div1").get(0).offsetWidth);//122
 		$("#div1").hide();
 		console.log($("#div1").get(0).offsetWidth);//0
+
+		console.log($("#div1").outerWidth());//122
+
+		console.log($("#div1").outerWidth(true));//162
 
 
 	});

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5-$()-window.onload()</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">5-$()-window.onload()</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * $(document).ready(function(){});
+	 * $(function(){}):等DOM加载完，性能要好，是上面的简写方式。再执行。
+	 * window.onload = function(){};等图片，Flash，资源等加载完。 再执行。
+	 * 原生有DOMContentLoad，但要做兼容。
+	 * 其实现在都是写在body最下面即可，就会等DOM加载完执行代码。
+	 */
+	
+	$(function(){
+		$('#div1').click(function() {
+			alert('123');
+		});
+		// var oDiv = $('#div1').remove();
+		// $('body').append(oDiv);//事件消失了。
+
+		var oDiv = $('#div1').detach();
+		$('body').append(oDiv);//事件依旧在。
+
+	});
+	</script>
+</body>
+</html>

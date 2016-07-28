@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3-text()合体</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">1<span>span标签获取不到</span></div>
+	<div id="div2">2<br/>br标签也获取不到</div>
+	<div id="div3">3<om>自定义标签也获取不到<om><input type="text" placeholder="text()获取不到">text()获取不到input</div>
+	<div id="div4">4<0><oo><i><字母>这种形式获取不到</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * text()，合体的特例
+	 * html()是取值到第一个，赋值是所有。
+	 * text()取值是所有，赋值也是所有。并且只能获取到文本内容，不能获取到标签。
+	 *
+	 * 原生:textContent(W3C标准),FF下，也获取不到标签
+	 * 原生:innerText(IE,chrome实现),也获取不到标签
+	 */
+	
+	$(function(){
+		console.log($('div').text());//1span标签获取不到2br标签也获取不到3自定义标签也获取不到text()获取不到input4<0><字母>这种形式获取不到
+
+
+		// console.log($('div').text('<h2>h2标签直接输出字符串<h2>'));//全部赋值。
+
+		console.log($('div').get(0).textContent); //1span标签获取不到
+		console.log($('div').get(1).innerText); //2
+		//br标签也获取不到(竟然换行了)
+		console.log($('div').get(2).innerText); //3自定义标签也获取不到text()获取不到input
+		console.log($('div').get(3).innerText); //<0><字母>这种形式获取不到
+
+		console.log(document.getElementsByTagName('div')[0].textContent);
+		//1span标签获取不到
+	});
+	</script>
+</body>
+</html>

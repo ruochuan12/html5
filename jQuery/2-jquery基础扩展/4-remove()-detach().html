@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4-remove()-detach()</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">1<span>detach</span></div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * remove():删除节点,返回值是本身。
+	 * detach():跟remove()方法一样，只不过会保留这个元素的操作行为。
+	 */
+	
+	$(function(){
+		$('#div1').click(function() {
+			alert('123');
+		});
+		// var oDiv = $('#div1').remove();
+		// $('body').append(oDiv);//事件消失了。
+
+		var oDiv = $('#div1').detach();
+		$('body').append(oDiv);//事件依旧在。
+
+	});
+	</script>
+</body>
+</html>
