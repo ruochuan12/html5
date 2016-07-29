@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.1-DOM操作,parents(),closest()</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div class="box">box
+		<div id="div1">6.1-DOM操作,parents(),closest()</div>
+		<p>p标签</p>
+		<span>span</span>
+		<h1 class="title">h1标签</h1>
+	</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * parents()获取当前元素的祖先节点，参数就是筛选功能。
+	 * closest()获取最近的祖先节点（包括当前元素本身），必须要写参数，只能找到一个元素。
+	 * siblings():获取当前元素的兄弟节点（不包含自身），参数是筛选功能。
+	 * nextAll():之后的所有兄弟节点，参数是筛选功能
+	 * next():之后的一个兄弟节点，
+	 * prevAll()：之前的所有兄弟节点。prev:之前的一个兄弟节点。
+	 * Until()：截止
+	 * parentUntil(),nextUntil(),prevUntil(),截止到，不包含参数。
+	 */
+	
+	$(function(){
+		//选择器：高手用单引号，高性能。
+		// $('#div1').parents().css('background','red');
+		// $('#div1').closest('.box').css('background','red');
+		// $('#div1').siblings('h1').css('background','red');
+		$('#div1').nextUntil('h1').css('background','red');//p，span变红
+
+	});
+	</script>
+</body>
+</html>
