@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1-根据不同浏览器加载不同js</title>
+</head>
+<body>
+    <div id="div1">
+        根据不同浏览器加载不同js
+    </div>
+    <script>
+        var fnJsLoad = function(url, callback) {
+            callback = callback || function() {};
+
+            var eleScript = document.createElement('script');
+            
+            eleScript.onload = function() {
+                if (!eleScript.isInited) {
+                    eleScript.isInited = true;
+                    callback();
+                }
+            };
+            // 一般而言，低版本IE走这个
+            eleScript.onreadystatechange = function() {
+                if (!eleScript.isInited && /^loaded|complete$/.test(eleScript.readyState)) {
+                    eleScript.isInited = true;
+                    callback();
+                }
+            };
+
+            eleScript.src = url;
+
+            document.getElementsByTagName('head')[0].appendChild(eleScript);
+        };
+    </script>
+    <script>
+        // IE10+加载zepto.js
+        // IE7-IE9加载jQuery
+        var URLLIB = './zepto.min-v1.2.0.js';
+
+        if (!history.pushState) {
+            URLLIB = './jquery-1.11.1.js';
+        }
+
+        fnJsLoad(URLLIB, function() {
+            // 业务脚本初始化
+            console.log(URLLIB);
+            alert(URLLIB);
+            alert($('#div1').html());
+            // init();
+            // 
+            // 参考自张鑫旭博客：http://www.zhangxinxu.com/wordpress/2016/07/pc-website-use-zepto-js/comment-page-1/#comment-322784
+        });
+    </script>
+</body>
+</html>
