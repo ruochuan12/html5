@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.3-DOM操作wrap()</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div id="div1">6.2-clone()</div>
+		<div id="div2"></div>
+		<p>p标签</p>
+		<span>span</span>
+		<span>span</span>
+		<p>鼠标</p>
+		<span>span</span>
+		<h1 class="title">h1标签</h1>
+	</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * wrap():包装，wrap('<div>')
+	 * wrapAll():整体包装，会改变结构，提前
+	 * wrapInner()：内部包装
+	 * unwrap():删除包装（删除父级）不包括body
+	 */
+	
+	$(function(){
+		// $('span').wrap('<div>');
+		// $('span').wrapAll('<div>');
+
+	});
+	</script>
+</body>
+</html>

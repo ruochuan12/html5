@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.2-DOM操作clone</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div id="div1">6.2-clone()</div>
+		<div id="div2"></div>
+		<p>p标签</p>
+		<span>span</span>
+		<h1 class="title">h1标签</h1>
+	</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * clone()克隆节点
+	 * 传参clone(true),事件也拷贝。不传就只拷贝元素。
+	 * jq中appendTo是剪切。
+	 * 原生appendChild也是剪切。
+	 */
+	
+	$(function(){
+		// $('#div1').appendTo($('.title'));//div1克隆到title
+		$('#div1').get(0).appendChild($('.title').get(0));//div1和事件克隆到title
+		// $('.title').clone().appendTo($('#div1'));//title拷贝一份,克隆到div0
+		// console.log(1);
+		$('.title').click(function() {
+			alert($(this).html());
+		});
+		// $('.title').clone(true).appendTo($('#div1'));//title拷贝一份,并且事件也克隆到div1,
+
+	});
+	</script>
+</body>
+</html>
