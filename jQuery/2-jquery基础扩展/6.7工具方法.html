@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.7-工具方法</title>
+	<style>
+	#div1{
+		width: 100px;
+		padding: 10px;
+		margin:20px;
+		height: 100px;
+		border: 1px solid #f00;
+		/*display: none;*/
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div id="div1">6.2-clone()</div>
+	</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+
+	/**
+	 * $().xxx(),只能给jq用。
+	 * $.xxx(),工具方法不仅可以给jq用，也可以给原生js用。
+	 * $.type()判断类型，
+	 * $.trim(),
+	 * $.inArray(),类似于indexOf,位置和-1.
+	 * $.proxy(),改变this指向的。
+	 */
+	
+	$(function(){
+
+		var str = '11';
+		var arr = ['a','b','c','d'];
+		console.log(typeof str);	//string
+		console.log($.type(str));	//string,更强大
+		console.log($.inArray('a',arr))//0
+		console.log($.inArray('E',arr))//-1
+
+
+		function print(n1,n2){
+			console.log(this);//window
+			console.log(n1);
+			console.log(n2);
+		}
+		// print();
+
+		//$.proxy(print,document,3,4)();//document,3,4，这样传参也行。
+		//$.proxy(print,document,3)(4);//document,3,4
+		//$.proxy(print,document)(3,4);//document,3,4
+
+		//事件和定时器的时候。
+		$(document).click($.proxy(print,document)(1,2));//1,2这样传参直接调用了。
+		$(document).click($.proxy(print,document,5,6));//5,6这样传参才行。
+		$(document).click($.proxy(print,document,7)(8));//7,8这样传参也直接调用了。
+
+
+	});
+	</script>
+</body>
+</html>
