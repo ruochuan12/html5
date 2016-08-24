@@ -16,7 +16,7 @@ module.exports = {
 	devServer: {
 		contentBase: "./public",//本地服务器所加载的页面所在的目录
 		colors: true,
-		port:9090,//<number>端口，不设置默认是8080
+		port: 5000,//<number>端口，不设置默认是8080
 		historyApiFallback: true,//不跳转
 		inline: true
 	}
