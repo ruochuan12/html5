@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自动生成100个li</title>
+	</head>
+	<style>
+		ul{
+			margin: 0px;
+			padding: 0px;
+			margin-top: 20px;
+			position: relative;
+		}
+		li{
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 30px;
+			text-align: center;
+			list-style-type: none;
+			border: 1px solid #0000FF;
+			position: absolute;
+		}
+	</style>
+	<body>
+		<input id="btn1" type="button" value="自动生成100个li"/>
+		<ul id="ul1"></ul>
+	</body>
+	<script>
+		oBtn1 = document.getElementsByTagName('input')[0];
+		oUl = document.getElementsByTagName('ul')[0];
+		oBody = document.getElementsByTagName('body')[0];
+		var arr = ['#7FFFD4','#0000FF','#FF0000','#FFFF00','#0000FF','#BDCEC6','#E5E5E5','#EFEFEF','#393129','#8C8494'];
+		var str = '';
+		var l = '';
+		var t = '';
+		/*
+		  i        left            top
+		  0         0               0
+		  1         60              0
+		  2         120             0
+		  3         180             0
+		  4         240             0
+		  5         300             0
+		  6         360             0
+		  7         420             0
+		  8         480             0
+		  9         540             0
+		  
+		  10         0             60 
+		  11         60            60
+		  12         120           60
+		  13         180           60
+		  14         240           60
+		  15         300           60
+		  16         360           60
+		  17         420           60
+		  18         480           60
+		  19         540           60
+		  
+		  20         0             120 
+		  21         60            120 
+		  22         120           120 
+		  23         180           120 
+		  24         240           120 
+		  25         300           120 
+		  26         360           120 
+		  27         420           120 
+		  28         480           120 
+		  29         540           120 
+		  
+		  30         0             180           
+		           (i%10)*60      (i/10)*60
+		*/
+		oBtn1.onclick = function(){
+			for(var i=0; i<100;i++){
+				     console.log(i);
+				     l = (i%10)*60;
+				     console.log(l);
+				     t = Math.floor(i/10)*60;
+					 str += '<li style="left:'+l+'px;top:'+t+'px;background-color:'+arr[i%100]+'">'+i+'</li>';
+			}
+		oUl.innerHTML = str;
+		}
+		
+	</script>
+</html>
