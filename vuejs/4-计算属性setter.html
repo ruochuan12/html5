@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div id="demo">fullName:{{fullName}}</div>
+    <div id="demo">fullName:{{fullName}}<br/>{{firstName}}-{{lastName}}</div>
     <script>
     var vm = new Vue({
       el: '#demo',
@@ -25,7 +25,8 @@
           },
           // setter(可以修改firstName,lastName,fullName)
           set: function (newValue) {
-            var names = newValue.split(' ')
+            var names = newValue.split('')
+            console.log(names);
             this.firstName = names[0]
             this.lastName = names[names.length - 1]
           }

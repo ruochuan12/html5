@@ -1,0 +1,86 @@
+@charset "UTF-8";
+body {
+  color: #F00; }
+
+nav a {
+  color: red; }
+  header nav a {
+    color: green; }
+
+.node {
+  font-size: 30px;
+  color: #F00; }
+
+.btn, .extend {
+  border: 1px solid #f00;
+  -webkit-border-radius: 50%;
+  border-radius: 50%; }
+
+.extend {
+  width: 100px;
+  height: 100px;
+  color: #ccc; }
+
+.login-box {
+  margin-top: 14px;
+  padding-top: 14px; }
+
+.header-text-small {
+  font-size: 12px; }
+
+.header-text-medium {
+  font-size: 20px; }
+
+.header-text-big {
+  font-size: 40px; }
+
+/* 这种注释显示，//注释不显示 */
+.header-text-small {
+  font-size: 12px; }
+
+.header-text-medium {
+  font-size: 20px; }
+
+.header-text-big {
+  font-size: 40px; }
+
+/* 1in = 96px 参考链接：http://www.mamicode.com/info-detail-1484393.html */
+.boxxx {
+  width: 10px; }
+
+.box:before {
+  content: " Hello Sass! "; }
+
+.item-1 {
+  border: 1px solid; }
+
+.item-2 {
+  border: 1px solid; }
+
+.item-3 {
+  border: 1px solid; }
+
+.while-4 {
+  width: 24px; }
+
+.while-3 {
+  width: 23px; }
+
+.while-2 {
+  width: 22px; }
+
+.while-1 {
+  width: 21px; }
+
+.test1 {
+  content: 'hello'; }
+
+.test1 {
+  content: "hello "; }
+
+.test2 {
+  text: aaa-aa;
+  text: AAA-AA; }
+
+#dei {
+  width: 20px; }

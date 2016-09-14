@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>6-组件-通信</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+      <my-component></my-component>
+    </div>
+    
+    <script>
+    // 定义
+    var MyComponent = Vue.extend({
+      template: '<div>A custom component!</div>'
+    })
+
+    // 注册
+    Vue.component('my-component', MyComponent)
+
+    // 创建根实例
+    new Vue({
+      el: '#example',
+      data:{
+        a:1
+      }
+    })
+
+    // 局部注册
+    var Child = Vue.extend({
+
+    });
+    var Parent = Vue.extend({
+      template:'<div class="parent">parent</div>',
+      components:{
+        'my-child':Child
+      }
+    });
+    </script>
+</body>
+
+</html>

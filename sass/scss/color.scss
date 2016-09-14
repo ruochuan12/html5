@@ -1,0 +1,87 @@
+$color:#F00;
+$font-size:30px;
+@mixin border-radius($radius:5px){
+	-webkit-border-radius:$radius;
+	border-radius:$radius;
+}
+body{
+	color:$color;
+}
+nav {
+  a {
+    color: red;
+    
+    header & {
+      color:green;
+    }
+  }  
+}
+.node{
+	font-size:$font-size;
+	color:$color;
+}
+.btn{
+	border:1px solid #f00;
+	@include border-radius(50%);
+}
+.extend{
+	width:100px;
+	height:100px;
+	color:#ccc;
+	@extend .btn;
+}
+$properties: (margin, padding);
+@mixin set-value($side, $value) {
+    @each $prop in $properties {
+        #{$prop}-#{$side}: $value;
+    }
+}
+.login-box {
+    @include set-value(top, 14px);
+}
+@mixin generate-sizes($class, $small, $medium, $big) {
+    .#{$class}-small { font-size: $small; }
+    .#{$class}-medium { font-size: $medium; }
+    .#{$class}-big { font-size: $big; }
+}
+
+@include generate-sizes("header-text", 12px, 20px, 40px);
+/* 这种注释显示，//注释不显示 */
+//注释
+@include generate-sizes('header-text',12px,20px,40px);
+/* 1in = 96px 参考链接：http://www.mamicode.com/info-detail-1484393.html */
+.boxxx{
+  width:(20px/2);//除法带上小括号，省得记、。
+}
+$content: "Hello" + " " + "Sass!";
+.box:before {
+  content: " #{$content} ";
+}
+@for $i from 1 through 3 {
+  .item-#{$i} {
+    border:1px solid;
+  }
+}
+$types: 4;
+$type-width: 20px;
+@while $types > 0{
+  .while-#{$types} {
+    width: $type-width + $types;
+  }
+  $types: $types - 1;
+}
+//从测试的效果中可以看出，unquote( ) 函数只能删除字符串最前和最后的引号（双引号或单引号），而无法删除字符串中间的引号。如果字符没有带引号，返回的将是字符串本身。
+.test1{
+  content: unquote("'hello'");
+}
+
+.test1{
+  content:quote('hello ');
+}
+.test2{
+  text:to-lower-case(aaa-Aa);
+  text:to-upper-case(aaa-Aa);
+}
+#dei{
+  width:nth(10px 20px 30px,2);
+}
