@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>camelCase()转驼峰</title>
+</head>
+<body>
+    <script>
+        var webkitstr = '-webkit-transfrom';
+        var msstr = '-ms-transfrom';
+        //我写的
+        function camelCase_1(str){
+            var i=1,
+                arr = str.split('-'),
+                len = str.split('-').length;
+            var result = arr[0];
+            for(;i<len;i++){
+                result += arr[i].substring(0,1).toUpperCase()+arr[i].substring(1);
+            }
+            return result;
+        }
+        //jquery实现方式：
+        //str.replace(/^-ms-/,'ms-')是有IE下有，-ms-前缀的，比如转换成msTransform，而其他转换成首字母大写，如：WebkitTransform
+        function camelCase_2(str){
+            return str.replace(/^-ms-/,'ms-').replace(/-([\da-z])/gi,function(all,letter){
+                return letter.toUpperCase()
+            });
+        }
+        //zepto.js实现方式：没处理-ms-，兼容性IE10+，但依旧有很多IE10依旧要加-ms-前缀的css3属性。为啥zeptojs没实现呢，难道还没碰到这个bug？
+        //并且，空字符串写toUpperCase()依旧是空字符串。所以不需要写三目运算。
+        function camelCase_3(str){ 
+            return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' })
+        }
+        console.log(camelCase_1(webkitstr));//WebkitTransfrom
+        console.log(camelCase_1(msstr));    //MsTransfrom
+        console.log(camelCase_2(webkitstr));  //WebkitTransfrom
+        console.log(camelCase_2(msstr));    //msTransfrom
+        console.log(camelCase_3(webkitstr));//WebkitTransfrom
+        console.log(camelCase_3(msstr));    //MsTransfrom
+    </script>
+</body>
+</html>
