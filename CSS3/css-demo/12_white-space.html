@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>white-space</title>
+<link rel="stylesheet" href="demo.css"/>
+<style type="text/css">
+p{margin:10px;background:#ddd;}
+
+.m-demo .p1{white-space:normal;}
+.m-demo .p2{white-space:pre;}
+.m-demo .p3{white-space:pre-wrap;}
+.m-demo .p4{white-space:pre-line;}
+.m-demo .p5{white-space:nowrap;}
+.m-demo .p6{white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<div class="m-demo">
+	<p class="p1">white-space:normal; 左边1个空格  左边2个空格   左边3个空格
+左边一个换行
+	左边一个换行加一个Tab</p>
+	<p class="p2">white-space:pre; 左边1个空格  左边2个空格   左边3个空格
+左边一个换行
+	左边一个换行加一个Tab</p>
+	<p class="p3">white-space:pre-wrap; 左边1个空格  左边2个空格   左边3个空格
+左边一个换行
+	左边一个换行加一个Tab</p>
+	<p class="p4">white-space:pre-line; 左边1个空格  左边2个空格   左边3个空格
+左边一个换行
+	左边一个换行加一个Tab</p>
+	<p class="p5">white-space:nowrap; 左边1个空格  左边2个空格   左边3个空格
+左边一个换行
+	左边一个换行加一个Tab</p>
+
+	<p class="p6">
+	.m-demo .p6{
+	    text-indent: 2em;
+	}
+	</p>
+</div>
+</body>
+</html>

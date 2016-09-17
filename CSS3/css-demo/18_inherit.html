@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>inherit</title>
+<link rel="stylesheet" href="demo.css"/>
+<style type="text/css">
+p{margin:10px;background:#ddd;}
+p+p{margin-left:40px;}
+
+.m-demo{font-family:"Consolas";color:black;}
+.m-demo .p1{font-family:"microsoft yahei";color:red;}
+.m-demo .p1-1{font-family:inherit;color:inherit;}
+</style>
+</head>
+<body>
+<div class="m-demo">
+	<p>字体系列：font-family:"Consolas";</p>
+	<p class="p1">字体系列：font-family:"microsoft yahei";</p>
+	<p class="p1 p1-1">字体系列：font-family:inherit;</p>
+</div>
+</body>
+</html>
