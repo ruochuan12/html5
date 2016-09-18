@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>vertical-align</title>
+<link rel="stylesheet" href="demo.css"/>
+<style type="text/css">
+p{margin:10px;background:#ddd;font-size:30px;line-height:200%;}
+.m-demo .p1{font-size:50px;}
+.m-demo span.va{font-size:20px;}
+.m-demo .va-1{vertical-align:middle;}
+.m-demo .va-2{vertical-align:20px;}
+.m-demo .va-3{vertical-align:sub;}
+.m-demo .va-4{vertical-align:super;}
+</style>
+</head>
+<body>
+<div class="m-demo">
+	<p class="p1">文字<img src="icon.png" class="va"><span>文字</span><img src="icon.png" class="va va-1">文字</p>
+	<p>普通文字<span class="va">普通</span><span>普通文字</span><span class="va va-2">对齐20px</span>普通文字</p>
+	<p>普通文字<span class="va">普通</span><span>普通文字</span><span class="va va-3">对齐sub</span>普通文字</p>
+	<p>普通文字<span class="va">普通</span><span>普通文字</span><span class="va va-4">对齐super</span>普通文字</p>
+</div>
+</body>
+</html>

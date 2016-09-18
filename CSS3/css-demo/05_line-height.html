@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>line-height</title>
+<link rel="stylesheet" href="demo.css"/>
+<style type="text/css">
+p{margin:10px;background:#ddd;}
+p+p{margin-left:40px;}
+
+body{font-size:30px;}
+
+.m-demo{line-height:40px;}
+.m-demo p{background:#ddd;}
+.m-demo .p1{line-height:3em;}
+.m-demo .p2{line-height:300%;}
+.m-demo .p3{line-height:3;}
+
+.m-demo2{line-height:300%;}
+.m-demo2 p{background:#fbb;}
+.m-demo2 .p1{font-size:16px;}
+
+.m-demo3{line-height:3;}
+.m-demo3 p{background:#0dd;}
+.m-demo3 .p1{font-size:16px;}
+</style>
+</head>
+<body>
+<div class="m-demo">
+	<p>行高：line-height:40px;</p>
+	<p class="p1">行高：line-height:3em;</p>
+	<p class="p2">行高：line-height:300%;</p>
+	<p class="p3">行高：line-height:3;</p>
+</div>
+<div class="m-demo2">
+	<p>行高：line-height:300%;</p>
+	<p class="p1">字体大小：font-size:16px;</p>
+</div>
+<div class="m-demo3">
+	<p>行高：line-height:3;</p>
+	<p class="p1">字体大小：font-size:16px;</p>
+</div>
+</body>
+</html>
