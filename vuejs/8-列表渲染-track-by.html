@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>8-列表渲染-track-by</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <ul id="example-1">
+      <li v-for="item in items" track-by="$index">
+        {{ item }}
+      </li>
+    </ul>
+    <script>
+    var example1 = new Vue({
+      el: '#example-1',
+      data: {
+        items: [
+          '高仿真娃娃',
+          '仿真娃娃',
+          '长袖T袖',
+          '棒球服',
+          '长款风衣',
+          '衬衫',
+          '长袖T袖',
+          '棒球服',
+          '衬衫'
+        ]
+      }
+    })
+    // example1.items.$set(0,{message:'changed!'});
+    // this.items.$remove(item)
+    </script>
+</body>
+
+</html>

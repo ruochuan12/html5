@@ -21,13 +21,13 @@
       data: {
         items: [
           { message: 'foo' },
-          { message: 'hello' },
+          { message: 'he/llo' },
           { message: 'cidy' }
         ]
       }
     })
     example1.items = example1.items.filter(function (item) {
-      return item.message.match(/foo/);
+      return item.message.match(/he\/llo|cidy/);
     })
     </script>
 </body>
