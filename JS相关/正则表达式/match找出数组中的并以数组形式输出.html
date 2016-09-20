@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找出字符串中的所有数字findNum</title>
+</head>
+<body>
+    <script>
+        //找出字符串中的所有数字
+        //1、传统方案
+        //2、正则表达式方案
+        var str = '123aaa11jkeghi22gyugyu2gyuyi5y3221';
+        var arr = str.match(/\d+/g);//["123", "11", "22", "2", "5", "3221"]
+        //match匹配后的结果，要么是数组，要么是null.
+        console.log(arr);
+        //1、传统实现：
+        function findNum(str){
+            var result = [];
+            for(var i=0;i<str.length;i++){
+                if(str.charAt(i)>=0&&str.charAt(i)<=9){
+                    result.push(str.charAt(i));
+                }
+            }
+            return result;
+        }
+        function findNum_2(str){
+            var result = [];
+            var tmp = '';
+            for(var i=0;i<str.length;i++){
+                if(str.charAt(i)>=0&&str.charAt(i)<=9){
+                    //1,2,3,a,a,a,1,1
+                    tmp += str.charAt(i);
+                }else{
+                    if(tmp){
+                        result.push(tmp);
+                    }
+                    tmp = '';
+                }
+            }
+            //最后一位是数字时。再调用一次。
+            if(tmp){
+                result.push(tmp);
+            }
+            return result;
+        }
+        console.log(findNum(str));
+        console.log(findNum_2(str));
+    </script>
+</body>
+</html>
