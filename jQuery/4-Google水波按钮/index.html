@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4-Google水波按钮</title>
+	<style>
+	body {
+  		background: #000;
+	}
+	* {
+	  margin: 0;
+	}
+	.btn-blue {
+	  background: #5bbce4;
+	}
+	.btn-red {
+	  background: #ff3333;
+	}
+	.btn-orange {
+	  background: orange;
+	}
+	.btn-pink {
+	  background: #ff748c;
+	}
+	.btn {
+	  line-height: 1em;
+	  left: 40px;
+	  top: 40px;
+	  color: #fff;
+	  text-decoration: none;
+	  padding: 0.4em 2em;
+	  display: inline-block;
+	  position: relative;
+	  overflow: hidden;
+	}
+	.btn .ripple {
+	  position: absolute;
+	  display: block;
+	  background: #fff;
+	  width: 4px;
+	  height: 4px;
+	  border-radius: 50%;
+	  animation: ripple 1.4s;
+	  transform: scale(100);
+	  opacity: 0;
+	}
+	@keyframes ripple {
+	  from {
+	    transform: scale(0);
+	    opacity: 0.5;
+	  }
+	  to {
+	    transform: scale(100);
+	    opacity: 0;
+	  }
+	}
+	</style>
+</head>
+<body>
+	<a href="javascript:;" class="btn btn-blue">Button</a>
+	<a href="javascript:;" class="btn btn-red">Button</a>
+	<a href="javascript:;" class="btn btn-orange">Button</a>
+	<a href="javascript:;" class="btn btn-pink">Button</a>
+	<script src="../jqueryVesion/jquery-3.1.0.slim.min.js"></script>
+	<script>
+		(function ($){
+			$.fn.extend({
+				rippleBtn:function(){
+					return this.each(
+						function(){
+							var self = $(this);
+							self.on('mousedown',function(ev){
+								var x = ev.pageX,
+									y = ev.pageY;
+								x = x - self.offset().left;
+								y = y - self.offset().top;
+								var ripple = $("<span class='ripple'></span>");
+								ripple.css({
+									left:x-2,
+									top:y-2
+								});
+								self.append(ripple);
+								ripple.on('animationend',function(){
+									ripple.remove();
+								});
+							});
+						}
+					);
+				}
+			});
+		})(jQuery);
+		$(".btn").rippleBtn();
+	</script>
+</body>
+</html>
