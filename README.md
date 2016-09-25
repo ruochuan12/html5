@@ -1,4 +1,3 @@
-##HTML5
-学习前端新技术，动手练习的部分代码。
-##bootstrap,seajs等。
-##学习html5 | css3 | jquery | zepto | 模板语言  | gulp | sass | angularjs | vuejs |webpack | react | ES6 | nodejs等
+## HTML5
+学习前端开发技术，动手练习的Demo。
+## 学习 html5 | 模板语言 | css3 |  less | sass  | jquery  | zepto  | bootstrap | angularjs | vuejs | gulp | webpack | react | ES6 | nodejs等
