@@ -9,27 +9,37 @@
 
 <body>
     <div id="example">
-      <my-component></my-component>
+    <input type="text" v-model="msg[0].msg">
+      <my-component :msg.sync="msg"></my-component>
     </div>
     
     <script>
     // 定义
     var MyComponent = Vue.extend({
-      template: '<div>A custom component!</div>'
-    })
+      template: '<div v-for="item in msg">component!{{item.msg}}</div>',
+      props: ['msg']
+    });
 
     // 注册
-    Vue.component('my-component', MyComponent)
+    Vue.component('my-component', MyComponent);
 
     // 创建根实例
     new Vue({
       el: '#example',
+      // components:{
+      //   'my-component':MyComponent
+      // },
       data:{
-        a:1
+        'msg':[
+          {'msg':1},
+          {'msg':2},
+          {'msg':3}
+        ]
       }
-    })
+    });
 
     // 局部注册
+    // 不需要全局注册每个组件。可以让组件只能用在其它组件内，用实例选项 components 注册：
     var Child = Vue.extend({
 
     });
