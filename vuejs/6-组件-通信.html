@@ -9,46 +9,124 @@
 
 <body>
     <div id="example">
-    <input type="text" v-model="msg[0].msg">
-      <my-component :msg.sync="msg"></my-component>
+    <button @click="addItem('PICTURE1')">点击添加</button>
+    <ul>
+      <pic-component :data.sync="compData"></pic-component>
+    </ul>
+    <input type="text" v-model="compData[0].compType">
+      
     </div>
-    
+    <script type="text/template" id="tpl">
+      <li v-for="item in data">component---{{item.compType}}</li>
+    </script>
     <script>
     // 定义
-    var MyComponent = Vue.extend({
-      template: '<div v-for="item in msg">component!{{item.msg}}</div>',
-      props: ['msg']
+    var picComponent = Vue.extend({
+      template: '#tpl',
+      props: ['data']
     });
 
     // 注册
-    Vue.component('my-component', MyComponent);
+    Vue.component('pic-component', picComponent);
 
     // 创建根实例
     new Vue({
       el: '#example',
       // components:{
-      //   'my-component':MyComponent
+      //   'pic-component':picComponent
       // },
       data:{
-        'msg':[
-          {'msg':1},
-          {'msg':2},
-          {'msg':3}
+        'compData':[
+          {
+              "moduleId": 1, 
+              "sort": 1, 
+              "compType": "PICTURE1", 
+              "contents": [
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  }
+              ]
+          },
+          {
+              "moduleId": 1, 
+              "sort": 1, 
+              "compType": "PICTURE2", 
+              "contents": [
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  }, 
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  }
+              ]
+          },
+          {
+              "moduleId": 1, 
+              "sort": 1, 
+              "compType": "PICTURE3", 
+              "contents": [
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  }, 
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  },
+                  {
+                      "image": "", 
+                      "link": "http://", 
+                      "captions": ""
+                  }
+              ]
+          }
         ]
+      },
+      methods:{
+        addItem:function (compType) {
+            // 添加一条数据，单张图片
+                // 单张图片
+            if (compType === 'PICTURE1') {
+              this.compData.push(
+                {
+                  moduleId:1,//图片组件标识
+                            sort:1,
+              compType:compType,
+              contents:[
+                {
+                  image: '',  //图片
+                        link:'http://', //图片链接
+                        captions:'' //说明文字
+                      }
+              ]
+                }
+              );
+            }
+            console.log(this.compData.length);
+        }
+
       }
     });
 
     // 局部注册
     // 不需要全局注册每个组件。可以让组件只能用在其它组件内，用实例选项 components 注册：
-    var Child = Vue.extend({
+    // var Child = Vue.extend({
 
-    });
-    var Parent = Vue.extend({
-      template:'<div class="parent">parent</div>',
-      components:{
-        'my-child':Child
-      }
-    });
+    // });
+    // var Parent = Vue.extend({
+    //   template:'<div class="parent">parent</div>',
+    //   components:{
+    //     'my-child':Child
+    //   }
+    // });
     </script>
 </body>
 
