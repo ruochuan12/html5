@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.3高级函数-函数柯里化</title>
+</head>
+<body>
+    <div>
+        1.3高级函数-函数柯里化<br>
+        <a href="http://www.zhangxinxu.com/wordpress/2013/02/js-currying/comment-page-1/#comment-330024">JS中的柯里化(currying)</a>
+        <br><a href="http://www.cnblogs.com/pigtail/p/3447660.html">前端开发者进阶之函数柯里化Currying</a>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">MDN Array.prototype.slice()  slice() 方法会浅复制（shallow copy）数组的一部分到一个新的数组，并返回这个新数组。</a>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">MDN Function.prototype.bind</a>
+    </div>
+    <script type="text/javascript">
+    //合并参数第一个函数的参数合并成整体的 传递给统一的函数。
+    /*function add(n1,n2){
+        return n1,n2;
+    }
+    add(1,2);//2*/
+
+    function curry(fn){
+        var args = Array.prototype.slice.call(arguments,1);
+        return function(){
+            var innerArgs = Array.prototype.slice.call(arguments);
+            var finalArgs = args.concat(innerArgs);
+            return fn.apply(this,finalArgs);
+        }
+    }
+    function add(n1,n2,n3){
+        return n1+n2+n3;
+    }
+    var t = curry(add,50)(1,2);
+    console.log(t);
+    </script>
+</body>
+</html>

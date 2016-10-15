@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.2.1、关于包装对象原型的一道面试题</title>
+</head>
+<body>
+    <div>
+        <a href="http://www.cnblogs.com/dolphinX/p/3280340.html">JavaScript包装对象</a>
+        <a href="https://my.oschina.net/u/2400412/blog/482505">javascript标准对象与包装对象</a>
+        <a href="http://fanxiaoshuang.com/post/10.html">只会用jQuery前端到底low不low？</a>
+        <a href="http://fanxiaoshuang.com/post/9.html">前端工程师如何月薪过4万</a>
+        <!-- 随即销毁 -->
+    </div>
+    <script type="text/javascript">
+    // 一道面试题
+    Object.prototype.name=1;
+    //console.log(1.name);//报错
+    console.log('1'.name);//1
+    console.log('2'.name);//1
+    console.log(Number(1).name);//"number"
+    console.log(1.0.name);//1,number
+    console.log(2.0.name);//1,number
+    console.log(Number(1.0).name);//"number"
+    console.log(Function.name);//"Function"
+    // 1、由此说明：包装对象的prototype指向是对应的对象。
+    // 2、但对应的对象上没有name值，所以指向Object上的name属性。
+    // 3、Function.name指函数的name值。
+    // 4、Number(1).name也是指函数的name值number。
+    // 虽然包装对象看上去和原来的值一模一样，显示出来也是一模一样，但他们的类型已经变为object了！所以，包装对象和原始值用===比较会返回false;
+    
+    </script>
+</body>
+</html>

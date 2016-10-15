@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.4高级函数-级联函数</title>
+</head>
+<body>
+    <div>
+        1.4高级函数-级联函数
+    </div>
+    <script type="text/javascript">
+    function CreatePerson() {
+        this.name = "";
+        this.sex = "";
+        this.age = "";
+    }
+    CreatePerson.prototype = {
+        // 修正constructor
+        constructor:CreatePerson,
+        setName: function () {
+            this.name = "lxchuan12";
+            return this;
+
+        },
+        setSex: function () {
+            this.sex = "man";
+        },
+        setAge: function () {
+            this.age = "90";
+            return this;
+        }
+    }
+    var person = new CreatePerson();
+    person.setName().setAge().setSex();
+    console.log(person);
+    console.log("姓名:"+person.name+"\n性别:"+person.sex+"\n年龄:"+person.age);
+    console.log(CreatePerson.constructor);//function Function([native code])
+    console.log(person.constructor);//没修正前:Object函数体
+    console.log(person.constructor);//修正后是:CreatePerson函数体
+    </script>
+</body>
+</html>

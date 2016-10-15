@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.2、高级函数-惰性函数</title>
+</head>
+<body>
+    <div>
+        1.2、高级函数-惰性函数
+        <a href="http://www.jikexueyuan.com/course/1272_2.html?ss=1" target="_blank">极客学院视频教程：高级函数-惰性函数</a>
+        <a href="http://www.cnblogs.com/dolphinX/p/3251165.html" target="_blank">JavaScript 函数惰性载入</a>
+    </div>
+    <script type="text/javascript">
+        function createXHR(){
+            var xhr = null;
+            try {
+                //Firefox,Opera8.0,Safari,IE7+
+                xhr = new XMLHttpRequest();
+            } catch (e){
+                /*//处理错误  handleErr(e);*/
+                // Internet Explorer
+              try{
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+              }catch(e){
+                try{
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }catch(e){
+                    xhr = null;
+                }
+              }
+            }
+            return xhr;
+        }
+        console.log(e); //undefined
+        /*//要处理这个错误一般申明一个handleErr函数。
+        function handleErr(err){
+            var errXHR = err;
+        }*/
+        /* 惰性函数 */
+        function createXHR2(){
+            var xhr=null;
+            if(typeof XMLHttpRequest !='undefined'){
+                xhr = new XMLHttpRequest();
+                createXHR=function(){
+                    return new XMLHttpRequest();
+                }
+            }else{
+                try {
+                    xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                    createXHR=function(){
+                        return new ActiveXObject("Msxml2.XMLHTTP");
+                    }
+                }
+                catch (e) {
+                    try {
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                        createXHR=function(){
+                            return new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                    }
+                    catch (e) {
+                        createXHR=function(){
+                            return null;
+                        }
+                    }
+                }
+            }
+            return xhr;
+        }
+    </script>
+</body>
+</html>
