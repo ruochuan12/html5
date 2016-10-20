@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>17-jquery的插件使用</title>
+</head>
+<body>
+	<div class="box">
+		<div id="div1">17-jquery的插件使用</div>
+	</div>
+	<script src="../jqueryVesion/jquery-1.11.1.js"></script>
+	<script>
+	// $.extend() 扩展工具方法的形式,类似于$.xxx,$.yyy;
+	// $.fn.extend() 扩展JQ对象下的方法，$().xxx,$().yyy
+	$.extend({
+		leftTrim:function(str){
+			return str.replace(/^\s+/,'');
+		},
+		rightTrim:function(str){
+			return str.replace(/\s+$/,'');
+		}
+	});
+	$.fn.extend({
+		leftTrim:function(str){
+			return str.replace(/^\s+/,'');
+		},
+		rightTrim:function(str){
+			return str.replace(/\s+$/,'');
+		}
+	});
+	console.log($.leftTrim('      {hello   }       ')+'1');
+	console.log($.rightTrim('      {hello   }       ')+'1');
+	</script>
+</body>
+</html>
