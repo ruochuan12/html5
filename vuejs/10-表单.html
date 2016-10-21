@@ -10,7 +10,7 @@
 <body>
 <div id="example-1">
     <select v-model="selected">
-      <option value="">请选择</option>
+      <option value="D">请选择</option>
       <option v-for="option in options" v-bind:value="option.value">
         {{ option.text }}
       </option>
@@ -21,7 +21,7 @@
     new Vue({
       el: '#example-1',
       data: {
-        selected: 'A',
+        selected: 'D',
         options: [
           { text: 'One', value: 'A' },
           { text: 'Two', value: 'B' },
@@ -29,6 +29,8 @@
         ]
       }
     })
+    //渲染出来的value与selected选择项相同，则选中！selected
+    //所以默认为空，则"请选择"显示，不需要特意加selected。
     </script>
 </body>
 
