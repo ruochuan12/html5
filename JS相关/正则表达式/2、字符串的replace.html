@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串的replace方法-过滤敏感词</title>
+</head>
+<body>
+<textarea name="" id="" cols="30" rows="10">
+过滤敏感词：
+统计字符串中每个字符的出现频率，返回一个 Object，key 为统计字符，value 为出现频率
+1. 不限制 key 的顺序
+2. 输入的字符串参数不会为空
+3. 忽略空白字符 </textarea>
+<button id="btn">点击替换</button>
+<textarea name="" id="" cols="30" rows="10"></textarea>
+    <script>
+        var aT = document.getElementsByTagName('textarea');
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+            var re = /字符串|出现|忽略/g;
+            // aT[1].value = aT[0].value.replace(re,'*');
+            aT[1].value = aT[0].value.replace(re,function(str){
+                var result = '';
+                for (var i=0; i<str.length;i++){
+                    result += '*';
+                }
+                return result;
+            });
+        }
+        /**
+        统计字符串中每个字符的出现频率，返回一个 Object，key 为统计字符，value 为出现频率
+        1. 不限制 key 的顺序
+        2. 输入的字符串参数不会为空
+        3. 忽略空白字符
+        输入例子:
+        count('hello world')
+        输出例子:
+        {h: 1, e: 1, l: 3, o: 2, w: 1, r: 1, d: 1}
+        */
+       //实现方案一：
+       function count(str){
+        var result = {};
+        for (var i=0;i<str.length;i++){
+            if(str.charAt(i)!==' '){
+                if(!result[str.charAt(i)]){
+                    result[str.charAt(i)] = 1;
+                }else{
+                    result[str.charAt(i)]++;
+                }
+            }
+        }
+        return result;
+       }
+       console.log(count('hello world'));
+       //实现方案二：
+       function count_2(str) {
+            var obj = {};
+            // \S:非空白符
+            str.replace(/\S/g,function(s){
+                !obj[s]?obj[s]=1:obj[s]++;
+            })
+            return obj;
+        }
+        console.log(count_2('hello world'));
+    </script>
+</body>
+</html>
