@@ -7,6 +7,7 @@ require.config({
 	//shim:把没有支持amd写法的转成支持 amd写法。
 });
 require(['a','b','c'],function(a,b,cM){
+	//如果是a.js则是相对于requirejs/这个文件夹。如果是a则是相对于data-main里的文件路径（也就是默认baseUrl）
 	a.aFn();
 	b.bFn();
 	cM.cFn();
