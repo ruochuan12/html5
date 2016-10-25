@@ -3,6 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>17-jquery的插件使用</title>
+	<style>
+		#div1{ width:100px; height:100px; background:red; position:absolute;}
+	</style>
 </head>
 <body>
 	<div class="box">
@@ -28,6 +31,44 @@
 			return str.replace(/\s+$/,'');
 		}
 	});
+	$.fn.extend({
+	
+		drag : function(){
+			
+			//this : $('#div1')
+			
+			var disX = 0;
+			var disY = 0;
+			
+			var This = this;
+			
+			this.mousedown(function(ev){
+				
+				disX = ev.pageX - $(this).offset().left;
+				disY = ev.pageY - $(this).offset().top;
+				
+				$(document).mousemove(function(ev){
+					
+					This.css('left' , ev.pageX - disX);
+					This.css('top' , ev.pageY - disY);
+					
+				});
+				
+				$(document).mouseup(function(){
+					$(this).off();
+				});
+				
+				return false;
+				
+			});
+			
+		},
+		aaa : function(){
+			alert(2);
+		}
+		
+	});
+	$('#div1').drag();
 	console.log($.leftTrim('      {hello   }       ')+'1');
 	console.log($.rightTrim('      {hello   }       ')+'1');
 	</script>
