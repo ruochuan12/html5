@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检测是否全是数字-0-9</title>
+</head>
+<body>
+    <script>
+       //实现方案一：字符串方法
+       function detectNum(str){
+        for (var i=0;i<str.length;i++){
+            if(str.charCodeAt(i)<48||str.charCodeAt(i)>57){
+                return false;
+            }
+        }
+        return true;
+       }
+       console.log(detectNum('13s'));//false
+       console.log(detectNum('13'));//true
+       console.log(detectNum('13.1'));//false
+       console.log(detectNum(' 131'));//false
+       //实现方案二：正则表达式法
+       function detectNum_2(str){
+        var reg = /^\d$/;
+        if(reg.test(str)){
+            return true;
+        }else{
+            return false;
+        }
+       }
+       console.log('-----detectNum_2-------');
+       console.log(detectNum('13s'));//false
+       console.log(detectNum('13'));//true
+       console.log(detectNum('13.1'));//false
+       console.log(detectNum(' 131'));//false
+
+       // 然而需求往往是这样的，全为数字，第一个不能为零。并且不让输入，其他符号。
+       // 这时候正则表达式就更方便了，还可以控制位数。
+    </script>
+</body>
+</html>
