@@ -36,6 +36,16 @@
 
        // 然而需求往往是这样的，全为数字，第一个不能为零。并且不让输入，其他符号。
        // 这时候正则表达式就更方便了，还可以控制位数。
+       //实现方案三：正则表达式法（引申）
+       function detectNum_3(str){
+        str.replace(/\D/g,'');
+        var reg = /^\d$/;
+        if(reg.test(str)){
+            return true;
+        }else{
+            return false;
+        }
+       }
     </script>
 </body>
 </html>
