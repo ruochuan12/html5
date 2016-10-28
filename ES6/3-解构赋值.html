@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			解构赋值：
+				ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。
+			
+			数组的解构赋值：
+				按照对应的顺序解构。
+
+		*/
+		"use strict"
+		// var arr = [1,[2,3]];
+		// var [a,[b,c]] = arr;
+
+		// console.log(a,b,c);
+		// var obj = {
+		// 	foo:function(){
+
+		// 	},
+		// 	o:{
+
+		// 	},
+		// 	arr:[],
+		// 	str:'abc'
+		// }
+		// var {foo,arr,str,o} = obj;
+		// console.log(foo,arr,str,o);
+
+		// function fn(){
+
+		// 	return {}
+		// }
+
+		var y = 1;
+		var x = 2;
+
+		var [x,y] = [y,x];
+
+		console.log(x,y);
+	</script>
+</body>
+</html>
