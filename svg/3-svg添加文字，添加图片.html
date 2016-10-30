@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>3-svg添加文字，添加图片</title>
+	<style>
+		#div1{
+			width: 400px;
+			height: 400px;
+			background: #fff;
+		}
+		body{
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+	<!-- 直接在html页面中添加svg -->
+	<div id="div1">
+		<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+		<g style="cursor:pointer;">
+  		<!-- 继承，若子级写了，则覆盖父级 -->
+  		<circle cx="200" cy="200" r="50" stroke="blue" stroke-width="2" fill="transparent"/>
+  		<image x="200" y="200" width="100" height="100"xlink:href="http://tva2.sinaimg.cn/crop.0.0.720.720.180/6478e1b7jw8etwfhv9syrj20k00k0my1.jpg"></image>
+  		<!-- image没有rx这类属性 -->
+  		<text x="200" y="208" text-anchor="middle" font-size="20" fill="red">居中文字</text>
+  		<!-- text-anchor:start,middle,end,color:#fff;无法设置字体颜色 ,用fill-->
+  		<!-- 文字基线不是底部，离底部高一些 -->
+  		</g>
+		</svg>
+	</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>2svg-分组g标签</title>
+	<style>
+		#div1{
+			width: 400px;
+			height: 400px;
+			background: #fff;
+		}
+		body{
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+	<!-- 直接在html页面中添加svg -->
+	<div id="div1">
+		<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+		<g id="g1" transform="translate(200, 200)" stroke="red"
+  stroke-width="2" fill="transparent">
+  		<!-- 继承，若子级写了，则覆盖父级 -->
+  		<circle cx="100" cy="100" r="20" stroke="blue"/>
+		<circle r="30"/>
+		<circle r="40"/>
+  		<circle r="50"/>
+		<circle r="60"/>
+  		<circle r="70"/>
+  		</g>
+		</svg>
+	</div>
+</body>
+</html>

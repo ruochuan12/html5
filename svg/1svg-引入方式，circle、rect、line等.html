@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>1svg-引入方式，circle、rect、line等</title>
+	<style>
+		#div1{
+			width: 400px;
+			height: 400px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 引入方式：图片，背景，iframe等 -->
+	<img src="1svg.svg" alt="">
+	<div style="width:200px;height:200px;background:url(1svg.svg) no-repeat;"></div>
+	<iframe src="1svg.svg" frameborder="0"></iframe>
+	<!-- 直接在html页面中添加svg -->
+	<div id="div1">
+		<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+			<circle cx="100" cy="100" r="40" stroke="black"
+  stroke-width="2" fill="transparent" />
+  		<circle cx="150" cy="150" r="40" fill="blue"></circle>
+  		<rect x="200" y="100" width="100" height="100" rx="30" ry="20" fill="pink"></rect>
+  		<line x1="20" y1="50" x2="200" y2="300" stroke="red" stroke-width="5" stroke-opacity="0.4"></line>
+		</svg>
+	</div>
+</body>
+</html>
