@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+	//var s = 'miaov';
+	//var s = '𠮷';
+	//console.log(s.length);
+
+	//console.log(s.charCodeAt(3))
+	//charAt(0)
+	//对四个字节的字符进行操作。
+	// str.at();//返回对应位置的字符
+	// console.log(s.codePointAt(0))//返回码点
+	// console.log(String.fromCodePoint(134071))//根据码点返回字符
+
+	//console.log(s.repeat(10)) //复制s 10次
+
+	//模板字符串
+
+	var name ='leo';
+	var age = 39;
+
+	// var str = '你的名字是：'+name+'你的年龄是：'+age;
+	// console.log(str);
+
+	var str = `你的名字是：${name}你的年龄是：${age}`;
+	//console.log(str);
+
+	/*
+		模板字符串（template string）是增强版的字符串，用反引号（`）标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。
+
+		代码中的字符串用反引号(`)表示，如果需要引入变量则使用${变量名}，	在{}中可以进行运算，也可以引用对象属性。
+	*/
+
+	/*
+		unicode表示法
+		"\u0061" a
+
+	*/
+
+	// console.log("\u0061");
+	// console.log("\u{20BB7}");
+
+	/*
+		字符串方法：
+			str.includes()
+				参数：
+			 	1、要查找的字符串
+				2、起始位置	
+				返回布尔值，表示是否找到了参数字符串
+			str.startsWith()
+				参数：
+				 	1、要查找的字符串
+					2、起始位置	
+					返回布尔值，表示参数字符串是否在源字符串的头部。
+			str.endsWith()
+				参数：
+				 	1、要查找的字符串
+					2、起始位置（针对的是n个字符）	
+					返回布尔值，表示参数字符串是否在源字符串的尾部。			
+	*/
+
+	var s = 'miaov';
+
+	//console.log(s.includes("d"));
+	//console.log(s.startsWith('mia'));
+	//console.log(s.endsWith('ov'))
+	</script>
+</body>
+</html>
