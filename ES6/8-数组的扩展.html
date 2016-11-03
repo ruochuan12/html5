@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+	var arr = [1,2,3,4,5];
+	// for(var key of arr.keys()){//key值得遍历接口
+	// 	console.log(key);
+	// }
+	// for(var value of arr.values()){//value值得遍历接口
+	// 	console.log(value);
+	// }
+	// for(var [key,value] of arr.entries()){//key和value的遍历接口
+	// 	console.log(key,value);
+	// }
+
+
+	/*
+		数组推导
+	ES6提供简洁写法，允许直接通过现有数组生成新数组，这被称为数组推导（array comprehension）。
+
+	*/
+	var arr2 = [for(value of arr) value*2];
+
+	console.log(arr2);
+
+	</script>
+</body>
+</html>
