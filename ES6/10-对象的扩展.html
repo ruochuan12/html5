@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+	/*
+		Object.is()判断传入的参数是否是相等的
+
+	*/
+	//console.log(0 === -0)
+	//console.log(Object.is(0,-0))
+	//console.log(Object.is(NaN,NaN))
+
+	/*
+		Object.assign(target [,source1 ... sourceN])
+		将source对象的可枚举属性赋值到target对象上。
+		注意：如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+
+	*/
+	// var obj1 = {};
+	// var obj2 = {
+	// 	name:'zMouse'
+	// };
+	// var obj3 = {
+	// 	name:'duoduo',
+	// 	age:34
+	// }
+	// Object.assign(obj1,obj2,obj3);
+
+	// console.log(obj1);
+
+	/*
+		Object.getPrototypeOf(object)
+		用来获取一个对象的prototype对象
+		 Object.setPrototypeOf(object,prototype)
+		用来设置一个对象的prototype对象
+	*/
+
+	var Cat = function(name){
+		this.name = name;
+	};
+	Cat.prototype.showname = function(){
+		return this.name;
+	};
+	var Person = function(){
+
+	};
+	Person.prototype.dadoudou = function(){
+
+	};
+	var c1 = new Cat('momo');
+	//console.log(Object.getPrototypeOf(c1))
+
+	// Object.setPrototypeOf(c1,Person.prototype);
+
+	// console.log(Object.getPrototypeOf(c1))
+
+	</script>
+</body>
+</html>

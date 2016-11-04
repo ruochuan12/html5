@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+
+	var obj = {
+		a:1,
+		b:2
+	};
+
+	var p1 = new Proxy(obj,{
+		get(obj,attr){//当属性被访问的时候触发
+			// console.log(obj,attr)
+
+
+			return obj[attr];
+		},	
+		set(obj,attr,value){//当属性值修改时触发。
+			//console.log(obj,attr,value)
+			if(value < 100){
+				obj[attr] = value;
+			}
+			
+			return 2;
+		}
+	})
+	//console.log(p1.a)
+	p1.a = 1000;
+
+	console.log(p1.a)
+	</script>
+</body>
+</html>

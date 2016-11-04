@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+
+	// function fn(x,y){
+
+	// 	x++;
+	// 	y++;
+
+	// 	// return {
+	// 	// 	x:x,
+	// 	// 	y:y
+	// 	// }
+	// 	return {x,y};
+	// }
+	// console.log(fn(1,2))
+
+	// var obj = {
+	// 	name:'momo',
+	// 	// showName:function(){
+	// 	// 	return this.name;
+	// 	// }
+
+	// 	showName(){
+	// 		return this.name;
+	// 	}
+	// };
+	// console.log(obj.showName());
+
+	var sex = '男';
+	var person = {
+		name:'momo',
+		[sex]:false,
+		['get'+'name'](){
+			return this.name;
+		}
+	};
+
+	//console.log(person.getname());
+	//console.log(person[sex])
+	</script>
+</body>
+</html>
