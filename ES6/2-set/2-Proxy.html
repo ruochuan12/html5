@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+
+	var obj = {
+		x:1,
+		y:2
+	};
+	var p1 = new Proxy(obj,{
+		get(obj,attr){
+			//console.log("你访问了属性");
+			//console.log(obj);
+			/*
+				obj代表被代理的对象
+				attr当前方法的属性名
+
+			*/
+			// if(){
+
+			// }
+			return obj[attr];
+		},
+		set(obj,attr,value){
+			if(attr ==='y'){
+				if(value<200){
+					obj[attr] = value;
+				}
+			}
+			return 1;
+		}
+	})
+	//console.log(p1.y = 1)
+
+	p1.y = 500;
+
+	console.log(p1.y)
+	</script>
+</body>
+</html>
