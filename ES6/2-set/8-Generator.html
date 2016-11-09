@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+
+	function* fn(b){
+
+		// var a = yield 1;
+
+		// console.log(a);
+		// yield 2;
+		for(var i=0;i<10;i++){
+			yield i;
+		}
+	}
+	var f = fn(b);
+	console.log(f.next());
+	console.log(f.next(true));
+	console.log(f.next());
+	</script>
+</body>
+</html>

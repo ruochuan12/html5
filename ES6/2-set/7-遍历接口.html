@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+	var obj = {
+		a:1,
+		b:2,
+		c:3
+	};
+
+	// for( var value of obj){
+	// 	console.log(value);
+	// }
+
+	/*
+		Symbol
+		ES6引入了一种新的原始数据类型Symbol，表示独一无二的ID。它通过Symbol函数生成。
+
+	*/
+	// var s1 = Symbol('test');
+	// var s2 = Symbol('test');
+	// console.log(s1 == s2);
+	//console.log(typeof s1);
+
+	Object.prototype[Symbol.iterator] = function(){
+		var keys = Object.keys(this);
+		var _self = this;
+		var index = 0;
+		return {
+			next(){
+				if(index < keys.length){
+					return {value:_self[keys[index++]],done:false};
+				}else{
+					return {value:undefined,done:true};
+				}
+			}
+		};
+	}
+	for(var value of obj){
+		console.log(value);
+	}
+	</script>
+</body>
+</html>
