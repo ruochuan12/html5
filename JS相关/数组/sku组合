@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>sku组合</title>
+</head>
+<body>
+	<script>
+		/**
+         * [skuCombine sku组合生成]
+         * @param  {[Array]} arr [生成sku组合的sku维度数组]
+         * @return {[type]}     [sku组合数组]
+         */
+        function skuCombine(arr) {
+            var r = [];
+            (function f(t, a, n) {
+                if (n == 0) return (t.length ? r.push(t) : r);
+                for (var i = 0; i < a[n - 1].length; i++) {
+                    f(t.concat(a[n - 1][i]), a, n - 1);
+                }
+            })([], arr, arr.length);
+            return r;
+        }
+	</script>
+</body>
+</html>
