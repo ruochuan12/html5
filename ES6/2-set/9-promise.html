@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var p1 = new Promise(function(resolve,reject){
+
+		setTimeout(function(){
+			resolve();
+		}, 400)
+
+		// var xhr = new XMLHttpRequest();
+		// xhr.open('get','1.php',false);
+		// xhr.onreadystatechange = function(){
+		// 	if("成功"){
+		// 		resolve(a);
+		// 	}else{
+		// 		reject();
+		// 	}
+		// }
+		// xhr.send();
+	})
+	p1.then(function(a){
+		console.log('成功')
+		console.log(b);
+	},function(){
+		console.log('失败')
+	}).catch(function(e){
+		console.log(e);
+	});
+	/*
+		什么是promise
+		ES6的Promise对象是一个构造函数，用来生成Promise实例。下面是Promise对象的基本用法。
+		所谓Promise对象，就是代表了未来某个将要发生的事件（通常是一个异步操作）。它的好处在于，有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数
+		Promise
+			new Promise(function(resolve,reject){})
+			返回Promise实例对象。
+		then
+			promise.then(resolve,reject)
+			 返回promise
+
+
+	*/
+	</script>
+</body>
+</html>
