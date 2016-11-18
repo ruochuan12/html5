@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict"
+	class Cat{
+		constructor(name){
+			this.name = name;
+		}
+
+		getName(){
+			return this.name;
+		}
+	}
+
+	// var Cat = function(name){
+	// 	this.name = name;
+	// }
+	// Cat.prototype.getName = function(){
+	// 	return this.name;
+	// }
+/*
+	在constructor方法内，super指代父类的constructor方法；在其他方法内，super指代父类的同名方法。
+
+*/
+	class Momo extends Cat{
+		constructor(name,color){
+			super(name);
+			this.color = color;
+		}
+		showColor(){
+			return this.color;
+		}
+	}
+	var c1 = new Cat('leo');
+	var m1 = new Momo('momo','yellow');
+
+	// console.log(m1.getName());
+	console.log(m1.showColor());
+	//console.log(c1.getName())
+	</script>
+</body>
+</html>
