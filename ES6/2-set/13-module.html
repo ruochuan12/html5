@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="js/es5/main.js"></script>
+	<!--
+		什么是module
+		es6所提供的模块化
+		 export命令
+		export命令用于用户自定义模块，规定对外接口
+		语法
+			export var name = 'leo';
+			export {name1,name2}
+		 import命令
+		import命令用于输入其他模块提供的接口
+		语法	
+			import {nam1,name2} from '文件路径';
+			输入的名称必须与输出的相同
+		
+		
+		as关键字
+		为输入的变量换一个新的名字
+		import { name as n } from '路径';
+		 整体输入模块
+		import * as 变量名 from '路径';
+		module 变量名 from '路径';
+		输入的模块定义在变量名上
+		 export default
+			输出匿名函数
+		语法：
+			export default function(){};
+		在输入的时候可以使用任何名字指向该匿名函数
+		例如：
+			import name from '路径'；
+
+
+		模块的继承
+	export * from '模块路径';
+
+		输出模块中所有方法和属性
+
+	export { a as b} from '模块路径';
+
+		将模块中的a变量转为b输出
+	
+
+
+	-->
+</body>
+</html>
