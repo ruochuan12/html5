@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12.2-class</title>
+    <style>
+    /* 选择文字后字体颜色和背景色 */
+    ::selection {
+        color: white;
+        background: #0aa284;
+    }
+    </style>
+</head>
+<body>
+    <div>ES5中继承比较复杂
+         有类式继承，拷贝继承，原型继承等</div>
+         <p>
+             ::selection 伪类选择器用于突出显示的页面用户选择的任何部分，包括可编辑文本字段中的文本。
+
+            此伪元素可应用于 color ， background-color ，background（background-color 部分） 和text-shadow（注：到目前位置IE下该属性无效）属性。设置其他属性是没有任何效果的。
+
+            火狐下需要加-moz-属性前缀；
+
+            支持浏览器：Chrome，Firefox (Gecko)，Internet Explorer 9+，Opera，Safari
+
+            参考链接<a href="http://www.css88.com/archives/5169">CSS ::Selection 伪类选择器</a>
+         </p>
+    <script>
+        class Person{
+            constructor(name){
+                this.name = name;
+            }
+            getName(){
+                return this.name;
+                // console.log(this.name);
+            }
+        }
+        var p1 = new Person('lxchuan12');
+        console.log(p1); //Person {name: "lxchuan12"}
+        console.log(p1.getName()); //lxchuan12
+
+        // Class的继承
+        class OtherPerson extends Person{
+            constructor(name,age){
+                // 如果继承时父级有多个参数，可以写成（age,name,...rest）
+                super(name);
+                this.age = age;
+            }
+            showAge(){
+                return this.age;
+            }
+        }
+        var p2 = new OtherPerson('Rowboat',20);
+        console.log(p2); //OtherPerson {name: "Rowboat", age: 20}
+        console.log(p2.getName()); //Rowboat
+        console.log(p2.showAge()); //20
+        /**
+         * ES5中继承比较复杂
+         * 有类式继承，拷贝继承，原型继承等
+         */
+        // ES5写法
+        function Phone(version,color){
+            this.version = version;
+            this.color = color;
+        }
+        var phone1 = new Phone('H100-T10','pink');
+        Phone.prototype.getVersion = function() {
+            return this.version;
+        };
+        Phone.prototype.showColor = function() {
+            return this.color;
+        };
+        console.log(phone1);//Phone {version: "H100-T10", color: "pink"}
+        console.log(phone1.getVersion());//H100-T10
+        console.log(phone1.showColor());//pink
+    </script>
+</body>
+</html>
