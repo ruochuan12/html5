@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+//匹配子项 : 小括号 ()  (还有另外一个意思，分组操作)
+
+//1+1*2
+//(1+1)*2
+
+//把正则的整体叫做（母亲）
+//然后把左边第一个小括号里面的正则，叫做这个第一个子项(母亲的第一个孩子)
+//第二个小括号就是第二个孩子
+
+var str = '2013-6-7';
+
+var re = /(\d+)(-)/g;
+
+str = str.replace(re,function($0,$1,$2){
+	//第一个参数：$0（母亲）,第二个参数 : $1(第一个孩子)
+	//,第二个参数 : $1(第二个孩子)
+	
+	//alert( $2 );
+	
+	//return $1 + '.';
+	
+	return $0.substring(0,$0.length-1) + '.';
+	
+});
+
+alert( str );   //2013.6.7
+
+</script>
+</head>
+
+<body>
+</body>
+</html>
