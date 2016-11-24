@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular原理之双向绑定</title>
+</head>
+<body>
+    <p id="p1"></p>
+    <input type="text" name="name" value="" id="txt1">
+    <script>
+        /**
+         * angularjs原理
+         * 1、双向绑定：
+         * UI<--->数据
+         * 脏检查：defineGetter(监听)是ES6提供的。除了不太兼容还有其他问题。
+         * $scope上面谁变了，谁没变
+         * var json = {a:1,b:2,c:3}
+         * var oldJson = copy(json);
+         * //对json操作——不知道
+         * for(var i in oldJson){
+         *     if(oldJson[i]!==json[i])}{
+         *         //变了
+         *     }
+         * }
+         */
+        var a =  '';
+        //text->a;
+        window.onload = function(){
+            var oTxt = document.getElementById('txt1');
+            var oP = document.getElementById('p1');
+            //oninput是html5提供的一个事件
+            oTxt.oninput = function(){
+                a=oTxt.value;
+                oP.innerHTML = a;
+                console.log(a);
+            }
+            //伪代码
+            var aEle = document.getElementsByTagName('*');
+            for(var i=0;i<aEle.length;i++){
+                if(aEle[i].ngModel){
+                    //aEle[i].ngModel 与变了东西相同，则更新UI
+                    console.log('更新UI');
+                }
+            }
+        }
+        // a->text
+        // 
+        
+    </script>
+</body>
+</html>

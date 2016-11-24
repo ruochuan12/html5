@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular原理之双向绑定</title>
+</head>
+<body>
+    <p id="p1"></p>
+    <input type="text" name="name" value="" id="txt1">
+    <script>
+        /**
+         * angularjs原理
+         * 1、双向绑定：
+         * UI<--->数据
+         * 脏检查：defineGetter(监听)是ES6提供的。除了不太兼容还有其他问题。
+         * $scope上面谁变了，谁没变
+         * var json = {a:1,b:2,c:3}
+         * var oldJson = copy(json);
+         * //对json操作——不知道
+         * for(var i in oldJson){
+         *     if(oldJson[i]!==json[i])}{
+         *         //变了
+         *     }
+         * }
+         * 2、依赖注入:
+         * 好在：自己可以挑选参数，可以调整顺序。
+         * $scope,$http
+         * 
+         * 
+         */
+        window.onload = function(){
+            var $scope = {a:1,b:2,c:3,d:4,e:5,f:6};
+            //由函数的定义决定参数。
+            function show(a,b,c){
+                alert(arguments);//[object Arguments]
+                console.log(arguments);//[]类数组
+            }
+            
+            //1、知道show要了什么
+            var str = show.toString();
+            // match匹配到的是数组
+            str = str.split('{')[0].match(/\(.*\)/)[0].replace(/\s+/g,'');
+            str = str.substring(1,str.length-1);
+            console.log(str);//a,b,c
+            var arr = str.split(',');
+            console.log(arr);//['a','b','c']
+            //2、给它相应的东西
+            var args = [];
+            for(var i=0;i<arr.length;i++){
+                args[i] = $scope[arr[i]];
+            }
+            show.apply(null,args);
+            
+        }
+        
+        
+    </script>
+</body>
+</html>
