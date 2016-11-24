@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>generator</title>
+</head>
+<body>
+    <script>
+        // 分步执行，异步执行
+        // NodeJS
+        // Express--->ES5
+        // KOA---->ES6
+        // KOA与EXpress比：
+        // 1、性能好
+        // 2、重度依赖ES6
+        // 3、异步处理更好
+        function* show(){
+            //yield 12;
+            //yield 5;
+            var a = 12;
+            yield a;
+            var b = 5;
+            yield b;
+            yield a+b;
+        }
+        var gen = show();//不是真的执行show本身，是创建gen对象
+        console.log(gen.next());//Object {value:12,done:false}
+        console.log(gen.next());//Object {value:5,done:false}
+        console.log(gen.next());//Object {value:17,done:false}
+        console.log(gen.next());//Object {value: undefined, done: true}
+    </script>
+</body>
+</html>
