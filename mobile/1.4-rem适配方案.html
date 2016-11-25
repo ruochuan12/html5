@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="dns-prefetch" href="http://lxchuan12.github.io">
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta id="viewport" name="viewport" content="">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta content="email=no" name="format-detection">
+    <title>1.4-rem适配方案</title>
+    <style>
+    .title{
+      font-size: 0.24rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="tilte">1-rem适配方案-3</div>
+    <script>
+        window.onresize = function dpr() {
+            var d = document;
+            const desWidth = 750;
+            var _dpr = (1 / window.devicePixelRatio);
+            _dpr = 1;
+            const _MaxWidth = 414 * window.devicePixelRatio;
+            const userAgent = navigator.userAgent;
+            var widthStr = 'device-width';
+            var isMobile = true;
+            var iWidth = 0;
+            var _html = d.getElementsByTagName('html')[0];
+            if (userAgent.toLowerCase().indexOf('iphone') == -1 && userAgent.toLowerCase().indexOf('android') == -1) {
+                isMobile = false;//iWidth = _MaxWidth;
+                widthStr = iWidth + 'px';
+            }
+            d.querySelector('[name="viewport"]').setAttribute('content',
+                'width=' + widthStr + ' , initial-scale=' + _dpr + ', maximum-scale=' + _dpr + ', minimum-scale=' + _dpr + ', user-scalable=no');
+            iWidth = Math.min(d.documentElement.clientWidth, window.innerWidth);
+            if (!isMobile) iWidth = _MaxWidth;
+            _html.style.fontSize = (((100 * iWidth) / desWidth)) + 'px';
+            _html.dataset.dpr = 1;// window.devicePixelRatio;
+        };
+        window.onresize();
+        window.wxData = {};
+        window.support = {};
+    </script>
+</body>
+</html>
