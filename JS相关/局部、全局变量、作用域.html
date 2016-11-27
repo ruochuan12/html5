@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作用域</title>
+	<script>
+		window.onload=function(){
+			/**
+			var a=1;
+			function fn1(){
+				alert(a);		//undefined
+				var a=2;
+			}
+			fn1();
+			alert(a);			//1
+			*/
+			/**
+			var a=1;			
+			function fn1(){
+				alert(a);		//1
+				a=2;
+			}
+			fn1();
+			alert(a);			//2
+			*/
+			/**
+			var a=1;			
+			function fn1(a){	//相当于定义了一个var a;
+				alert(a);		//undefined
+				a=2;
+			}
+			fn1();
+			alert(a);			//1
+			*/
+			var a=1;			
+			function fn1(a){	
+				alert(a);		//1
+				a=2;
+			}
+			fn1(a);
+			alert(a);			//1
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
