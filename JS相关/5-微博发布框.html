@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>5-微博输入框</title>
+	<style type="text/css">
+	*{margin: 0;padding: 0;}
+	a{text-decoration: none;}
+	body{font-size: 14px;}
+	#div1{width: 600px;height: 166px;margin: 0 auto;}
+	#div1 p{float: right;}
+	#div1 textarea{width: 600px;height:80px;}
+	#div1 a{color: #fff;display: block;width: 80px;height: 30px;background: #FF8140;float: right;text-align: center;line-height: 30px;}
+	#div1 a.dis{background: #FFC09F;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		var oP=oDiv.getElementsByTagName('p')[0];
+		var oTxt=document.getElementById('txt');
+		var oA=oDiv.getElementsByTagName('a')[0];
+
+		var bBtn=true;
+		//最简短的判断是否为ie浏览器
+		var ie=!-[1,];
+		var timer=null;
+		var iNum=0;
+		//1、获得焦点，失去焦点
+		oTxt.onfocus=function(){
+			if(bBtn){
+				oP.innerHTML='还可以输入<span>140</span>字';
+				bBtn=false;
+			}
+
+		}
+		oTxt.onblur=function(){
+			if(oTxt.value==''){
+
+				oP.innerHTML='恒大再登亚洲之巅,高拉特荣膺射手王(祝贺)　热门微博';
+				bBtn=true;
+			}
+		}
+		//onchange 在元素值改变时触发。只能触发一次。
+		// ie 下，用onpropertychange,输入连续触发。
+		//oninput  输入连续触发。不同之处在于 oninput 事件在元素值发生变化是立即触发，onchange 在元素失去焦点时触发。
+		if(ie){
+			oTxt.onpropertychange=toChange;
+		}else{
+
+			oTxt.oninput=toChange;
+			
+		}
+		function getLength(str){
+
+			return String(str).replace(/[^\x00-\xff]/g,'aa').length;
+		}
+		function toChange(){
+
+			var num=Math.ceil(getLength(oTxt.value)/2);
+			var oSpan=oDiv.getElementsByTagName('span')[0];
+			if(num<=140){
+				
+				oSpan.innerHTML=140-num;
+				oSpan.style.color='';
+				// console.log(num);
+
+
+			}
+			else{
+				oSpan.innerHTML=num-140;
+				oSpan.style.color='red';
+
+			}
+			if(oTxt.value==''||num>140){
+
+				oA.className='dis';
+			}else{
+				oA.className='';
+			}
+
+		}
+		oA.onclick=function(){
+			if(this.className=='dis'){
+				clearInterval(timer);
+				timer=setInterval(function(){
+					if(iNum==5){
+						clearInterval(timer);
+						iNum=0;
+					}else{
+						iNum++;
+					}
+					if(iNum%2){				//求模，闪动
+						oTxt.style.background='#FFC09F';
+					}else{
+
+						oTxt.style.background='';
+					}
+					},100);
+			}else{
+				alert('发布成功');
+			};
+	}
+}
+	</script>
+</head>
+<body>
+<div id="div1">
+	<p> 恒大再登亚洲之巅,高拉特荣膺射手王(祝贺)　热门微博</p>
+	<textarea name="" id="txt" cols="30" rows="10"></textarea>
+	<a href="javascript:;" class="dis">发布</a>
+</div>
+</body>
+</html>
