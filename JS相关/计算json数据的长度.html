@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算Json数据的长度</title>
+</head>
+<body>
+<a href="http://caibaojian.com/json-length.html">JSON对象长度和遍历方法</a>
+	<script>
+		/*
+		计算Json数据的长度
+		数组有长度length，({"abc":[{"name":"txt1"},{"name","txt2"}]})但json没有长度。
+		json本身没有length属性，所以用length属性自然会出错
+		 */
+		var json = {"name":"txt1","name2":"txt2"};
+		var length = 0;
+		for (var attr in json){
+			length++;
+		}
+		console.log(length);//2
+		/**
+		*应用，sku选择判断是否全部选择了。
+		 */
+	</script>
+</body>
+</html>
