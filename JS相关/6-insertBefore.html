@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>insertBefore</title>
+    <script>
+        window.onload=function(){
+            function $(id){
+                return document.getElementById(id);
+            }
+            
+            var aLi=$("ul1").getElementsByTagName('li');
+            var num=0;
+            
+            $("btn1").onclick=function(){
+                var oLi=document.createElement("li");
+                // if(!aLi.length){
+                //     $("ul1").appendChild(oLi);
+                // }else{
+                //     $("ul1").insertBefore(oLi,aLi[0]);
+                // }
+                //当insertBefore第二个参数为null时，也可以添加，也就是添加到第一个。MDN
+                //因此可以不用if判断。
+                $("ul1").insertBefore(oLi,aLi[0]);
+                oLi.innerHTML=num++;
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" id="btn1" value="添加"/>
+	<ul id="ul1">
+        
+    </ul>
+</body>
+</html>
