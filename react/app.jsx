@@ -1,7 +1,7 @@
 // class HelloWorld extends React.Component{
 let HelloWorld = React.createClass({
     getInitialState(){
-        alert('init');
+        console.log('init');
         return {
             opacity:1,
             color:'red',
@@ -14,10 +14,10 @@ let HelloWorld = React.createClass({
         );
 	},
     componentWillMount(){
-        alert('Will');
+        console.log('Will');
     },
     componentDidMount(){
-        alert('Did');
+        console.log('Did');
         let that = this;
         window.setTimeout(()=>{
             that.setState({
