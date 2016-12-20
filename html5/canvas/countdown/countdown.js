@@ -12,9 +12,9 @@ var balls = [];
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
 
 window.onload = function(){
-
-    WINDOW_WIDTH = document.body.clientWidth;
-    WINDOW_HEIGHT = document.body.clientHeight;
+    // 还是取screen.width,和screen.height比较实在。
+    WINDOW_WIDTH = window.screen.width-10||document.body.clientWidth;
+    WINDOW_HEIGHT = window.screen.height-180||document.body.clientHeight;
     console.log('width,height',WINDOW_WIDTH,WINDOW_HEIGHT);
     MARGIN_LEFT = Math.round(WINDOW_WIDTH /10);
     RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108)-1;
