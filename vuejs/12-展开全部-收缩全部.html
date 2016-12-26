@@ -4,6 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>12-展开全部-收缩全部</title>
+    <style>
+    .btn-text{
+      cursor: pointer;
+    }
+    .btn-text:hover{
+      text-decoration: underline;
+      color: #148FE9;
+    }
+    </style>
     <script src="js/vue.js"></script>
 </head>
 
@@ -13,7 +22,7 @@
       <ul class="log-info">
         <li class="item" v-for="(index,item) in wrap.log" v-show="index<wrap.length">{{index+1+'-'}}{{item.text}}</li>
       </ul>
-      <span @click="toggle(wrap)" v-show="wrap.log.length>8">{{wrap.length===8?'展开全部':'收缩全部'}}</span>
+      <span class="btn-text" @click="toggle(wrap)" v-show="wrap.log.length>minlength">{{wrap.length===minlength?'展开全部':'收缩全部'}}</span>
       </div>
     </div>
     <script>
