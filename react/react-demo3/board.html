@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+           <style type="text/css">
+                .down_select{
+                    height: 20px;
+                    background: #fff;
+                    width: 60px;
+                    color: #000;
+                }
+                .handle {
+                    width: 40px;
+                    border:1px solid #ccc;
+                    background: #fff;
+                    position: absolute;
+                    right: 10px;
+                    top:1px;
+                    text-align: center;
+                }
+
+                .handle a{
+                    display: block;
+                    text-decoration: none;
+                }
+                .list-group-item .centence{
+                    padding: 0px 50px;
+                }
+                .user{
+                    font-size: 22px;
+                }
+                .reply {
+                    margin-top: 0px;
+                }
+                .list-group li {
+                    transition: .5s;
+                    overflow: hidden;
+                }
+            </style>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+
+<body>
+    <header class="site-header jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>欢迎来到妙味课堂</h1>
+                    <p class="lead">妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一种全新的快乐学习方法！</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container" id="demo">
+        <div class="container">
+            <div class="col-md-4">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" class="form-control" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
+                        <label>留言内容</label>
+                        <textarea class="form-control" rows="6" placeholder="留言内容"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default pull-right">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h3 class="reply">留言回复：</h3>
+                <h2 style="display:none;">暂无留言，点击左侧添加留言！！！</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                    	 <div class="handle" >
+                            <a href="javascript:;">删除</a>
+                         </div>
+                    	<p class="user" ><span >多多</span><span>说:</span></p>
+                   		<p class="centence">妙味是我家</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
