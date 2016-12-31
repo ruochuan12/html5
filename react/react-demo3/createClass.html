@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<script src="./src/react.js"></script>
+		<script src="./src/react-dom.js"></script>
+		<script src="./src/browser.min.js"></script>
+	</head>
+
+	<body>
+		<div id="demo"></div>
+		<script type="text/babel">
+
+			var FirstComponent = React.createClass({
+					render:function (){
+						return (
+							<div>
+								<h1>{this.props.title}</h1>
+								<input type="text" />
+								<input type="button" value={this.props.sendName} />
+							</div>
+						)	
+					}
+				});
+
+			/*var title = '欢迎来到妙味课堂!!!';
+			var send = "提交";*/
+
+			var obj = {
+				title:'欢迎来到妙味课堂!!!',
+				sendName:'提交'
+			}
+			
+			ReactDOM.render(
+				<FirstComponent title= {obj.title} sendName={obj.sendName} />,
+				document.getElementById("demo"),
+				function(){
+					console.log("页面渲染完成");
+				}
+			);
+
+		</script>
+	</body>
+</html>
