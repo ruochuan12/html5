@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>自执行的匿名函数</title>
+	<script type="text/javascript">
+	// 重要用途：可以用它创建命名空间，只要把自己所有的代码都写在这个特殊的函数包装内，那么外部就不能访问，除非你允许。
+	// 用这种伪命名空间封装并保护自己的所有函数、对象和变量。
+	(function(){
+		var a=10;
+		var b=20;
+		function $(){
+			alert(b);
+		}
+		// 允许外部访问的接口。
+		window.$=$;
+
+	})();
+	// 不让外部访问，函数，对象和变量。
+	// alert(a);
+	$();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

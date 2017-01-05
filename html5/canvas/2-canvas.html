@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5---canvas</title>
+    <style>
+    #myCanvas{
+        border:1px solid #F00;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 1024;
+    canvas.height = 568;
+    // 绘制三角形
+    context.beginPath();
+    context.moveTo(0,0);
+    context.lineTo(500,500);
+    context.lineTo(100,500);
+    context.lineTo(0,0);
+    context.lineWidth = 5;
+    context.strokeStyle = '#f00';
+    context.stroke();
+    context.closePath();
+    context.fillStyle = 'rgb(2,100,30)';
+    context.fill();
+    context.beginPath();
+    context.moveTo(300,0);
+    context.lineTo(800,500);
+    context.lineTo(300,500);
+    context.lineTo(300,0);
+    context.lineWidth = 5;
+    context.strokeStyle = '#000';
+    context.stroke();
+    context.closePath();
+
+    </script>
+</body>
+</html>

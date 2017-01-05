@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5---canvas--圆，beginPath,closePath</title>
+    <style>
+    #myCanvas{
+        border:1px solid #F00;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+    var canvas = document.getElementById('myCanvas');
+    canvas.width = 1024;
+    canvas.height = 768;
+    var ctx = canvas.getContext('2d');
+    // 绘制圆
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#005588';
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,60,40,0,2*Math.PI*(i+1)/10);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,180,40,0,2*Math.PI*(i+1)/10);
+        ctx.stroke();
+    }
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,300,40,0,2*Math.PI*(i+1)/10,true);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,420,40,0,2*Math.PI*(i+1)/10,true);
+        ctx.stroke();
+    }
+    ctx.fillStyle = '#005588';
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,520,40,0,2*Math.PI*(i+1)/10,true);
+        ctx.closePath();
+        ctx.fill();
+    }
+    for (var i=0;i<10;i++){
+        ctx.beginPath();
+        ctx.arc(50+i*100,620,40,0,2*Math.PI*(i+1)/10,true);
+        ctx.fill();
+    }
+    </script>
+</body>
+</html>

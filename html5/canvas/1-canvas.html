@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html5,canvas</title>
+	<style>
+	#myCanvas{
+		border:1px solid #F00;
+		float: left;
+	}
+	.img-wrap{
+		float: left;
+	}
+	</style>
+</head>
+<body>
+<div>
+参考链接：<a href="http://blog.csdn.net/clh604/article/details/8536059">html5 canvas 详细使用教程</a>
+<a href="http://www.runoob.com/html/html5-canvas.html">HTML5 Canvas</a>
+</div>
+	<div class="img-wrap">
+		<img id="img" src="http://tva2.sinaimg.cn/crop.0.0.720.720.180/6478e1b7jw8etwfhv9syrj20k00k0my1.jpg" alt="头像">
+	</div>
+	<canvas id="myCanvas" width="200" height="500"></canvas>
+	<script>
+	var canvas = document.getElementById('myCanvas');
+	var ctx = canvas.getContext('2d');
+	// 画方形
+	ctx.fillStyle = 'pink';
+	ctx.fillRect(0,0,150,75);
+	// 划线
+	ctx.moveTo(0,0);
+	ctx.lineTo(200,100);
+	ctx.stroke();
+	// 画圆
+	ctx.beginPath();
+	ctx.arc(90,50,40,0,2*Math.PI);
+	ctx.stroke();
+	// 绘制字体
+	ctx.font = '30px Arial';
+	// 实心字体
+	ctx.fillText('Hello Canvas',10,120);
+	// 空心字体
+	ctx.strokeText('hello canvas',10,160);
+	// 绘制渐变
+	var grd = ctx.createLinearGradient(0,300,200,0);
+	grd.addColorStop(0,'red');
+	grd.addColorStop(1,'white');
+	// 渐变填充
+	ctx.fillStyle = grd;
+	ctx.fillRect(0,180,200,100);
+	// 绘制图像
+	var img = document.getElementById('img');
+	ctx.drawImage(img,0,300);
+
+	</script>
+</body>
+</html>

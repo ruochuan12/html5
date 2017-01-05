@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>12-展开全部-收缩全部</title>
+    <style>
+    .btn-text{
+      cursor: pointer;
+    }
+    .btn-text:hover{
+      text-decoration: underline;
+      color: #148FE9;
+    }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+      <div v-for="wrap in logData">
+      <ul class="log-info">
+        <li class="item" v-for="(index,item) in wrap.log" v-show="index<wrap.length">{{index+1+'-'}}{{item.text}}</li>
+      </ul>
+      <span class="btn-text" @click="toggle(wrap)" v-show="wrap.log.length>minlength">{{wrap.length===minlength?'展开全部':'收缩全部'}}</span>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        el: '#wrap',
+        data:{
+          // 默认展示8条,其余收缩
+          minlength: 8,
+          logData:[{
+            log:[
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              }
+            ]
+          },{
+            log:[
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              }
+            ]
+          },{
+            log:[
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              }
+            ]
+          },{
+            log:[
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              },
+              {
+                text:'这里是物流信息这里是物流信息这里是物流信息' 
+              }
+            ]
+          }]
+        },
+        created: function() {
+          let that = this;
+          that.logData = this.logData.map(function(item){
+            if(item.log.length > that.minlength){
+              return Object.assign({length:that.minlength},item);
+            } else {
+              return Object.assign({length:item.log.length},item);
+            }
+          });
+          console.log(this.logData);
+        },
+        methods:{
+          toggle:function(wrap){
+            let that = this;
+            console.log('toggle');
+            if (wrap.length === that.minlength) {
+              wrap.length = wrap.log.length;
+            } else {
+              wrap.length = that.minlength;
+            }
+            console.log(wrap.length);
+          }
+        }
+      });
+    </script>
+</body>
+
+</html>
