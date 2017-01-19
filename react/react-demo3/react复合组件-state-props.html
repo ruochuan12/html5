@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>disableInput</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example">
+		
+	</div>
+	<script type="text/babel">
+	  var WebSite = React.createClass({
+	  	getInitialState:function(){
+	  		return {
+	  			name:'轩辕Rowboat',
+	  			site:'http://lxchuan12.github.io'
+	  		}
+	  	},
+	  	render:function(){
+			return (
+				<div>
+					<Name name={this.state.name} />
+					<Link site={this.state.site} />
+				</div>
+			);
+	  	}
+	  });
+	  var Name = React.createClass({
+	  	render:function(){
+	  		return (
+	  			<h1>{this.props.name}</h1>
+	  		);
+	  	}
+	  });
+	  var Link = React.createClass({
+	  	render:function(){
+	  		return (
+				<a href={this.props.site} target="_blank">
+					{this.props.site}
+				</a>
+	  		);
+	  	}
+	  });
+
+	  ReactDOM.render(
+	  	<WebSite />,
+	  	document.getElementById('example')
+	  );
+	</script>
+</body>
+</html>

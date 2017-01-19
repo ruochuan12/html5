@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>getDefaultProps</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div>state 和 props 主要的区别在于 props 是不可变的，而 state 可以根据与用户交互来改变。可以通过 getDefaultProps() 方法为 props 设置默认值，有设置则是取设置的值</div>
+	<div id="example">
+		
+	</div>
+	<script type="text/babel">
+		var HelloMessage = React.createClass({
+			getDefaultProps:function(){
+				return {
+					msg:'Hello,World! getDefaultProps'
+				};
+			},
+			render:function(){
+				return <h1>{this.props.msg}</h1>
+			}
+		});
+		ReactDOM.render(
+			<HelloMessage msg="hello,world!"/>,
+			document.getElementById('example')
+		);
+	</script>
+</body>
+</html>

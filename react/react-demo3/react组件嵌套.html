@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>disableInput</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example">
+		
+	</div>
+	<script type="text/babel">
+		var Search = React.createClass({
+			render:function(){
+				return (
+					<div>
+						{this.props.searchType}:<input type="text" />
+						<button>Search</button>
+					</div>
+				);
+			}
+		});
+		var Page = React.createClass({
+			render:function(){
+				return (
+					<div>
+						<h1>Welcome!</h1>
+						<Search searchType="Title" />
+						<Search searchType="Content" />
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<Page/>,
+			document.getElementById('example')
+		);
+	</script>
+	<p>
+	</p>
+</body>
+</html>

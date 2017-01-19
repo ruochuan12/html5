@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>disableInput</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="demo">
+		这里是demo<span>这个demo的div下会被替换</span>
+	</div>
+	<script type="text/babel">
+		var InputState = React.createClass({
+			getInitialState: function(){
+				return {enable:false};
+			},
+			handleClick: function(event){
+				this.setState({
+					enable:!this.state.enable
+				});
+			},
+			render: function(){
+				return (
+					<div>
+						<input type="text" disabled={this.state.enable} />
+						<button onClick={this.handleClick}>change State</button>
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<InputState />,
+			document.getElementById('demo')
+		);
+	</script>
+</body>
+</html>
