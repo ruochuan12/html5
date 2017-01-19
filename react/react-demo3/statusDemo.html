@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>disableInput</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example">
+		
+	</div>
+	<script type="text/babel">
+		var Hello = React.createClass({
+			getInitialState:function(){
+				return {
+					opacity:1.0,
+					fontSize: 32
+					// px可以省略，React 会在指定元素数字后自动添加 px
+				}
+			},
+			componentDidMount:function(){
+				this.timer = setInterval(function(){
+					var opacity = this.state.opacity;
+					opacity -= 0.05;
+					if (opacity < 0.1) {
+						opacity = 1;
+					}
+					this.setState({
+						opacity: opacity
+					});
+				}.bind(this),100);
+			},
+			render:function(){
+				return (
+					// <div style={this.state}> 或者：
+					<div style={{opacity:this.state.opacity,fontSize:this.state.fontSize}}>
+						hello,{this.props.name}
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<Hello name="world"/>,
+			document.getElementById('example')
+		);
+	</script>
+	<p>
+	上面代码在hello组件加载以后，通过 componentDidMount 方法设置一个定时器，每隔100毫秒，就重新设置组件的透明度，从而引发重新渲染。
+	</p>
+</body>
+</html>

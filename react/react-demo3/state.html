@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>disableInput</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example">
+		
+	</div>
+	<script type="text/babel">
+		var NameButton = React.createClass({
+			getInitialState:function(){
+				return {
+					liked:false
+				};
+			},
+			handleClick:function(event){
+				this.setState({
+					liked:!this.state.liked
+				});
+			},
+			render:function(){
+				var text = this.state.liked?'轩辕':'Rowboat';
+				return (
+					<p onClick={this.handleClick}>
+						我是{text}
+						<br/>点击切换名称
+					</p>
+				);
+			}
+		});
+		ReactDOM.render(
+		 <NameButton />,
+		 document.getElementById('example')
+		);
+	</script>
+</body>
+</html>

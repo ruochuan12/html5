@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>v-if、v-else、v-show</title>
+
+  <script src="js/vue.js"></script>
+
+  <!--copy from http://vuejs.org.cn/guide/-->
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <p v-if="willShow">显示显示显示</p>
+
+    <p v-else>隐藏隐藏隐藏隐藏</p>
+
+    <button @click="fn()">改变</button>
+
+  </div>
+
+  <script>
+
+    var vm=new Vue({
+
+      el:"#app",
+
+      data:{
+
+        willShow:true
+
+      },
+
+      methods:{
+
+        fn:function(){
+
+          if(this.willShow==true){
+
+            this.willShow=false;
+
+          }else{
+
+            this.willShow=true
+
+          }
+
+        }
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
