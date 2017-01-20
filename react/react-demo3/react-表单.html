@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react组件API-2</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<a target="_blank" href="http://www.runoob.com/react/react-forms-events.html">参见：React 表单与事件</a>
+	<script type="text/babel">
+		var HelloMessage = React.createClass({
+			getInitialState:function(){
+				return {
+					value:'Hello world'
+				}
+			},
+			handleChange:function(event){
+				this.setState({
+					value:event.target.value
+				});
+			},
+			render:function(){
+				return (
+					<div>
+						<input type="text" onChange={this.handleChange} value={this.state.value} />
+						<h4>{this.state.value}</h4>
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<HelloMessage />,
+			document.getElementById('example')
+		);
+	</script>
+	<p>
+	</p>
+</body>
+</html>
