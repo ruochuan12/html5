@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:780px; height:400px; background:url(img/bg.jpg) no-repeat; margin:20px auto; overflow:hidden;}
+body{ background:black;}
+</style>
+<script>
+
+//780/2  ->   x : 390
+//400/2  ->   y : 200
+
+//(100 + 390)/2   ->  中心点x : 245
+//(100 + 200)/2   ->  中心点y : 150
+
+window.onload = function(){
+	
+	var svgNS = 'http://www.w3.org/2000/svg';
+	var oParent = document.getElementById('div1');
+	var centerX = oParent.offsetWidth/2;
+	var centerY = oParent.offsetHeight/2;
+	
+	var data = {
+		centerNode : { text : '科鲁兹' },
+		otherNode : [
+			{ x : 100 , y : 100 , text : '易车网' },
+			{ x : 200 , y : 50 , text : '妙味' },
+			{ x : 600 , y : 250 , text : 'svg' }
+		]
+	};
+	
+	function createTag(tag,objAttr){	
+		var oTag = document.createElementNS(svgNS , tag);	
+		for(var attr in objAttr){
+			oTag.setAttribute(attr , objAttr[attr]);
+		}	
+		return oTag;	
+	}
+	
+	function addTag(){
+		
+		var oSvg = createTag('svg',{'xmlns':svgNS,'width':'100%','height':'100%'});
+		
+		for(var i=0;i<data.otherNode.length;i++){
+			addOtherTag( data.otherNode[i] , oSvg );
+		}
+		
+		var oG = createTag('g',{'style':'cursor:pointer'});
+		var oCircle = createTag('circle',{'cx':centerX,'cy':centerY,'r':'60','fill':'white','stroke':'red','stroke-width':'1'});
+		var oText = createTag('text',{'x':centerX,'y':centerY+8,'font-size':'20','text-anchor':'middle'});
+		oText.innerHTML = data.centerNode.text;
+		
+		oG.appendChild(oCircle);
+		oG.appendChild(oText);
+		
+		oSvg.appendChild(oG);
+		oParent.appendChild(oSvg);
+	}
+	
+	addTag();
+	
+	function addOtherTag(otherAttr , oSvg){
+		
+		var oG = createTag('g',{'style':'cursor:pointer'});
+		var oLine1 = createTag('line',{'x1':otherAttr.x,'y1':otherAttr.y,'x2':centerX,'y2':centerY,'stroke':'#ccc'});
+		var oLine2 = createTag('line',{'x1':otherAttr.x,'y1':otherAttr.y,'x2':centerX,'y2':centerY,'stroke':'transparent','stroke-width':'10'});
+		var oRect = createTag('rect',{'x': (otherAttr.x + centerX)/2 - 10 ,'y': (otherAttr.y + centerY)/2 - 10 ,'fill':'#999','width':'20','height':'20','rx':'5'});
+		var oText = createTag('text',{'x':(otherAttr.x + centerX)/2,'y':(otherAttr.y + centerY)/2 + 8,'fill':'white','font-size':'20','text-anchor':'middle'});
+		oText.innerHTML = '?';
+		
+		oG.appendChild(oLine1);
+		oG.appendChild(oLine2);
+		oG.appendChild(oRect);
+		oG.appendChild(oText);
+		
+		oSvg.appendChild(oG);
+		
+		
+		var oG = createTag('g',{'style':'cursor:pointer'});
+		var oCircle = createTag('circle',{'cx':otherAttr.x,'cy':otherAttr.y,'r':'40','fill':'white','stroke':'red','stroke-width':'1'});
+		var oText = createTag('text',{'x':otherAttr.x,'y':otherAttr.y+8,'font-size':'20','text-anchor':'middle'});
+		oText.innerHTML = otherAttr.text;
+		
+		oG.appendChild(oCircle);
+		oG.appendChild(oText);
+		
+		oSvg.appendChild(oG);
+		
+	}
+	
+	
+};
+
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<!--<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    	<g style="cursor:pointer">
+        	<line x1="100" y1="100" x2="390" y2="200" stroke="#ccc"></line>
+            <line x1="100" y1="100" x2="390" y2="200" stroke="transparent" stroke-width="10"></line>
+            <rect x="235" y="140" fill="#999" width="20" height="20" rx="5"></rect>
+            <text x="245" y="158" fill="white" font-size="20" text-anchor="middle">?</text>	
+        </g>
+        <g style="cursor:pointer">
+        	<circle cx="100" cy="100" r="40" fill="white" stroke="red" stroke-width="3"></circle>
+            <text x="100" y="108" font-size="20" text-anchor="middle">易车网</text>
+        </g>
+        <g style="cursor:pointer">
+        	<circle cx="390" cy="200" r="60" fill="white" stroke="red" stroke-width="3"></circle>
+            <text x="390" y="208" font-size="20" text-anchor="middle">科鲁兹</text>
+        </g>
+    </svg>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>让footer固定在页面底部</title>
+        <style>
+            * {
+                margin: 0;
+            }
+            
+            html, body {
+                height: 100%;
+            }
+            
+            .wrapper {
+                min-height: 100%;
+                height: auto !important; /* 如果你不需要考虑IE6，则可以把这行与下一行代码删除 */
+                height: 100%;
+                margin: 0 auto -4em;
+            }
+            
+            .footer, .push {
+                height: 4em;
+            }
+            body{
+                text-align: center;
+            }
+            .footer{
+                background-color: pink;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <h3>您可以通过调整浏览器大小，查看footer的表现</h3>
+            <p class="placeholder">我是占位的</p>
+			<p class="placeholder">我是占位的</p>
+			<p class="placeholder">我是占位的</p>
+            <div class="push"></div>
+        </div>
+        <div class="footer">
+            <p>Footer</p>
+        </div>
+    </body>
+</html>

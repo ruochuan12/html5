@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#div1{ width:400px; height:400px; background:white;}
+body{ background:black;}
+</style>
+<script>
+
+window.onload = function(){
+	
+	var svgNS = 'http://www.w3.org/2000/svg';
+	var oParent = document.getElementById('div1');
+	var oSvg = document.getElementById('svg1');
+	
+	var oPolyLine = null;
+	var pointsNum = '';
+	
+	function createTag(tag,objAttr){	
+		var oTag = document.createElementNS(svgNS , tag);	
+		for(var attr in objAttr){
+			oTag.setAttribute(attr , objAttr[attr]);
+		}	
+		return oTag;	
+	}
+	
+	oSvg.onmousedown = function(ev){
+		var ev = ev || window.event;
+		if(!oPolyLine){
+			oPolyLine = createTag('polyline',{'fill':'none','stroke':'red','stroke-width':'2'});
+			oSvg.appendChild( oPolyLine );
+		}
+		var x = ev.clientX - oParent.offsetLeft;
+		var y = ev.clientY - oParent.offsetTop;
+		
+		if(pointsNum == ''){
+			pointsNum = x + ',' + y;
+		}
+		else{
+			pointsNum += ',' + x + ',' + y;
+		}
+		
+		oPolyLine.setAttribute('points',pointsNum);
+		
+		
+		var oCircle = createTag('circle',{'cx':x,'cy':y,'r':'5','fill':'white','stroke':'red','stroke-width':3});
+		oSvg.appendChild( oCircle );
+		
+	};
+	
+	oSvg.onmousemove = function(ev){
+		var ev = ev || window.event;
+		
+		if( oPolyLine ){
+			
+			var x = ev.clientX - oParent.offsetLeft;
+			var y = ev.clientY - oParent.offsetTop;
+			
+			oPolyLine.setAttribute('points',pointsNum + ',' + x + ',' + y);
+			
+		}
+		
+	};
+	
+	oSvg.oncontextmenu = function(){
+		oSvg.onmousemove = null;
+		return false;
+	};
+	
+};
+
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<svg id="svg1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+       <!--<line x1="50" y1="50" x2="200" y2="300" stroke="black" stroke-width="5"></line>
+       <line x1="200" y1="300" x2="230" y2="300" stroke="black" stroke-width="5"></line>
+       <line x1="230" y1="300" x2="250" y2="200" stroke="black" stroke-width="5"></line>-->
+       <!--<polyline points="50 50 200 300 230 300 250 200" fill="none" stroke="black" stroke-width="5"></polyline>-->
+       <!--<polyline points="50,50,200,300,230,300,250,200" fill="none" stroke="black" stroke-width="5"></polyline>-->
+       <!--<polygon points="50,50,200,300,230,300,250,200" fill="none" stroke="black" stroke-width="5"></polygon>-->
+    </svg>
+</div>
+</body>
+</html>
