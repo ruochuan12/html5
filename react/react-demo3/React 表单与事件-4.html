@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React 表单与事件-2</title>
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <a target="_blank" href="http://www.runoob.com/react/react-forms-events.html">参见：React 表单与事件</a>
+    <p>
+        <a target="_blank" href="https://segmentfault.com/q/1010000006198939/a-1020000006200757">this.refs 和 ReactDOM.findDOMNode 区别是什么？</a>
+    </p>
+    <script type="text/babel">
+        var Content = React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <button onClick={this.props.updateStateProp}>点击我向父组件</button>
+                        <h4>{this.props.myDataProp}</h4>
+                    </div>
+                );
+            }
+        });
+        var HelloMessage = React.createClass({
+            getInitialState:function(){
+                return {
+                    value:'hello react',
+                    bool: false
+                };
+            },
+            handleClick:function(){
+                if(!this.state.bool){
+                    this.setState({
+                        value:'我是轩辕Rowboat',
+                        bool:true
+                    });
+                } else {
+                    this.setState({
+                        value:'哎呀，我被修改了',
+                        bool:false
+                    })
+                }
+            },
+            render:function(){
+                var value  = this.state.value;
+                return (
+                    <div>
+                        <Content myDataProp={value} updateStateProp={this.handleClick} />
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <HelloMessage />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>

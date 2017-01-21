@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React 表单与事件-2</title>
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <a target="_blank" href="http://www.runoob.com/react/react-forms-events.html">参见：React 表单与事件</a>
+    <script type="text/babel">
+        var Content = React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <input type="text" value={this.props.myDataProp} onChange={this.props.updateStateProp} />
+                        <h4>{this.props.myDataProp}</h4>
+                    </div>
+                );
+            },
+        });
+        var HelloMessage = React.createClass({
+            getInitialState:function(){
+                return {
+                    value:'hello react!'
+                };
+            },
+            handleChange:function(ev){
+                this.setState({
+                    value:ev.target.value
+                });
+            },
+            render:function(){
+                var value = this.state.value;
+                return (
+                    <div>
+                     <Content myDataProp = {value} updateStateProp = {this.handleChange} />
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <HelloMessage />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>

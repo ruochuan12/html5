@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React 表单与事件-2</title>
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <div>
+    <a target="_blank" href="http://www.runoob.com/react/react-forms-events.html">参见：React 表单与事件</a>
+    </div>
+    <div>
+        <a target="_blank" href="https://segmentfault.com/q/1010000006198939/a-1020000006200757">this.refs 和 ReactDOM.findDOMNode 区别是什么？</a>
+    </div>
+    <script type="text/babel">
+        var MyComponent = React.createClass({
+            handleClick:function(){
+                // 使用原生的DOM API获取焦点
+                this.refs.myInput.focus();
+                console.log(this.refs);
+            },
+            render:function(){
+                // 当组件插入DOM后，ref属性添加一个组件的引用到this.refs
+                return (
+                    <div>
+                        <input type="text" ref="myInput" />
+                        <input type="button" value="点击我输入框获取焦点" onClick={this.handleClick} />
+                        {/*JSX语法中的一种注释：现在更加推荐用button标签*/}
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <MyComponent />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>
