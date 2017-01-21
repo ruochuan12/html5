@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clickCount</title>
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+    <a href="http://www.runoob.com/react/react-component-api.html" target="_blank">React组件API</a>
+    <div id="example"></div>
+    <script type="text/babel">
+        var Counter = React.createClass({
+            getInitialState:function(){
+                return {
+                    clickCount: 0
+                };
+            },
+            shouldComponentUpdate:function(){
+                return true;
+            },
+            componentDidMount:function(){
+                console.log('这里先输出：');
+            },
+            handleClick:function(){
+                this.setState(function(state){
+                    console.log('callback，可选参数，回调函数。该函数会在setState设置成功，且组件重新渲染后调用。');
+                    console.log('setState()总是会触发一次组件重绘，除非在shouldComponentUpdate()中实现了一些条件渲染逻辑。');
+                    console.log('isMounted()方法用于判断组件是否已挂载到DOM中。可以使用该方法保证了setState()和forceUpdate()在异步场景下的调用不会出错。',this.isMounted());
+                    return {
+                        clickCount:state.clickCount + 1
+                    };
+                });
+            },
+            render:function(){
+                return (
+                <h1 onClick={this.handleClick}>点我！点击次数为：{this.state.clickCount}</h1>
+                );
+            }
+        });
+        ReactDOM.render(
+            <Counter />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>
