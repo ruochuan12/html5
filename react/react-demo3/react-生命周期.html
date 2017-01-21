@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react组件API-2</title>
+	<script src="./src/react.js"></script>
+	<script src="./src/react-dom.js"></script>
+	<script src="./src/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<a target="_blank" href="http://www.runoob.com/react/react-component-life-cycle.html">参见：react的生命周期</a>
+	<script type="text/babel">
+		var Button = React.createClass({
+			getInitialState:function(){
+				return {
+					data:0
+				};
+			},
+			setNewNumber:function(){
+				this.setState({
+					data:this.state.data + 1
+				});
+			},
+			render:function(){
+				return (
+					<div>
+						<button onClick={this.setNewNumber}>INCREMENT</button>
+						<Content myNumber={this.state.data}></Content>
+					</div>
+				);
+			}
+		});
+		var Content = React.createClass({
+			componentWillMount:function(){
+				console.log('Component will mount');
+			},
+			compontentDidMount:function(){
+				console.log('Component did mount');
+			},
+			componentWillReceiveProps:function(newProps){
+				console.log('Compontent will receive props');
+			},
+			shouldCompontentUpdate:function(newProps,newState){
+				return true;
+			},
+			compontentWillUpdate:function(nextProps,nextState){
+				console.log('Compontent will update');
+			},
+			compontentDidUpdate:function(prevProps,prexState){
+				console.log('Compontent did update');
+			},
+			compontentWillUnmount:function(){
+				console.log('Compontent will unmount');
+			},
+			render:function(){
+				return (
+					<div>
+						<h3>
+							{this.props.myNumber}
+						</h3>
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<Button />,
+			document.getElementById('example')
+		);
+	</script>
+	<p>
+	</p>
+</body>
+</html>
