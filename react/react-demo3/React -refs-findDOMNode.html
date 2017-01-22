@@ -15,6 +15,9 @@
     <div>
         <a target="_blank" href="https://segmentfault.com/q/1010000006198939/a-1020000006200757">this.refs 和 ReactDOM.findDOMNode 区别是什么？</a>
     </div>
+    <div>
+    	<a target="_blank" href="https://hulufei.gitbooks.io/react-tutorial/content/dom.html">DOM 操作</a>
+    </div>
     <script type="text/babel">
         var MyComponent = React.createClass({
             handleClick:function(){
@@ -33,10 +36,11 @@
                 );
             }
         });
-        ReactDOM.render(
+        var returnValue = ReactDOM.render(
             <MyComponent />,
             document.getElementById('example')
         );
+        console.log('ReactDOM.render返回值',returnValue);
     </script>
     <p>
     </p>
