@@ -7,6 +7,7 @@
     <script src="./src/react.js"></script>
     <script src="./src/react-dom.js"></script>
     <script src="./src/browser.min.js"></script>
+    <script src="./src/pubsub.js"></script>
 </head>
 <body>
     <div class="container" id="example"></div>
@@ -17,42 +18,48 @@
                 gender:'男',
                 age:18,
                 height:190,
-                weight:80
+                weight:80,
+                id:1
             },
             {
                 name:'函轩',
                 gender:'男',
                 age:18,
                 height:190,
-                weight:80
+                weight:80,
+                id:2
             },
             {
                 name:'Rowboat',
                 gender:'男',
                 age:18,
                 height:180,
-                weight:80
+                weight:80,
+                id:3
             },
             {
                 name:'xuanyuan',
                 gender:'男',
                 age:18,
                 height:190,
-                weight:80
+                weight:80,
+                id:4
             },
             {
                 name:'小红',
                 gender:'女',
                 age:14,
                 height:150,
-                weight:40
+                weight:40,
+                id:5
             },
             {
                 name:'函轩',
                 gender:'女',
                 age:23,
                 height:167,
-                weight:55
+                weight:55,
+                id:6
             }
         ];
         var StudentApp = React.createClass({
@@ -71,6 +78,20 @@
             nameFilterHandle:function(ev){
                 this.setState({
                     filterName:ev.target.value
+                });
+            },
+            componentDidMount:function(){
+                var that = this;
+                PubSub.subscribe('delectItem',function(evName,id){
+                    var newArr = that.state.studentData.filter(function(item){
+                        return item.id !== id;
+                    });
+                    that.setState({
+                        studentData:newArr
+                    });
+                    console.log(evName,id);
+                    // 也可以用bind(this)修改指向，或者使用箭头函数，箭头函数没有自己的this
+                    // Pub-Sub模式进行组件通信
                 });
             },
             render:function(){
@@ -105,28 +126,30 @@
                 var list = [];
                 var genderValue = this.props.genderValue;
                 var filterName = this.props.filterName;
-                var genderArr = ['女','男'];
+                var genderArr = ['女','男',''];
                 this.props.studentData.forEach(function(item,index){
                     // 按性别筛选
-                    if (genderValue === 'all') {
-                    // 全部
-                        console.log(filterName,item.name);
-                        /* if (filterName===item.name) {
-                            
-                            list.push(<StudentItemComponent studentItem = {item} key={index} />);
-                            console.log(1,list);
-                        }*/
-                        
-                        list.push(<StudentItemComponent studentItem = {item} key={index} />);
-                        // console.log(2,list);
-                    } else {
-                        // 男或者女
+                    if (genderValue !== 'all'&& filterName === '') {
                         if (item.gender === genderArr[genderValue]) {
                             list.push(<StudentItemComponent studentItem = {item} key={index} />);
                         }
+                        return;
                     }
                     // 按名字筛选
-
+                    if (filterName !== '') {
+                        console.log(filterName,item.name);
+                        if (genderValue !== 'all') {
+                            if (filterName === item.name && item.gender === genderArr[genderValue]) {
+                                list.push(<StudentItemComponent studentItem = {item} key={index} />);
+                            }
+                        } else {
+                            if (filterName === item.name) {
+                                list.push(<StudentItemComponent studentItem = {item} key={index} />);
+                            }
+                        }
+                        return;
+                    }
+                    list.push(<StudentItemComponent studentItem = {item} key={index} />);
                 });
                 return (
                     <div className="table-responsive">
@@ -150,6 +173,9 @@
             }
         });
         var StudentItemComponent = React.createClass({
+            delectItem:function(){
+                PubSub.publish('delectItem',this.props.studentItem.id);
+            },
             render:function(){
                 var item = this.props.studentItem;
                 return (
@@ -159,7 +185,7 @@
                         <td>{item.age}</td>
                         <td>{item.height}</td>
                         <td>{item.weight}</td>
-                        <td><a href="javascript:'">删除</a></td>
+                        <td><a href="javascript:;" onClick={this.delectItem}>删除</a></td>
                     </tr>
                 );
             }
