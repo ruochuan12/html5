@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react学员信息筛选实例</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+    <div class="container" id="example"></div>
+    <script type="text/babel">
+        var data = [
+            {
+                name:'轩辕',
+                gender:'男',
+                age:18,
+                height:190,
+                weight:80
+            },
+            {
+                name:'函轩',
+                gender:'男',
+                age:18,
+                height:190,
+                weight:80
+            },
+            {
+                name:'Rowboat',
+                gender:'男',
+                age:18,
+                height:180,
+                weight:80
+            },
+            {
+                name:'xuanyuan',
+                gender:'男',
+                age:18,
+                height:190,
+                weight:80
+            },
+            {
+                name:'小红',
+                gender:'女',
+                age:14,
+                height:150,
+                weight:40
+            },
+            {
+                name:'函轩',
+                gender:'女',
+                age:23,
+                height:167,
+                weight:55
+            }
+        ];
+        var StudentApp = React.createClass({
+            getInitialState:function(){
+                return {
+                    studentData : data,
+                    genderValue:'all',
+                    filterName:''
+                }
+            },
+            genderFilterHandle:function(ev){
+                this.setState({
+                    genderValue:ev.target.value
+                });
+            },
+            nameFilterHandle:function(ev){
+                this.setState({
+                    filterName:ev.target.value
+                });
+            },
+            render:function(){
+                return (
+                <div>
+                    <h1>学员信息筛选</h1>
+                    <div className="bs-example">
+                        <div className="form-group">
+                            <label>按性别筛选</label>
+                            <select className="form-control" onChange={this.genderFilterHandle}>
+                                <option value="all">all</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>按名字筛选</label>
+                            <input type="text" className="form-control" placeholder="请输入名字" onKeyUp = {this.nameFilterHandle}/>
+                        </div>
+                        <StudentInfoComponent 
+                            studentData = {this.state.studentData}
+                            genderValue = {this.state.genderValue}
+                            filterName = {this.state.filterName}
+                        />
+                    </div> 
+                </div>
+                );
+            }
+        });
+        var StudentInfoComponent = React.createClass({
+            render:function(){
+                var list = [];
+                var genderValue = this.props.genderValue;
+                var filterName = this.props.filterName;
+                var genderArr = ['女','男'];
+                this.props.studentData.forEach(function(item,index){
+                    // 按性别筛选
+                    if (genderValue === 'all') {
+                    // 全部
+                        console.log(filterName,item.name);
+                        /* if (filterName===item.name) {
+                            
+                            list.push(<StudentItemComponent studentItem = {item} key={index} />);
+                            console.log(1,list);
+                        }*/
+                        
+                        list.push(<StudentItemComponent studentItem = {item} key={index} />);
+                        // console.log(2,list);
+                    } else {
+                        // 男或者女
+                        if (item.gender === genderArr[genderValue]) {
+                            list.push(<StudentItemComponent studentItem = {item} key={index} />);
+                        }
+                    }
+                    // 按名字筛选
+
+                });
+                return (
+                    <div className="table-responsive">
+                            <table className="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>年龄</th>
+                                        <th>身高（cm）</th>
+                                        <th>体重（kg）</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {list}
+                                </tbody>
+                            </table>
+                        </div>
+                );
+            }
+        });
+        var StudentItemComponent = React.createClass({
+            render:function(){
+                var item = this.props.studentItem;
+                return (
+                    <tr>
+                        <td>{item.name}</td>
+                        <td>{item.gender}</td>
+                        <td>{item.age}</td>
+                        <td>{item.height}</td>
+                        <td>{item.weight}</td>
+                        <td><a href="javascript:'">删除</a></td>
+                    </tr>
+                );
+            }
+        });
+        ReactDOM.render(
+            <StudentApp />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>
