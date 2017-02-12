@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2.2组件-自定义事件</title>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+    <div id="counter-example">
+        <p>{{total}}</p>
+        <button-counter v-on:increase="increateTotal"></button-counter>
+        <button-counter v-on:increase="increateTotal"></button-counter>
+        <button-counter v-on:increase="increateTotal"></button-counter>
+    </div>
+    <script>
+        Vue.component('button-counter',{
+            template:'<button v-on:click="increase">{{count}}</button>',
+            data:function(){
+                return {
+                    count:0
+                }
+            },
+            methods:{
+                increase:function(){
+                    this.count +=1;
+                    this.$emit('increase');
+                }
+            }
+        });
+        new Vue({
+            el:'#counter-example',
+            data:{
+                total:0
+            },
+            methods:{
+                increateTotal:function(){
+                    this.total +=1;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

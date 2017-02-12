@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1、字符串重复</title>
+</head>
+<body>
+    <a href="http://mp.weixin.qq.com/s/X3nprS7nKTWthMuYwnHGZw" target="_blank">五个典型的 JavaScript 面试题</a>
+    <p>
+    1、这个问题测试了开发人员对于JavaScript中继承的掌握，以及prototype这个属性。这也验证了开发人员是否有能力扩展原生数据类型的功能（虽然不应该这么做）。</p>
+    <p>2、这个问题的另一个重点是验证你是否意识到并知道如何避免覆盖已经存在的函数。这可以通过在自定义函数之前判断该函数是否存在来做到。</p>
+    <p>3、参数也要做处理。</p>
+    <pre>
+        // 参数未做处理。
+        // 方法一、new Array().join()
+        String.prototype.repeat1 = function(n) {
+            return new Array(n+1).join(this);
+        };
+        console.log('str1'.repeat1(3));
+        // 方法二、循环
+        String.prototype.repeat2 = function(n){
+            var str = '';
+            for(var i=0,len=n; i<len;i++){
+                str += this;
+            };
+            return str;
+        };
+        console.log('str2'.repeat2(3));
+        // ES6,扩展了这个方法
+        String.prototype.repeat = String.prototype.repeat || 
+        function(n){
+            return new Array(n+1).join(this);
+        };
+    </pre>
+    <div>具体看script下的代码</div>
+    <script>
+        // 参数未做处理。
+        // 方法一、new Array().join()
+        String.prototype.repeat1 = function(n) {
+            return new Array(n+1).join(this);
+        };
+        console.log('str1'.repeat1(3));
+        // 方法二、循环
+        String.prototype.repeat2 = function(n){
+            var str = '';
+            for(var i=0,len=n;i<len;i++){
+                str += this;
+            };
+            return str;
+        };
+        console.log('str2'.repeat2(3));
+        // ES6,扩展了这个方法
+        String.prototype.repeat = String.prototype.repeat || 
+        function(n){
+            return new Array(n+1).join(this);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2、字符串去除空格排序。</title>
+</head>
+<body>
+    <div>trim() IE9+<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim">String.prototype.trim()</a></div>
+    <script>
+        'aaa      ddd     nnc cc    '.trim().replace(/\s+/g,' ').split(' ').sort();
+
+        String.prototype.trim = String.prototype.trim || function() {
+            return this.replace('^\s+|\s+$','');
+        };
+        var num = '120.0013'.slice(0, '120.0013'.indexOf('.') + 3);
+        console.log(num);
+        console.log(120.0013.toFixed(2));
+        console.log(19.9*100);//1989.9999999999998
+        // toFixed也不准确，金额后端返回，不易错。
+    </script>
+</body>
+</html>
