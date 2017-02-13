@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3、动态组件keep-alive</title>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+    <pre>
+      <component v-bind:is="currentView">
+        <!-- 组件在 vm.currentview 变化时改变！ -->
+      </component>
+    </pre>
+    <div id="component-example">
+      <button @click="switchTab('first')">first</button>
+      <button @click="switchTab('second')">second</button>
+      <button @click="switchTab('third')">third</button>
+      <component :is="currentView"></component>
+    </div>
+    <script>
+        // 全局注册:
+        //Vue.component('my-component', {
+        // template: '<div>A custom component!</div>'
+        //})
+        // 难道动态组件不支持局部注册？
+        Vue.component('my-first',{
+          template: '<div>This is first!</div>'
+        });
+        Vue.component('my-second',{
+          template: '<div>This is second!</div>'
+        });
+        Vue.component('my-third',{
+          template: '<div>This is third!</div>'
+        });
+        // // 局部注册
+        // var First = {
+        //   template: '<p>This is first!</p>'
+        // };
+        // var Second = {
+        //   template: '<p>This is second!</p>'
+        // };
+        // var Third = {
+        //   template: '<p>This is third!</p>'
+        // }
+        var vm = new Vue({
+          el: '#component-example',
+          data: {
+            currentView: 'my-first'
+          },
+          // component:{
+          //   'my-first':First,
+          //   'my-second':Second,
+          //   'my-third':Third
+          // },
+          methods:{
+            switchTab:function(tab){
+              console.log(tab);
+              //tab.charAt(0).toUpperCase()+tab.slice(1)
+              this.currentView = 'my-'+tab;
+            }
+          }
+        });
+        /*
+        var vm = new Vue({
+          el:'#component-example',
+          data:{
+            currentView:'home'
+          },
+          component:{
+            home:{
+              template: '<p>Welcome home!</p>'
+            },
+            main:{
+              template: '<p>Welcome home!</p>'
+            },
+            footer:{
+              template: '<p>Welcome home!</p>'
+            }
+          }
+        });*/
+    </script>
+</body>
+</html>
