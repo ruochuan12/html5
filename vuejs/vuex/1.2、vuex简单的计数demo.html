@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1.2、vuex简单的计数demo</title>
+</head>
+<body>
+<div id="app">
+	<p>1.2、vuex简单的计数demo</p>
+	<p>含state、actions、mutations、getters</p>
+	<p>{{ count }}</p>
+	<p>
+		<button @click="increment">+</button>
+		<button @click="decrement">-</button>
+	</p>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuex"></script>
+<script>
+	// make sure to call Vue.use(Vuex) if using a module system
+	// Vue.use(Vuex);
+	// 在一个模块化的打包系统中，您必须显式地通过 Vue.use() 来安装 Vuex：
+
+	// import Vue from 'vue'
+	// import Vuex from 'vuex'
+
+	// Vue.use(Vuex)
+	
+	//当使用全局 script 标签引用 Vuex 时，不需要以上安装过程。
+	console.log(Vuex);
+	const store = new Vuex.Store({
+	  state: {
+	    count: 0
+	  },
+	  actions:{
+	  	// increment(context){
+	  	// 	context.commit('increment');
+	   //  },
+	    // 利用ES6解构赋值简化代码，也可以这样写。
+	    increment({commit}){
+	    	console.log(commit);
+	    	commit('increment');
+	    }, 
+	    decrement(context){
+	    	console.log(context,context.commit);
+	  		context.commit('decrement');
+	    }
+	  },
+	  mutations: {
+	  	increment: state => state.count++,
+	    decrement: state => state.count--
+	  },
+	  getters:{
+		  // getCount(state){
+		  // 	return state.count
+		  // }
+		  // 箭头函数写法
+		  getCount:state=>state.count
+		}
+	})
+	//通过在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，
+	//且子组件能通过 this.$store 访问到。
+	const app = new Vue({
+	  el: '#app',
+	  store,
+	  computed: {
+	    count () {
+		    return this.$store.getters.getCount
+	    }
+	  },
+	  methods: {
+	    increment () {
+	    	this.$store.dispatch('increment');
+	      console.log(this);
+	      //store.commit('increment')
+	    },
+	    decrement () {
+	    	this.$store.dispatch('decrement');
+	    	//store.commit('decrement')
+	    }
+	  }
+	})
+</script>
+</body>
+</html>
