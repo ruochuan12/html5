@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React react购物车数量输入</title>
+    <style type="text/css">
+        .active{
+            font-size:24px;
+            color:red;
+        }
+    </style>
+    <script src="./src/react.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script> -->
+    <script src="./src/react-dom.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bowser/1.0.0/bowser.min.js"></script> -->
+    <script src="./src/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="example"></div>
+    <a target="_blank" href="http://www.runoob.com/react/react-forms-events.html">参见：React 表单与事件</a>
+    <p>
+        <a target="_blank" href="https://segmentfault.com/q/1010000006198939/a-1020000006200757">this.refs 和 ReactDOM.findDOMNode 区别是什么？</a>
+    </p>
+    <script type="text/babel">
+        var Input = React.createClass({
+            getInitialState:function(){
+                return {
+                    count:1,
+                    color:false
+                };
+            },
+            add:function(ev){
+                this.changeValue(ev,-1);
+            },
+            dec:function(ev){
+                this.changeValue(ev,1);
+            },
+            changeValue:function(ev,num){
+                console.log(num);
+                if(num===undefined){
+                    this.setState({
+                        count:ev.target.value
+                    });
+                } else {
+                    this.setState({
+                        count:this.state.count-num
+                    });
+                }
+                console.log(this.state.count);
+            },
+            changeStyle:function(){
+                console.log('我被点击了');
+                if(!this.state.color){
+                    this.setState({
+                        color:true
+                    });
+                } else {
+                    this.setState({
+                        color:false
+                    });
+                }
+            },
+            render:function(){
+                return (
+                    <div>
+                        <h4 onClick={this.changeStyle} className={this.state.color?'active':''}>react购物车数量输入(点击可以切换样式)</h4>
+                        <input onChange={this.changeValue} value={this.state.count} />
+                        <button onClick={this.add}>+</button>
+                        <button onClick={this.dec}>-</button>
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <Input />,
+            document.getElementById('example')
+        );
+    </script>
+    <p>
+    </p>
+</body>
+</html>
