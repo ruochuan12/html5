@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1、vue源码分析</title>
+</head>
+<body>
+	<a href="http://ife.baidu.com/course/detail/id/15">
+动态数据绑定（一）</a>
+<p><a href="https://github.com/youngwind/blog/issues/84">参考链接:vue早期源码学习系列之一：如何监听一个对象的变化</a></p>
+	<code>
+	<pre>
+	let app1 = new Observer({
+	  name: 'youngwind',
+	  age: 25
+	});
+
+	let app2 = new Observer({
+	  university: 'bupt',
+	  major: 'computer'
+	});
+
+	// 要实现的结果如下：
+	app1.data.name // 你访问了 name
+	app.data.age = 100;  // 你设置了 age，新的值为100
+	app2.data.university // 你访问了 university
+	app2.data.major = 'science'  // 你设置了 major，新的值为 science
+	</pre>
+	</code>
+	<script>
+		function Observer(data){
+			this.data = data;
+			this.walk(data);
+		}
+		let p = Observer.prototype;
+		p.walk = function(obj){
+			let val;
+			for(let key in obj){
+				if(obj.hasOwnProperty(val)){
+					val = obj[key];
+					if(typeof val === 'object'){
+						new Observer(val);
+					}
+					this.convert(key,val);
+				}
+			}		
+		};
+		p.convert = function(key,val){
+			Object.defineProperty(this.data,key,{
+				enumerable:true,
+				configurable:true,
+				get:function(){
+					console.log('你访问了' + key);
+					return  val;
+				},
+				set:function(newVal){
+					console.log('你设置了' + key);
+					console.log('新的' + key + ' = ' + val);
+					if (newVal === val) return;
+					val = newVal;
+				}
+			});
+		}
+		// let app = Observer(data);
+		let app1 = new Observer({
+		  name: 'youngwind',
+		  age: 25
+		});
+
+		let app2 = new Observer({
+		  university: 'bupt',
+		  major: 'computer'
+		});
+	</script>
+</body>
+</html>
