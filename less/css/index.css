@@ -1,0 +1,6 @@
+.able-tri {
+  border-width: 50px;
+  border-color: red transparent  transparent  transparent;
+  border-style: solid dashed dashed dashed;
+  /* 不写dashed 则IE6下有黑板。(注释在css中可见) */
+}
