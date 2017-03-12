@@ -4,8 +4,49 @@
 	border-width:@border-width;
 	border-color:red transparent  transparent  transparent;
 	border-style:solid dashed dashed dashed;
-	/* 不写dashed 则IE6下有黑板。(注释在css中可见) */ 
+	/* 不写dashed 则IE6下有黑板。(注释在css中可见) */
 }
 .able-tri{
 	.triangle(50px);
 }
+// 匹配模式,有点像js中的if
+.pos(a){
+	position: absolute;
+}
+.pos(r){
+	position: relative;
+}
+.pos(f){
+	position: fixed;
+}
+// 匹配模式带其他值。@_
+.pos(@_){
+	top: 0;
+	left: 0;
+}
+.position{
+	.pos(a);
+}
+// 尽量嵌套就3-4层
+// &代表他上一层的选择器
+// arguments
+.border-arg(@w:20px,@color:#ccc,@type:solid){
+	border-bottom:@arguments;
+	border-top:@w @type @color;
+}
+.argument{
+	.border-arg();
+}
+// 避免编译 ~
+.test_03{
+	width: ~'calc(300px-20px)';
+	// &代表他上一层的选择器
+	&-hover{
+		height: 10px;
+	}
+}
+// less文件导入less可以省略扩展名
+// 加上(less)表示用less 编译css.不过写在哪就编译在哪。
+// 不写则不编译，放在头部。@import '../css/body-bg.css';
+@import (less) '../css/body-bg.css';
+@import '../css/body-bg.css';

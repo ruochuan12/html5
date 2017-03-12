@@ -1,6 +1,25 @@
+@import '../css/body-bg.css';
 .able-tri {
   border-width: 50px;
   border-color: red transparent  transparent  transparent;
   border-style: solid dashed dashed dashed;
   /* 不写dashed 则IE6下有黑板。(注释在css中可见) */
+}
+.position {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.argument {
+  border-bottom: 20px #cccccc solid;
+  border-top: 20px solid #cccccc;
+}
+.test_03 {
+  width: calc(300px-20px);
+}
+.test_03-hover {
+  height: 10px;
+}
+body {
+  background: #f1f1f1;
 }
