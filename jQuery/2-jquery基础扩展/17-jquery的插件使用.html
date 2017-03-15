@@ -21,6 +21,17 @@
 		},
 		rightTrim:function(str){
 			return str.replace(/\s+$/,'');
+		},
+		// 扩展$.stringify 以支持IE6,7（不支持JSON.stringify）
+		stringify:function(obj){
+			var arr = [];
+			$.each( obj, function( key, val ) {
+				var next = key + ": ";
+				console.log(printObj(val));
+				next += $.isPlainObject( val ) ? printObj( val ) : val;
+				arr.push( next );
+			});
+			return "{ " + arr.join( ", " ) + " }";
 		}
 	});
 	$.fn.extend({
@@ -32,45 +43,48 @@
 		}
 	});
 	$.fn.extend({
-	
+
 		drag : function(){
-			
+
 			//this : $('#div1')
-			
+
 			var disX = 0;
 			var disY = 0;
-			
+
 			var This = this;
-			
+
 			this.mousedown(function(ev){
-				
+
 				disX = ev.pageX - $(this).offset().left;
 				disY = ev.pageY - $(this).offset().top;
-				
+
 				$(document).mousemove(function(ev){
-					
+
 					This.css('left' , ev.pageX - disX);
 					This.css('top' , ev.pageY - disY);
-					
+
 				});
-				
+
 				$(document).mouseup(function(){
 					$(this).off();
 				});
-				
+
 				return false;
-				
+
 			});
-			
+
 		},
 		aaa : function(){
 			alert(2);
 		}
-		
+
 	});
 	$('#div1').drag();
 	console.log($.leftTrim('      {hello   }       ')+'1');
 	console.log($.rightTrim('      {hello   }       ')+'1');
+	console.log($.stringify({name:'lxchuan12',age:20}));
+	console.log(JSON.stringify({name:'lxchuan12',age:20}));
+	// 引入json2.js即可解决JSON.stringify的IE6,7下的问题
 	</script>
 </body>
 </html>
