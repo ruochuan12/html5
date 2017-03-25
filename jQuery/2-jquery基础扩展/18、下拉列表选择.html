@@ -34,15 +34,28 @@
 	<script>
 	(function($){
 		console.log('jQuery版本号',$().jquery);
+		var titleClick = 0;
+		var itemClick = 0;
+		
 		$('.down-list .title').on('click',function(){
-			var that = $(this);
+			
 			$('.list-wrap').show();
-			$('.down-list .list-item').on('click',function(){
-				that.text($(this).text());
-				console.log(that.text());
+			titleClick++;
+			console.log('titleClick:',titleClick);
+			
+		});
+		$('.list-wrap .list-item').on('click',function(){
+				// ev.stopPropagation();
+				$('.down-list .title').text($(this).text());
+				console.log($('.down-list .title').text());
+				//debugger;
+				itemClick++;
+				console.log('itemClick:',itemClick);
 				$('.list-wrap').hide();
 			});
-		});
+		// function listClick(that){
+			
+		// }
 	})(jQuery)
 	</script>
 </body>
