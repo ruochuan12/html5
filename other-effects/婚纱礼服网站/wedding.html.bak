@@ -1,0 +1,307 @@
+<!Doctype html>
+<html>
+ <head>
+	  <meta charset="UTF-8">
+	  <title></title>
+	  <link rel="stylesheet" href="wedding.css">
+ </head>
+ <body>
+	<header id="header">
+		<!-- logo -->
+			<a href="#">
+				<img src="image/logo.png" class="lf">
+			</a>
+		<!-- 登录注册 -->
+			<div class="rt">
+				<ul>
+					<li>
+						<a href="#" class="header_image xinlang"></a>
+					</li>
+					<li>
+						<a href="#" class="header_image weibo"></a>
+					</li>
+					<li>
+						<a href="#" class="header_image weixin"></a>
+					</li>
+					<li>
+						<a href="#" class="header_image app"></a>
+					</li>
+					<li>
+						<a href="../欢迎登陆/welcome.html#bg">登录</a>
+					</li>
+					<li><b></b></li>
+					<li>
+						<a href="#">注册</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+	</header>
+	<!-- 导航（已做勿动） -->
+	<nav  id="nav">
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li class="hunsha_items">
+				<a href="#">婚纱礼服</a>
+				<!-- 婚纱礼服子菜单 -->
+				<ul>
+					<li>
+						<a href="#">婚纱礼服</a>
+					</li>
+					<li>
+						<a href="#">私人定制</a>
+					</li>
+					<li>
+						<a href="#">时装周</a>
+					</li>
+					<p class="clear"></p>
+				</ul>
+			</li>
+			<li class="meirong_items">
+				<a href="#">美容配饰</a>
+				<!-- 美容配饰子菜单 -->
+				<ul>
+					<li>
+						<a href="#">造型美容</a>
+					</li>
+					<li>
+						<a href="#">珠宝配饰</a>
+					</li>
+					<li>
+						<a href="#">精选视频</a>
+					</li>
+					<li>
+						<a href="#">婚礼蛋糕</a>
+					</li>
+					<p class="clear"></p>
+				</ul>
+			</li>
+			<li class="hunli_items">
+				<a href="#">婚礼服务</a>
+				<!-- 婚礼服务子菜单 -->
+				<ul>
+					<li>
+						<a href="#">婚礼筹备</a>
+					</li>
+					<li>
+						<a href="#">精致婚礼</a>
+					</li>
+					<li>
+						<a href="#">蜜月渡假</a>
+					</li>
+					<li>
+						<a href="#">婚纱摄影</a>
+					</li>
+					<p class="clear"></p>
+				</ul>
+			</li>
+			<li class="pinpai_items">
+				<a href="#">品牌咨询</a>
+				<!-- 品牌咨询子菜单 -->
+				<ul>
+					<li>
+						<a href="#">品牌介绍</a>
+					</li>
+					<li>
+						<a href="#">品牌动态</a>
+					</li>
+					<li>
+						<a href="#">设计师</a>
+					</li>
+					<p class="clear"></p>
+				</ul>
+			</li>
+			<li class="we_items">
+				<a href="#">关于我们</a>
+				<!-- 关于我们子菜单 -->
+				<ul>
+					<li>
+						<a href="#">出尘微博</a>
+					</li>
+					<li>
+						<a href="#">出尘微信</a>
+					</li>
+					<li>
+						<a href="#">app下载</a>
+					</li>
+					<p class="clear"></p>
+				</ul>
+			</li>
+			<p class="clear"></p>
+		</ul>
+	</nav>
+	<!-- 页面主体 -->
+	<section id="main">
+		<div>
+			<!-- 标题（可多次使用） -->
+			<div class="headline">
+				<img src="image/logo_gray.jpg" alt="logo_gray.jpg">
+				<hr size="3px" color="#444444" id="hr1" width="400px">
+				<p>婚 纱 礼 服</p>
+				<h6>wedding dress</h6>
+				<hr size="3px" color="#444444" id="hr2" width="400px">
+			</div>
+			<!-- 婚纱礼服导航 -->
+			<div id="wedding_nav">
+				<ul>
+					<li>
+						<a href="#"  id="annasn_y">Annasn Y系列</a>
+					</li>
+					<li>
+						<a href="#">oscar de la renta系列</a>
+					</li>
+					<li>
+						<a href="#">Amsale Aberra系列</a>
+					</li>
+					<li>
+						<a href="#">Badgley Mischka系列</a>
+					</li>
+					<li>
+						<a href="#">Carolina Herrera系列</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 系列图片 -->
+			<div id="wedding_image">
+				<ul>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<a href="#" class="collect"><div class="title love"></div>
+						<div class="title round"></div></a>
+					</li>
+					<li>
+						<img src="image/nav1_01.png" alt="nav1_01.png">
+						<div class="title love"></div>
+						<div class="title round"></div>
+					</li>
+				</ul>
+				<!-- 更多（可多次使用） -->
+				<a href="#" class="more">更多 &gt;&gt;</a>
+				<hr size="2" width="1000px" color="#ddd">
+			</div>
+		</div>
+		<!-- 婚纱流行元素 -->
+		<div id="new">
+			<div class="headline">
+				<img src="image/logo_gray.jpg" alt="logo_gray.jpg">
+				<hr size="3px" color="#444444" id="hr1" width="400px">
+				<p>秋季婚纱流行元素</p>
+				<h6>Autumn dress popular trend</h6>
+				<hr size="3px" color="#444444" id="hr2" width="400px">
+			</div>
+			<div id="new_image">
+				<ul>
+					<li>
+						<a href="#"><img src="image/new_01.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="#"><img src="image/new_01.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="#"><img src="image/new_01.jpg" alt=""></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 特别策划 -->
+		<div>
+			<div class="headline">
+				<img src="image/logo_gray.jpg" alt="logo_gray.jpg">
+				<hr size="3px" color="#444444" id="hr1" width="400px">
+				<p>特别策划</p>
+				<h6>Special planning</h6>
+				<hr size="3px" color="#444444" id="hr2" width="400px">
+			</div>
+			<div>
+				<div class="lf">
+					<div>
+						</h3>最新咨询</h3>
+						<a href="#"><img src="image/" alt=""></a>
+					</div>
+				<div class="rt">特别推荐</div>
+			</div>
+		</div>
+		<div>商家品牌</div>
+	</section>
+	<!-- 页面底部--集团网站 -->
+	<footer id="footer_box">
+		<div>
+			<div class="footer_items lf">
+				<p>集团网站</p>
+				<ul class="lf">
+					<li><a href="#">时尚网</a></li>
+					<li><a href="#">Esqurire中文网</a></li>
+					<li><a href="#">时尚梦芭莎</a></li>
+					<li><a href="#">芭莎男士</a></li>
+					<li><a href="#">罗博报告</a></li>
+				</ul>
+				<ul class="rt">
+					<li><a href="#">芭莎珠宝</a></li>
+					<li><a href="#">时尚家居</a></li>
+					<li><a href="#">时尚生活</a></li>
+					<li><a href="#">时尚健康女人</a></li>
+					<li><a href="#">华夏地理</a></li>
+				</ul>
+			</div>
+			<div class="footer_items rt">
+				<p>合作媒体</p>
+				<ul class="lf">
+					<li><a href="#">凤凰网时尚</a></li>
+					<li><a href="#">MAN时尚频道</a></li>
+					<li><a href="#">OnlyLady女人志</a></li>
+					<li><a href="#">爱奇艺</a></li>
+					<li><a href="#">爱结网</a></li>
+				</ul>
+				<ul class="rt">
+					<li><a href="#">珍爱网</a></li>
+					<li><a href="#">IDO久久</a></li>
+					<li><a href="#">喜360</a></li>
+					<li><a href="#">新浪时尚</a></li>
+					<li><a href="#">我爱购物网</a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<!-- 页面底部——版权 -->
+	<footer id="footer">
+		<a href="#">关于我们</a>
+		<b></b>
+		<a href="#">加入我们</a>
+		<b></b>
+		<a href="#">版权声明</a>
+		<b></b>
+		<a href="#">联系我们</a>
+		<p>&copy;1998-2015 出尘婚纱网 版权所有 TRENDS.COM.CN ALL Rights Reserved 京ICP备14009671号-1</p>
+	</footer>
+ </body>
+</html>

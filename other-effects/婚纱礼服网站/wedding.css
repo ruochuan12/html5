@@ -1,0 +1,447 @@
+/**************测试属性****************/
+	#main{
+		border:1px solid #333;
+	}
+/************整体通用设置*************/
+	body{
+		margin:0;
+		padding:0;
+		font:12px "microsoft yahei",Arial,Helvetica,sans-serif;
+		color:#666;
+	}
+	p,h1,h2,h3,h4,h5,h6,ul,li,dd,dl{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	a{
+		text-decoration:none;
+		color:#666;
+	}
+	a:hover{
+		color:#ff0700;
+	}
+/*所有版块统一设置宽度1211px，并水平居中*/
+	#header,#nav,#main,#footer_box,#footer{
+		width:1211px;
+		margin:0 auto;
+	}
+/*常规属性设置*/
+	.lf{
+		float:left;
+	}
+	.rt{
+		float:right;
+	}
+	.clear{
+		clear:both;
+	}
+	/**********标题（可多次使用）************/
+		.headline>img{
+			width:100px;
+			height:60px;
+			margin:20px;
+		}
+		.headline>#hr1{
+			position:relative;
+			bottom:50px;
+			z-index:-10;
+		}
+		.headline>#hr2{
+			position:relative;
+			bottom:30px;
+			z-index:-10;
+		}
+		.headline>p{
+			font-size:34px;
+			font-weight:bold;
+			position:relative;
+			bottom:35px;
+			color:#333;
+		}
+		.headline>h6{
+			font-family:Italic;
+			font-weight:bold;
+			position:relative;
+			bottom:34px;
+			color:#333;
+		}
+	/******更多（可多次使用）******/
+		#wedding_image>a.more{
+			float:right;
+			margin-right:80px;
+			position:relative;
+			bottom:10px;
+			font-size:14px;
+		}
+
+
+/*************************************************/
+/************header***********/
+	/*页面logo登录*/
+		#header{
+			padding-bottom:10px;
+			background:url(image/flower2.png) no-repeat right bottom;
+		}
+		#header>a>img{
+			width:470px;
+			height:140px;
+			margin:10px 0 0 70px;
+		}
+		#header>div ul{
+			overflow:hidden;
+		}
+		#header>div>ul li{
+			float:left;
+			line-height:25px;
+			margin:0px 5px;
+		}
+		#header>div>ul>li b{
+			border-left:1px solid #666;
+			margin:0px 5px;
+			margin:0;
+		}
+		#header>div>ul>li a.header_image{
+			display:block;
+			width:25px;
+			height:25px;
+		}
+		#header>div>ul{
+		margin-top:95px;
+		margin-right:100px;
+		}
+	/*背景图片设置*/
+		/*新浪*/
+		#header>div>ul>li a.xinlang{
+			background:url(image/icon.png) no-repeat -3px -2px;
+		}
+		#header>div>ul>li a.xinlang:hover{
+			background:url(image/icon.png) no-repeat -3px -31px;
+		}
+
+		/*微博*/
+		#header>div>ul>li a.weibo{
+			background:url(image/icon.png) no-repeat -40px -2px;
+		}
+		#header>div>ul>li a.weibo:hover{
+			background:url(image/icon.png) no-repeat -40px -31px;
+		}
+
+		/*微信*/
+		#header>div>ul>li a.weixin{
+			background:url(image/icon.png) no-repeat -77px -2px;
+		}
+		#header>div>ul>li a.weixin:hover{
+			background:url(image/icon.png) no-repeat -77px -31px;
+		}
+
+		/*APP*/
+		#header>div>ul>li a.app{
+			background:url(image/icon.png) no-repeat -115px -2px;
+		}
+		#header>div>ul>li a.app:hover{
+			background:url(image/icon.png) no-repeat -115px -31px;
+		}
+
+/***************导航**********/
+	/*导航*/
+		#nav>ul li{
+			float:left;
+			width:202px;
+			height:50px;
+			background:#353535;
+			text-align:center;
+		}
+		#nav>ul li:first-child{
+			width:201px;
+		}
+		#nav>ul>li>a{
+			font-size:20px;
+			color:#fff;
+			line-height:50px;
+			font-weight:bold;
+		}
+		#nav>ul>li:hover a{
+			color:#000;
+		}
+		#nav>ul>li:hover{
+			background:#fff;
+		}
+	/*导航子菜单*/
+		/*婚纱礼服*/
+			#nav>ul>li.hunsha_items{
+				position:relative;
+				z-index:10;
+			}
+			#nav>ul>li.hunsha_items:hover ul{
+				display:block;
+			}
+			#nav>ul>li.hunsha_items ul{
+				width:202px;
+				border:1px solid #353535;
+				border-top:0;
+				position:absolute;
+				right:-1px;
+				display:none;
+				z-index:20;
+			}
+			#nav>ul>li.hunsha_items li{
+				width:190px;
+				height:30px;
+				padding:0 6px;
+				text-align:center;
+				background:#fff;
+			}
+			#nav>ul>li.hunsha_items li:hover{
+				background:#ddd;
+			}
+			#nav .hunsha_items>ul>li a{
+				line-height:30px;
+				color:#000;
+			}
+		/*美容配饰*/
+			#nav>ul>li.meirong_items{
+				position:relative;
+				z-index:10;
+			}
+			#nav>ul>li.meirong_items:hover ul{
+				display:block;
+			}
+			#nav>ul>li.meirong_items ul{
+				width:202px;
+				border:1px solid #353535;
+				border-top:0;
+				position:absolute;
+				right:-1px;
+				display:none;
+				z-index:20;
+			}
+			#nav>ul>li.meirong_items li{
+				width:190px;
+				height:30px;
+				padding:0 6px;
+				text-align:center;
+				background:#fff;
+			}
+			#nav>ul>li.meirong_items li:hover{
+				background:#ddd;
+			}
+			#nav .meirong_items>ul>li a{
+				line-height:30px;
+				color:#000;
+			}
+		/*婚礼服务*/
+			#nav>ul>li.hunli_items{
+			position:relative;
+			z-index:10;
+			}
+			#nav>ul>li.hunli_items:hover ul{
+				display:block;
+			}
+			#nav>ul>li.hunli_items ul{
+				width:202px;
+				border:1px solid #353535;
+				border-top:0;
+				position:absolute;
+				right:-1px;
+				display:none;
+				z-index:20;
+			}
+			#nav>ul>li.hunli_items li{
+				width:190px;
+				height:30px;
+				padding:0 6px;
+				text-align:center;
+				background:#fff;
+			}
+			#nav>ul>li.hunli_items li:hover{
+				background:#ddd;
+			}
+			#nav .hunli_items>ul>li a{
+				line-height:30px;
+				color:#000;
+			}
+		/*品牌咨询*/
+			#nav>ul>li.pinpai_items{
+			position:relative;
+			z-index:10;
+			}
+			#nav>ul>li.pinpai_items:hover ul{
+				display:block;
+			}
+			#nav>ul>li.pinpai_items ul{
+				width:202px;
+				border:1px solid #353535;
+				border-top:0;
+				position:absolute;
+				right:-1px;
+				display:none;
+				z-index:20;
+			}
+			#nav>ul>li.pinpai_items li{
+				width:190px;
+				height:30px;
+				padding:0 6px;
+				text-align:center;
+				background:#fff;
+			}
+			#nav>ul>li.pinpai_items li:hover{
+				background:#ddd;
+			}
+			#nav .pinpai_items>ul>li a{
+				line-height:30px;
+				color:#000;
+			}
+		/*关于我们*/
+			#nav>ul>li.we_items{
+			position:relative;
+			width:201px;
+			border-right:1px solid #000;
+			z-index:10;
+			}
+			#nav>ul>li.we_items:hover ul{
+				display:block;
+			}
+			#nav>ul>li.we_items ul{
+				width:201px;
+				border:1px solid #353535;
+				border-top:0;
+				position:absolute;
+				right:-1px;
+				display:none;
+				z-index:20;
+			}
+			#nav>ul>li.we_items li{
+				width:189px;
+				height:30px;
+				padding:0 6px;
+				text-align:center;
+				background:#fff;
+			}
+			#nav>ul>li.we_items li:hover{
+				background:#ddd;
+			}
+			#nav .we_items>ul>li a{
+				line-height:30px;
+				color:#000;
+			}
+/***************页面底部——集团网站******************/
+	#footer_box{
+		min-height:250px;
+		background:url(image/foot_bg.png) repeat;
+	}
+	#footer_box>div{
+		width:1211px;
+		min-height:250px;
+		background:url(image/logo_white.png) no-repeat 50% 50%;
+		background-size:230px;
+		box-sizing:border-box;
+		padding:30px 100px;
+		border-bottom:1px dotted #ddd;
+	}
+	.footer_items{
+		width:270px;
+		height:190px;
+	}
+
+	.footer_box ul li{
+		font-size:12px;
+		height:30px;
+		width:150px;
+	}
+	.footer_items>ul>li a{
+		display:block;
+		color:#fff;
+		font-size:12px;
+		line-height:30px;
+	}
+	.footer_items>ul>li a:hover{
+		color:#ffd5ff;
+	}
+	.footer_items p{
+		display:inline-block;
+		width:200px;
+		margin-left:75px;
+		margin-bottom:20px;
+		font-weight:bold;
+		color:#fff;
+		font-size:20px;
+	}
+/***************页面底部——版权**********************/
+	#footer{
+		background:url(image/foot_bg.png) repeat;
+		text-align:center;
+		box-sizing:border-box;
+		padding:20px 20px;
+		margin-bottom:20px;
+	}
+	#footer>a{
+		display:inline-block;
+		width:70px;
+		margin-bottom:10px;
+	}
+	#footer>a:hover{
+		color:#ddd;
+	}
+	#footer b{
+		border:1px solid #666;
+	}
+/*********婚纱礼服*********/
+	#main>div{
+		width:1211px;
+		text-align:center;
+	}
+  
+  /*********婚纱礼服导航*********/
+	#wedding_nav>ul>li{
+		display:inline-block;
+		margin:0px 20px;
+	}
+	#wedding_nav>ul>li>a{
+		font-size:16px;
+		color:#333;
+	}
+	#wedding_nav>ul>li>a:hover{
+		color:#ff9ec5;
+	}
+  /***********系列图片**********/
+	#wedding_image>ul{
+		margin:20px;
+		display:block;
+	}
+	#wedding_image>ul>li{
+		display:inline-block;
+		margin:10px;
+		position:relative;
+		text-align:center;
+	}
+	#wedding_image>ul>li>a{
+		display:block;
+	}
+	#wedding_image>ul>li .title{
+		border-radius:50%;
+		width:50px;
+		height:50px;
+		position:absolute;
+		bottom:20px;
+		right:98px;
+	}
+	#wedding_image>ul>li .round{
+		background-color:#fff;
+		opacity:0.6;
+	}
+	#wedding_image>ul>li .love{
+		background:url(image/icon.png) no-repeat -151px 8px;
+	}
+	#wedding_image>ul>li>a:hover .love{
+		background:url(image/icon.png) no-repeat -210px 8px;
+	}
+
+	/********流行趋势**********/
+	#new_image>ul>li{
+		display:inline-block;
+		margin:10px 20px;
+	｝
+	#new_image>ul>li a{
+		display:block;
+	}
