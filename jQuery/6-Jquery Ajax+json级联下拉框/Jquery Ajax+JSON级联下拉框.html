@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JSON异步获取级联下拉框</title>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+
+		// 加载下拉框
+		select1();
+		select2();
+		
+		
+		// 第一个下拉框加载数据
+		function select1() {
+			$.getJSON("json/data.json", function(data) {
+
+				// 解析循环出来JSON数组里面第一个JSON对象
+				var menu = "<option>请选择</option>";
+				var option = "";
+				
+				$.each(data, function(index, value) {
+					// 添加执法局机构
+					option += "<option value='" + value.value + "'>" + value.value + "</option>";
+				});
+				
+				menu = menu + option;
+
+				// 第一个下拉框绑定函数
+				$("#select1").show().empty().append(menu);
+
+			});
+		}
+		
+		
+		// 第二个下拉框加载数据
+		function select2(){
+			var option; // 初始化下拉框的Option项
+			
+			// 当地一个下拉框值改变的时候触发
+			$("#select1").change(function(){
+				var value = $(this).val();  // 获取当前下拉框选择的值
+				
+				$.getJSON("json/data.json", function(data){
+					option = "<option>请选择</option>";
+					
+					$.each(data,function(index1,value1){
+						// 如果第一个下拉框的value和第二个下拉框的父value相同的时候就执行循环累加
+                        if(value == value1.value){
+                        	$.each(value1.jigou,function(index2,value2){
+                        		// 添加执法局机构
+    							option += "<option value='" + value2.value + "'>" + value2.value + "</option>";
+    						});
+						}
+						
+					});
+					
+					// 第二个下拉框绑定函数
+				$("#select2").show().empty().append(option);
+				});
+			});
+		}
+
+	});
+</script>
+</head>
+
+<body>
+	<center>
+	<div style="margin-top:50px;">
+		执法局：<select id="select1" style="display:none;"></select> 
+		                  》<select id="select2" style="display:none;"></select>
+	</div>	                  
+			
+	<p style="color:red;font-size:18px;">
+	直接用谷歌和火狐是获取不到信息的，因为这些浏览器有安全限制，本地请求的会直接过滤掉，请用IE内核的浏览器打开，或者是将例子放到服务器查看就OK。
+	</p>
+	</center>
+</body>
+</html>

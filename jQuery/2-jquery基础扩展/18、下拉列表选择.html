@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉列表选择</title>
+	<style>
+		/**{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}*/
+		.list-wrap{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="down-list">
+		<div class="down-title">
+			<p class="title">全部</p>
+		</div>
+		<div class="list-wrap">
+			<ul class="list">
+				<li class="list-item">全部</li>
+				<li class="list-item">列表一</li>
+				<li class="list-item">列表二</li>
+				<li class="list-item">列表三</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script>
+	(function($){
+		console.log('jQuery版本号',$().jquery);
+		var titleClick = 0;
+		var itemClick = 0;
+		
+		$('.down-list .title').on('click',function(){
+			
+			$('.list-wrap').show();
+			titleClick++;
+			console.log('titleClick:',titleClick);
+			
+		});
+		$('.list-wrap .list-item').on('click',function(){
+				// ev.stopPropagation();
+				$('.down-list .title').text($(this).text());
+				console.log($('.down-list .title').text());
+				//debugger;
+				itemClick++;
+				console.log('itemClick:',itemClick);
+				$('.list-wrap').hide();
+			});
+		// function listClick(that){
+			
+		// }
+	})(jQuery)
+	</script>
+</body>
+</html>

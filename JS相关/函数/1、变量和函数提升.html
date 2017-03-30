@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1、变量和函数提升</title>
+</head>
+<body>
+	<pre>
+	<code>
+		/**
+		 * 我们知道，函数中的变量定义和函数定义都会提升。看看下面这段代码，猜猜会输出什么？输出undefined和fn is not a function。
+		 */
+		(function(){
+			console.log(a); // undefined
+			fn();			// Uncaught TypeError: fn is not a function
+			if (true) {
+				var a = 1;
+				function fn(){
+					console.log(2);
+				}
+			}
+		})();
+		/**
+		 * 说明函数中，代码块中的变量的定义，仍然会提升，而代码块中的函数定义不会提升。好诡异，对变量和函数的处理竟然不一样。
+		 */
+	</code>
+	</pre>
+	<script>
+	(function(){
+		//'use stirct';
+		console.log(a); // undefined
+		fn();			// Uncaught TypeError: fn is not a function
+		if (true) {
+			var a = 0;
+			if (true) {
+				var a = 1;
+				function fn(){
+					console.log(2);
+				}
+			}
+
+		}
+	})();
+	/**
+	 * 我们知道，函数中的变量定义和函数定义都会提升。看看下面这段代码，猜猜会输出什么？输出undefined和fn is not a function。
+	 * 说明函数中，代码块中的变量的定义，仍然会提升，而代码块中的函数定义不会提升。好诡异，对变量和函数的处理竟然不一样。
+	 */
+	</script>
+</body>
+</html>
