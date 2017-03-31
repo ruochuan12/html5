@@ -1,0 +1,37 @@
+<html>  
+<head>  
+</head>  
+    <meta charset="utf-8">  
+    <title>StudyDemo05</title>  
+    <script src="../jqueryVesion/jquery-3.1.0.slim.min.js"></script> 
+    <script type="text/javascript">  
+        $(document).ready(function() {  
+            var a = {  
+                name : 'zhangshan',  
+                age : 28,  
+                company : {  
+                    name : '腾讯',  
+                    address : '深圳',  
+                    size : 10000  
+                }  
+            };  
+            var b = {  
+                name : 'lisi',  
+                age : 30,  
+                company : {  
+                    name : '阿里巴巴',  
+                    address : '杭州'  
+                },  
+                stature : '172cm'  
+            };  
+            var c = $.extend(true,a,b);  
+            console.log('a:' + JSON.stringify(a));
+            console.log('b:' + JSON.stringify(b));
+            console.log('c:' + JSON.stringify(c));
+
+             = false
+        });  
+    </script>  
+<body>  
+</body>  
+</html> 
