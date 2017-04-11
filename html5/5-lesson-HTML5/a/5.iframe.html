@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	var oMyIframe = document.getElementById('myframe');
+	
+	oBtn.onclick = function() {
+		
+		//当本页面和包含页面不在同一个域名下的时候，这样操作就会有跨域操作安全限制问题。
+		oMyIframe.contentWindow.document.body.style.background = 'red';
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="点击我，改变2.iframe.html的背景色" id="btn" />
+	<iframe id="myframe" src="http://www.b.com/2.iframe.html"></iframe>
+</body>
+</html>

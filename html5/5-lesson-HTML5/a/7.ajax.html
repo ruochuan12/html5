@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function() {
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					alert(xhr.responseText);
+				}
+			}
+		}
+		xhr.open('get', 'ajax.php', true);
+		xhr.send();
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="获取同域下内容" id="btn" />
+</body>
+</html>

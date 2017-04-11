@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+/*
+我们可以通过js去访问被包含页面的DOM元素
+*/
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	var oMyIframe = document.getElementById('myframe');
+	
+	oBtn.onclick = function() {
+		
+		//如果我们要操作一个iframe里面的dom元素，首先要获取到iframe引入的页面的window
+		//oMyIframe.contentWindow -> 被iframe包含的页面的window对象
+		//alert(oMyIframe.contentWindow);
+		
+		oMyIframe.contentWindow.document.body.style.background = 'red';
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="点击我，改变2.iframe.html的背景色" id="btn" />
+	<iframe id="myframe" src="2.iframe.html"></iframe>
+</body>
+</html>

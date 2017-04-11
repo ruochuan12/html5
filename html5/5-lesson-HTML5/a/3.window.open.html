@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	var oBtn2 = document.getElementById('btn2');
+	var newWindow = null;
+	
+	oBtn.onclick = function() {
+		//window.open 返回被打开窗口的window对象
+		newWindow = window.open('4.window.open.html', '_blank');
+		
+	}
+	
+	oBtn2.onclick = function() {
+		newWindow.document.body.style.background = 'red';
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="点击我，开启一个新的窗口打开4.window.open.html页面" id="btn" />
+    <input type="button" value="点击我，改变4.window.open.html页面的背景色" id="btn2" />
+</body>
+</html>

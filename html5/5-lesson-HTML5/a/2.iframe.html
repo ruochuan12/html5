@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function() {
+		
+		//parent => window 如果当前页面是顶级，没有被其他页面所包含，那么parent就是当前页面的window对象，那么如果被包含了，则parent就是包含当前页面的父级页面的window对象
+		parent.document.body.style.background = 'green';
+		
+	}
+	
+	/*
+	window : 当前窗口 
+	parent : 父级窗口
+	top : 顶级窗口
+	*/
+	
+}
+</script>
+</head>
+
+<body>
+	这里是a.com下的2.iframe.html页面
+    <input type="button" value="点击我，改变1.iframe.html的背景色" id="btn" />
+</body>
+</html>

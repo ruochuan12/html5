@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function() {
+		
+		//window.opener : 通过window.open方法打开当前页面的窗口window
+		window.opener.document.body.style.background = 'green';
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	这是a.com下的4.window.open.html页面
+    <input type="button" value="点击我，改变3.window.open.html页面的背景色" id="btn" />
+</body>
+</html>
