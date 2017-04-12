@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body{ background:black;}
+#c1{ background:white;}
+li{ float:left; list-style:none; font-size:60px; color:white;}
+</style>
+<script>
+window.onload = function(){
+	var oC = document.getElementById('c1');
+	var oGC = oC.getContext('2d');
+	
+	var aLi = document.getElementsByTagName('li');
+	
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].onclick = function(){
+			
+			console.time(1);
+			
+			oGC.clearRect(0,0,oC.width,oC.height);
+			
+			var str = this.innerHTML;
+			
+			var h = 180;
+			
+			oGC.font = h + 'px impact';
+	
+			oGC.textBaseline = 'top';
+			
+			oGC.textAlign = 'left';
+			
+			var w = oGC.measureText(str).width;
+			
+			oGC.fillText(str, (oC.width - w)/2 , (oC.height - h)/2 );
+			
+			var oImg = oGC.getImageData((oC.width - w)/2 , (oC.height - h)/2,w,h);
+			
+			oGC.clearRect(0,0,oC.width,oC.height);
+			
+			var newImg = oGC.createImageData(w,h);
+			
+			var arr = randomArr( oImg.width*oImg.height , oImg.width*oImg.height/10 );
+			
+			for(var i=0;i<arr.length;i++){
+				
+				var color = getXY(oImg, arr[i]%w ,Math.ceil(arr[i]/w));
+				
+				setXY( newImg , arr[i]%w ,Math.ceil(arr[i]/w), color );
+				
+			}
+			
+			oGC.putImageData( newImg , (oC.width - w)/2 , (oC.height - h)/2 );
+			
+			console.timeEnd(1);
+			
+		};
+	}
+	
+	function randomArr(iAll,iNow){
+		
+		var arr = [];
+		var result = [];
+		
+		for(var i=0;i<iAll;i++){
+			arr.push( i );
+		}
+		
+		for(var i=0;i<iNow;i++){
+			result = result.concat( arr.splice( Math.floor(Math.random()*arr.length) ,1) );
+		}
+		
+		return result;
+		
+	}
+	
+	function getXY(oImg,x,y){
+		
+		var w = oImg.width;
+		var h = oImg.heigth;
+		var d = oImg.data;
+		
+		var color = [];
+		
+		color[0] = d[4*(y*w+x)];
+		color[1] = d[4*(y*w+x)+1];
+		color[2] = d[4*(y*w+x)+2];
+		color[3] = d[4*(y*w+x)+3];
+		
+		return color;
+		
+	}
+	
+	
+	function setXY(oImg,x,y,color){
+		
+		var w = oImg.width;
+		var h = oImg.heigth;
+		var d = oImg.data;
+		
+		d[4*(y*w+x)] = color[0];
+		d[4*(y*w+x)+1] = color[1];
+		d[4*(y*w+x)+2] = color[2];
+		d[4*(y*w+x)+3] = color[3];
+		
+	}
+	
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="400" height="400"></canvas>
+<ul>
+	<li>妙</li>
+    <li>味</li>
+    <li>课</li>
+    <li>堂</li>
+</ul>
+</body>
+</html>
