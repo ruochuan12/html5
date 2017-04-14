@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+//LBS : 基于地图信息的应用
+
+window.onload = function(){
+	var oInput = document.getElementById('input1');
+	var oT = document.getElementById('t1');
+	
+	oInput.onclick = function(){
+		
+		navigator.geolocation.getCurrentPosition(function(position){
+			
+			oT.value += '经度:' + position.coords.longitude+'\n';
+			oT.value += '纬度 :' + position.coords.latitude+'\n';
+			oT.value += '准确度 :' + position.coords.accuracy+'\n';
+			oT.value += '海拔 :' + position.coords.altitude+'\n';
+			oT.value += '海拔准确度 :' + position.coords.altitudeAcuracy+'\n';
+			oT.value += '行进方向 :' + position.coords.heading+'\n';
+			oT.value += '地面速度 :' + position.coords.speed+'\n';
+			oT.value += '时间戳:' + new Date(position.timestamp)+'\n';
+				
+			
+		},function(err){
+			
+			//err.code // 失败所对应的编号
+			
+			alert( err.code );
+			
+		},{
+			enableHighAcuracy : true,
+			timeout : 5000,
+			maximumAge : 5000
+		});
+		
+	};
+	
+};
+
+</script>
+</head>
+
+<body>
+<input type="button" value="请求" id="input1" /><br />
+<textarea id="t1" style="width:400px; height:400px; border:1px #000 solid;">
+</textarea>
+</body>
+</html>
