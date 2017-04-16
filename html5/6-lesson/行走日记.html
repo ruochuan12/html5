@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+li{ list-style:none;}
+#div1,#div2{ float:left; width:400px; height:400px; border:1px #000000 solid; margin:10px; position:relative; overflow:hidden;}
+#div2 ul{ position:absolute; left:0; width:2000px;}
+#div2 ul .box{ width:400px; height:400px; float:left; overflow:hidden;}
+#div2 #childUl{ width:400px;}
+#childUl li{ width:400px; border-bottom:1px #666666 dashed;}
+#map{ width:100%; height:380px;}
+</style>
+<script src="move.js"></script>
+<script src="http://api.map.baidu.com/api?v=1.3"></script>
+<script>
+
+window.onload = function(){
+	var oDiv = document.getElementById('div1');
+	var aInput = oDiv.getElementsByTagName('input');
+	var oT = document.getElementById('t1');
+	
+	var iNow = window.localStorage.getItem('num') || 0;
+	
+	var oChildUl = document.getElementById('childUl');
+	var aChildLi = oChildUl.getElementsByTagName('li');
+	
+	var oUl = document.getElementById('ul1');
+	var aBox = oUl.getElementsByClassName('box');
+	
+	var aBox1_input = aBox[1].getElementsByTagName('input');
+	var aBox1_div = aBox[1].getElementsByTagName('div');
+	
+	var oBox2_input = aBox[2].getElementsByTagName('input')[0];
+	var index = 0;
+	
+	if( window.localStorage.getItem('num') ){
+		
+		for(var i=0;i<iNow;i++){
+			
+			var oLi = document.createElement('li');
+			oLi.innerHTML = window.localStorage.getItem('title'+i);
+			oChildUl.appendChild( oLi );
+			
+		}
+		
+		changeLi();
+		
+	}
+	
+	
+	aInput[1].onclick = function(){  //保存本地
+	
+		window.localStorage.setItem('title'+iNow,aInput[0].value);
+		window.localStorage.setItem('ta'+iNow,oT.value);
+		
+		createLi();
+		
+		iNow++;
+		
+		window.localStorage.setItem('num',iNow);
+	
+	};
+	
+	aInput[2].onclick = function(){ //提交后台
+	};
+	
+	aInput[3].onclick = function(){ //删除所有的数据
+		window.localStorage.clear();
+	};
+	
+	aInput[4].onclick = function(){
+		
+		var This = this;
+		
+		navigator.geolocation.getCurrentPosition(function(position){
+			
+			var y = position.coords.longitude;
+			var x = position.coords.latitude;
+			
+			
+			if( This.checked ){
+				window.localStorage.setItem('y'+iNow,y);
+				window.localStorage.setItem('x'+iNow,x);
+			}
+			else{
+				window.localStorage.removeItem('y'+iNow);
+				window.localStorage.removeItem('x'+iNow);
+			}
+			
+			
+		});
+		
+		
+		
+	};
+	
+	function createLi(){
+		
+		var oLi = document.createElement('li');
+		oLi.innerHTML = window.localStorage.getItem('title'+iNow);
+		oChildUl.appendChild( oLi );
+		
+		changeLi();
+		
+	}
+	
+	function changeLi(){
+		
+		for(var i=0;i<aChildLi.length;i++){
+			aChildLi[i].index = i;
+			aChildLi[i].onclick = function(){
+				
+				startMove(oUl,{left : -aBox[0].offsetWidth });
+				
+				aBox1_div[0].innerHTML = window.localStorage.getItem('title'+this.index);
+				aBox1_div[1].innerHTML = window.localStorage.getItem('ta'+this.index);
+				
+				
+				if( window.localStorage.getItem('y'+this.index) ){
+					aBox1_input[1].disabled = false;
+					
+				}
+				else{
+					aBox1_input[1].disabled = true;
+				}
+				
+				index = this.index;
+				
+			};
+		}
+		
+	}
+	
+	aBox1_input[0].onclick = function(){
+		
+		startMove(oUl,{left : 0});
+		
+	};
+	
+	aBox1_input[1].onclick = function(){
+		
+		startMove(oUl,{left : -2*aBox[0].offsetWidth});
+		
+		
+		var map = new BMap.Map("map");            
+		var y = window.localStorage.getItem('y'+index);
+		var x = window.localStorage.getItem('x'+index);
+		var title = window.localStorage.getItem('title'+index);
+		var text = window.localStorage.getItem('ta'+index);
+		var point = new BMap.Point(y, x);    
+		map.centerAndZoom(point,15);                    
+		map.enableScrollWheelZoom();
+		
+		var marker1 = new BMap.Marker(point);
+		map.addOverlay(marker1); 
+		
+		var opts = {
+		  width : 250,     // 信息窗口宽度
+		  height: 100,     // 信息窗口高度
+		  title : title  // 信息窗口标题
+		}
+		
+		var infoWindow = new BMap.InfoWindow(text, opts);
+		map.openInfoWindow(infoWindow,point);
+		
+		
+	};
+	
+	oBox2_input.onclick = function(){
+		
+		startMove(oUl,{left : -aBox[0].offsetWidth });
+		
+	};
+	
+};
+
+</script>
+</head>
+
+<body>
+<div id="div1">
+标题:<input type="text" /><br />
+内容:<textarea id="t1" style="height:300px; width:300px;"></textarea><br />
+<input type="button" value="保存本地" />
+<input type="button" value="同步服务器" />
+<input type="button" value="删除所有数据" />
+<input type="checkbox" />记录地图位置
+</div>
+<div id="div2">
+	<ul id="ul1">
+		<li class="box">
+			<ul id="childUl">
+			</ul>
+		</li>
+		<li class="box">
+			<input type="button" value="后退" />
+			<input style="float:right" type="button" value="前进" />
+			<div></div>
+			<div></div>
+		</li>
+		<li class="box">
+			<input type="button" value="后退" />
+			<div id="map"></div>
+		</li>
+	</ul>
+</div>
+</body>
+</html>
