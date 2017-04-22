@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+window.onload = function(){
+	var oA = document.getElementById('a1');
+	
+	/*setInterval(function(){
+		
+		console.log(oA.currentTime);
+		
+	},1000);*/
+	
+	//oA.currentTime = 60;
+	
+	console.log( oA.duration );
+	console.log( oA.volume );
+	
+	console.log( oA.muted );
+	
+	console.log( oA.paused );
+	console.log( oA.ended );
+	console.log( oA.error );
+	console.log( oA.currentSrc );
+	
+};
+
+</script>
+</head>
+
+<body>
+<audio id="a1" controls src="johann_sebastian_bach_air.mp3"></audio>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload = function(){
+	
+	var oV = document.getElementById('v1');
+	var oInput = document.getElementById('input1');
+	var aS = document.getElementsByTagName('source');
+	
+	oV.onmouseover = function(){
+		this.play();
+	};
+	
+	oV.onmouseout = function(){
+		this.pause();
+	};
+	
+	oInput.onclick = function(){
+		
+		aS[0].src = 'xxxx.mp4';
+		aS[1].src = 'yyyy.mp4';
+		
+		oV.load();
+		
+	};
+	
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="重新加载" id="input1" />
+<video id="v1">
+
+	<source src="Intermission-Walk-in.ogv"></source>
+    <source src="Intermission-Walk-in_512kb.mp4"></source>
+
+</video>
+</body>
+</html>
