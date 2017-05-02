@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#div1 {width: 100px; height: 100px; background: red; position: absolute; left: 0; top: 0;}
+</style>
+<script src="client.socket.js"></script>
+<script>
+window.onload = function() {
+	
+	var oBtn = document.getElementById('btn');
+	var oDiv = document.getElementById('div1');
+	var socket = null;
+	
+	oBtn.onclick = function() {
+		
+		socket = io.connect('http://localhost:8888');
+		
+		socket.on('hello', function(data) {
+			alert(data);
+			
+			this.emit('hellotoo', '欢迎欢迎');
+			
+		});
+		
+		socket.on('a', function(data) {
+			alert(data);
+		});
+		
+		socket.on('move2', function(data) {
+			oDiv.style.left = data.left + 'px';
+			oDiv.style.top = data.top + 'px';
+		});
+		
+	}
+	
+	
+	
+	oDiv.onmousedown = function(ev) {
+		
+		var ev = ev || event;
+		
+		var disX = ev.clientX - this.offsetLeft;
+		var disY = ev.clientY - this.offsetTop;
+		
+		if (oDiv.setCapture) {
+			oDiv.setCapture();
+		}
+		
+		document.onmousemove = function(ev) {
+			var ev = ev || event;
+			
+			oDiv.style.left = ev.clientX - disX + 'px';
+			oDiv.style.top = ev.clientY - disY + 'px';
+			
+			socket.emit('move', {
+				left: oDiv.offsetLeft,
+				top : oDiv.offsetTop
+			});
+		}
+		
+		document.onmouseup = function() {
+		
+			document.onmousemove = null;
+			
+			//releaseCapture : 释放全局捕获
+			if (oDiv.releaseCapture) {
+				oDiv.releaseCapture();
+			}
+		
+		}
+		
+		return false;
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<h1>HELLO,欢迎来到妙味！</h1>
+    <input type="button" value="发送socket请求" id="btn" />
+    <div id="div1"></div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+body{ background:black;}
+#div1{ background:white; width:600px; margin:20px auto;}
+</style>
+<script>
+window.onload = function(){
+	var oC = document.getElementById('c1');
+	var oGC = oC.getContext('2d');
+	
+	var i = 0;
+	
+	/*oGC.beginPath();
+	//弧度 = 角度 * Math.PI/180
+	oGC.arc(300,200,200,-90*Math.PI/180,180*Math.PI/180,false);
+	//oGC.closePath();
+	oGC.stroke();
+	
+	oGC.beginPath();
+	oGC.arc(250,200,150,180*Math.PI/180,360*Math.PI/180,false);
+	oGC.stroke();
+	oGC.beginPath();
+	oGC.arc(400,200,20,0*Math.PI/180,360*Math.PI/180,false);
+	oGC.stroke();*/
+	
+	setInterval(function(){
+		
+		oGC.clearRect(0,0,oC.width,oC.height);
+		
+		oGC.beginPath();
+		//弧度 = 角度 * Math.PI/180
+		oGC.arc(300,200,200,-90*Math.PI/180,180*Math.PI/180,false);
+		oGC.stroke();
+		
+		oGC.beginPath();
+		oGC.arc(250,200,150,180*Math.PI/180,360*Math.PI/180,false);
+		oGC.stroke();
+		oGC.beginPath();
+		oGC.arc(400,200,20,0*Math.PI/180,360*Math.PI/180,false);
+		oGC.stroke();
+		
+		for(var i=0;i<ball.length;i++){
+			
+			oGC.beginPath();
+			oGC.moveTo(ball[i].x,ball[i].y);
+			oGC.arc(ball[i].x,ball[i].y,20,0*Math.PI/180,360*Math.PI/180,false);
+			oGC.fill();
+		}
+		
+	},1000/60);
+	
+	setInterval(function(){
+		
+		for(var i=0;i<ball.length;i++){
+			
+			ball[i].num++;
+			
+			ball[i].x = Math.sin(ball[i].num*Math.PI/180) * ball[i].r + ball[i].startX;
+			ball[i].y = ball[i].r - Math.cos(ball[i].num*Math.PI/180) * ball[i].r + ball[i].startY;
+			
+		}
+		
+	},30);
+	
+	var ball = [];
+	ball[0] = {
+		x : 300,
+		y : 0,
+		r : 200,
+		num : 0,
+		startX : 300,
+		startY : 0
+	};
+	
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<canvas id="c1" width="600" height="600"></canvas>
+</div>
+</body>
+</html>

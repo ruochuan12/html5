@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+var w1 = new Worker('test.js');
+
+w1.postMessage('hi');
+
+w1.onmessage = function(ev){
+	alert( ev.data );
+};
+</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	/*
+	在标准浏览器下，XMLHttpRequest对象已经是升级版本，支持了更多的特性，可以跨域了
+	但是，如果想实现跨域请求，还需要后端的相关配合才可以
+	
+	XMLHttpRequest : 增加很多功能，他也不推荐使用onreadystatechange这个事件来监听，推荐使用onload
+	
+	XDomainRequest : IE如果想实现跨域请求，则需要使用另外一个对象去实现
+	*/
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function() {
+		
+		/*var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					alert(xhr.responseText);
+				}
+			}
+		}
+		xhr.open('get', 'http://www.b.com/ajax.php', true);
+		xhr.send();*/
+		
+		var oXDomainRequest = new XDomainRequest();
+		oXDomainRequest.onload = function() {
+			alert(this.responseText);
+		}
+		oXDomainRequest.open('get', 'http://www.b.com/ajax.php', true);
+		oXDomainRequest.send();
+		
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="获取同域下内容" id="btn" />
+</body>
+</html>

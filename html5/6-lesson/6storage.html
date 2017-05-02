@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+window.onload = function(){
+	var aInput = document.getElementsByTagName('input');
+	
+	aInput[0].onclick = function(){
+		
+		window.localStorage.setItem('name',aInput[3].value);
+		
+	};
+	
+	aInput[1].onclick = function(){
+		
+		alert(window.localStorage.getItem('name'));
+		
+	};
+	
+	aInput[2].onclick = function(){
+		
+		window.localStorage.removeItem('name');
+		
+		
+	};
+	
+	window.addEventListener('storage',function(ev){  //当前页面的事件不会触发
+		//alert(123);
+		
+		console.log( ev.key );
+		console.log( ev.newValue );
+		console.log( ev.oldValue );
+		console.log( ev.storageArea );
+		console.log( ev.url );
+		
+	},false);
+	
+};
+
+</script>
+</head>
+
+<body>
+<input type="button" value="设置" />
+<input type="button" value="获取" />
+<input type="button" value="删除" />
+<input type="text" />
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+window.onload = function() {
+	
+	/*
+	message : 当窗口接收到通过postMessage发送过来的数据的时候触发
+	*/
+	
+	window.addEventListener('message', function(ev) {
+		//alert('b.com下的页面接收到了内容了');
+		
+		//message事件的事件对象下保存了发送过来的内容
+		//ev.data : 发送过来的数据
+		//ev.origin
+		
+		//alert('我接收到了a.com页面发送过来的数据，内容是：' + ev.data);
+		
+		//alert(ev.origin);
+		
+		
+		if (ev.data == '1') {
+			document.body.style.background = 'red';
+		}
+		
+	}, false);
+	
+}
+</script>
+</head>
+
+<body>
+	这是b.com的postMessage.html页面
+</body>
+</html>

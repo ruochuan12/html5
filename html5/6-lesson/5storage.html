@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+window.onload = function(){
+	var aInput = document.getElementsByTagName('input');
+	var oT = document.getElementById('t1');
+	
+	if( window.localStorage.getItem('name') ){
+		
+		aInput[0].value = window.localStorage.getItem('name');
+		
+	}
+	
+	if( window.localStorage.getItem('sex') ){
+		
+		for(var i=1;i<aInput.length;i++){
+			if( aInput[i].value == window.localStorage.getItem('sex') ){
+				
+				aInput[i].checked = true;
+				
+			}
+		}
+		
+	}
+	
+	if( window.localStorage.getItem('ta') ){
+		oT.value = 	window.localStorage.getItem('ta');
+	}
+	
+	window.onunload = function(){
+		
+		
+		if( aInput[0].value ){
+			window.localStorage.setItem('name', aInput[0].value);
+		}
+		
+		for(var i=1;i<aInput.length;i++){
+			if( aInput[i].checked == true ){
+				window.localStorage.setItem('sex', aInput[i].value);
+			}
+		}
+		
+		if( oT.value ){
+			window.localStorage.setItem('ta', oT.value);
+		}
+		
+	};
+	
+};
+
+</script>
+</head>
+
+<body>
+<p>
+	用户名:<input type="text" />
+</p>
+<p>
+	性别 : <input type="radio" value="男" name="sex" />男
+    <input type="radio" value="女" name="sex" />女
+</p>
+内容 : <textarea id="t1">
+</textarea>
+</body>
+</html>
