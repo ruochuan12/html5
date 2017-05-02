@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Message</title>
+</head>
+<body>
+    <div style="width:200px; float:left; margin-right:200px;border:solid 1px #333;">
+        <div id="color">Frame Color</div>
+    </div>
+    <div>
+        <iframe id="child" src="http://127.0.0.1:8000/ajaxdemo/post-message/data.html"></iframe>
+    </div>
+    http://localhost:8000/ajaxdemo/post-message/index.html
+    <script type="text/javascript">
+
+        window.onload=function(){
+            window.frames[0].postMessage('getcolor','http://127.0.0.1:8000/ajaxdemo/post-message/');
+        }
+
+        window.addEventListener('message',function(e){
+            var color=e.data;
+            console.log(e);
+            document.getElementById('color').style.backgroundColor=color;
+        },false);
+    </script>
+</body>
+</html>
+
