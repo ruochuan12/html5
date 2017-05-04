@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>19、iframe</title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app">
+		父级页面
+	</div>
+	<div id="frame">
+		子级页面
+	</div> 
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script>
+	(function($){
+		var iframe = document.createElement('iframe');
+		$('#app').on('click',function(){
+			
+		});
+
+		console.log('iframe被点击了');
+		iframe.width = '1500px';
+		iframe.height = '500px';
+		// iframe.src = 'http://www.baidu.com';
+		iframe.src = 'http://lxchuan12.github.io/';
+
+
+		$('#frame').append(iframe);
+		$("#frame").contents().find("#menu").html('baidu');
+		$("#frame").contents().find("#menu").text();
+		console.log($("#frame").contents().find("#menu"));  // 方式1
+		console.log(iframe);
+		
+	})(jQuery)
+	</script>
+</body>
+</html>

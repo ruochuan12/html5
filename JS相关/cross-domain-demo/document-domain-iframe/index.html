@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"    "http://www.w3.org/TR/html4/strict.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <title>使用document.domain和iframe实现站内AJAX跨域</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    </head>
+    <body>
+    <div id="test"></div>
+    <!--<iframe src="http://css88.com/demo/domain/iframe.html" id="iframe" style="display:none;"></iframe>-->
+    <script type="text/javascript">
+////document.write(document.domain)
+//document.domain = "www.css88.com";错误的写法
+    document.domain = "css88.com";
+
+    var createAjaxIframe={
+        //创建iframe标签
+        appIframe: function(iframeId, iframeSrc){
+            var iframe = document.createElement("iframe");
+            iframe.src = iframeSrc// "http://css88.com/demo/domain/iframe.html";
+            iframe.id = iframeId;
+            iframe.style.display = "none";
+            if (iframe.attachEvent) {
+                iframe.attachEvent("onload", function(){
+                    createAjaxIframe.domainAjax(iframeId);
+                });
+            }else {
+                iframe.onload = function(){
+                    createAjaxIframe.domainAjax(iframeId);
+                };
+            }
+            document.body.appendChild(iframe);
+        },
+        domainAjax: function(iframeId){
+            var iframeDom = document.getElementById(iframeId).contentWindow.$;
+            iframeDom.getJSON("http://css88.com/demo/iframe-domain/city.html", function(date){
+                var cityOption = "";
+                for (i = 0; i < date.length; i++) {
+                    cityOption += date[i].c_name + "--" + date[i].c_value + "<br />"
+                }
+                $("#test").html(cityOption);
+            });
+        }
+    };
+    createAjaxIframe.appIframe("iframe","http://css88.com/demo/iframe-domain/iframe.html");
+    </script>
+
+    <!--统计-->
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-3448069-1");
+            pageTracker._trackPageview();
+        } catch(err) {}</script>
+    </body>
+</html>
