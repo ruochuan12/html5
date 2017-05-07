@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+#div1{ width:300px; height:30px; background:#666; overflow:hidden; position:relative;}
+#div2{ width:60px; height:30px; background:red; position:absolute; left:0; top:0;}
+
+#div3{ width:300px; height:10px; background:#666; overflow:hidden; position:relative; top:10px;}
+#div4{ width:60px; height:10px; background:yellow; position:absolute; left:240px; top:0;}
+
+</style>
+<script>
+
+window.onload = function(){
+	var oV = document.getElementById('v1');
+	var aInput = document.getElementsByTagName('input');
+	
+	var oDiv1 = document.getElementById('div1');
+	var oDiv2 = document.getElementById('div2');
+	var oDiv3 = document.getElementById('div3');
+	var oDiv4 = document.getElementById('div4');
+	
+	var disX = 0;
+	var disX2 = 0;
+	
+	var timer = null;
+	
+	aInput[0].onclick = function(){
+		
+		if( oV.paused ){
+			
+			oV.play();
+			
+			this.value = '暂停';
+			
+			nowTime();
+			timer = setInterval(nowTime,1000);
+			
+		}
+		else{
+			
+			oV.pause();
+			
+			this.value = '播放';
+			
+			clearInterval(timer);
+			
+		}
+		
+	};
+	
+	
+	aInput[2].value = changeTime(oV.duration);
+	
+	aInput[3].onclick = function(){
+		
+		
+		if( oV.muted ){
+			
+			oV.volume = 1;
+			
+			this.value = '静音';
+			
+			oV.muted = false;
+			
+		}
+		else{
+			
+			oV.volume = 0;
+			
+			this.value = '取消静音';
+			
+			oV.muted = true;
+			
+		}
+		
+	};
+	
+	aInput[4].onclick = function(){
+		oV.mozRequestFullScreen();
+	};
+	
+	
+	function nowTime(){
+		
+		aInput[1].value = changeTime(oV.currentTime);
+		
+		var scale = oV.currentTime/oV.duration;
+		
+		oDiv2.style.left = scale * 240 + 'px';
+		
+	}
+	
+	
+	function changeTime(iNum){
+		
+		iNum = parseInt( iNum );
+		
+		var iH = toZero(Math.floor(iNum/3600));
+		var iM = toZero(Math.floor(iNum%3600/60));
+		var iS = toZero(Math.floor(iNum%60));
+		
+		return iH + ':' +iM + ':' + iS;
+		
+	}
+	
+	function toZero(num){
+		if(num<=9){
+			return '0' + num;
+		}
+		else{
+			return '' + num;
+		}
+	}
+	
+	
+	oDiv2.onmousedown = function(ev){
+		var ev = ev || window.event;
+		disX = ev.clientX - oDiv2.offsetLeft;
+		
+		document.onmousemove = function(ev){
+			var ev = ev || window.event;
+			
+			var L = ev.clientX - disX;
+			
+			if(L<0){
+				L = 0;
+			}
+			else if(L>oDiv1.offsetWidth - oDiv2.offsetWidth){
+				L = oDiv1.offsetWidth - oDiv2.offsetWidth;
+			}
+			
+			oDiv2.style.left = L + 'px';
+			
+			
+			var scale = L/(oDiv1.offsetWidth - oDiv2.offsetWidth);
+			
+			oV.currentTime = scale * oV.duration;
+			
+			nowTime();
+			
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		};
+		return false;
+	};
+	
+	
+	oDiv4.onmousedown = function(ev){
+		var ev = ev || window.event;
+		disX2 = ev.clientX - oDiv4.offsetLeft;
+		
+		document.onmousemove = function(ev){
+			var ev = ev || window.event;
+			
+			var L = ev.clientX - disX2;
+			
+			if(L<0){
+				L = 0;
+			}
+			else if(L>oDiv3.offsetWidth - oDiv4.offsetWidth){
+				L = oDiv3.offsetWidth - oDiv4.offsetWidth;
+			}
+			
+			oDiv4.style.left = L + 'px';
+			
+			var scale = L/(oDiv3.offsetWidth - oDiv4.offsetWidth);
+			oV.volume = scale;
+			
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		};
+		return false;
+	};
+	
+};
+
+</script>
+</head>
+
+<body>
+<video id="v1">
+
+	<source src="Intermission-Walk-in.ogv"></source>
+    <source src="Intermission-Walk-in_512kb.mp4"></source>
+
+</video><br />
+<input type="button" value="播放" />
+<input type="button" value="00:00:00" />
+<input type="button" value="00:00:00" />
+<input type="button" value="静音" />
+<input type="button" value="全屏" />
+<div id="div1">
+	<div id="div2"></div>
+</div>
+<div id="div3">
+	<div id="div4"></div>
+</div>
+
+</body>
+</html>
