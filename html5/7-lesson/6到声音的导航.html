@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+#ul1{ width:1000px; height:30px;}
+#ul1 li{ list-style:none; width:100px; height:30px; background:red; color:white; border:1px #000 solid; float:left; line-height:30px; text-align:center;}
+</style>
+<script>
+
+window.onload = function(){
+	var aLi = document.getElementsByTagName('li');
+	var oA = document.getElementById('a1');
+	
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].onmouseover = function(){
+			
+			//this.getAttribute('au');
+			
+			oA.src = 'http://s8.qhimg.com/share/audio/piano1/'+this.getAttribute('au')+'4.mp3';
+			
+			oA.play();
+			
+		};
+	}
+	
+};
+
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li au="a">11111</li>
+    <li au="b">22222</li>
+    <li au="c">33333</li>
+    <li au="d">44444</li>
+    <li au="e">55555</li>
+    <li au="f">66666</li>
+    <li au="g">77777</li>
+</ul>
+<audio id="a1"></audio>
+</body>
+</html>

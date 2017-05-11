@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+
+window.onload = function(){
+	var oV = document.getElementById('v1');
+	var oC = document.getElementById('c1');
+	var oGC = oC.getContext('2d');
+	
+	oC.width = oV.videoWidth;
+	oC.height = oV.videoHeight;
+	
+	setInterval(function(){
+		
+		oGC.drawImage( oV , 0 , 0 );
+		
+	},30);
+	
+};
+
+</script>
+</head>
+
+<body>
+<video controls id="v1">
+
+	<source src="Intermission-Walk-in.ogv"></source>
+    <source src="Intermission-Walk-in_512kb.mp4"></source>
+
+</video>
+<canvas id="c1"></canvas>
+</body>
+</html>
