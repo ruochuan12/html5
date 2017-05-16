@@ -34,13 +34,21 @@
                 this.changeValue(ev,-1);
             },
             dec:function(ev){
-                this.changeValue(ev,1);
+                // debugger;
+                console.log(38,this.state.count);
+                if(this.state.count<=1){
+                   this.setState({
+                       count: 1
+                   })
+                } else {
+                    this.changeValue(ev,1);
+                }
             },
             changeValue:function(ev,num){
                 console.log(num);
                 if(num===undefined){
                     this.setState({
-                        count:ev.target.value
+                        count:typeof ev.target.value === 'string'?ev.target.value.replace(/\D+/g,''):ev.target.value
                     });
                 } else {
                     this.setState({
