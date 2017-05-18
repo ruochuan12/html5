@@ -24,6 +24,7 @@
 		},
         watch:{
             count(){
+                // Number('') ----> 0，清空后值为0
                 this.count = typeof this.count === 'string'?Number(this.count.replace(/\D+/g,'')):this.count;
             }
         },
