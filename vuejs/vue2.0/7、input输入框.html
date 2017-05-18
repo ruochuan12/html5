@@ -24,7 +24,7 @@
 		},
         watch:{
             count(){
-                this.count = typeof this.count === 'string'?this.count.replace(/\D+/g,''):this.count;
+                this.count = typeof this.count === 'string'?Number(this.count.replace(/\D+/g,'')):this.count;
             }
         },
         computed:{
@@ -34,7 +34,7 @@
         },
 		methods:{
 			fixNumber() {
-                this.count = typeof this.count === 'string'?this.count.replace(/\D+/g,''):this.count;
+                this.count = typeof this.count === 'string'?Number(this.count.replace(/\D+/g,'')):this.count;
             }
 		}
 	});
