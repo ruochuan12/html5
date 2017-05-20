@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>变换数字</title>
+</head>
+变换的规则是：将这个数变成 所有位数上的数字的乘积。比如285经过一次变换后转化成2*8*5
+要做多少次变换，使得这个数变成个位数。
+285,2
+<body>
+    <script>
+        // 竟然忘记了while循环！！
+        function translate(num) {
+            var arr = [];
+            var j = 0;
+            var total = 1;
+            var str = '';
+            while(num>10){
+                str = num + '';
+                arr = str.split('');
+                for (var i = 0; i < arr.length; i++) {
+                    total *= arr[i];
+                }
+                num = total;
+                j++;
+                console.log('函数体的',num);
+            }
+            return j;
+        }
+        
+        /*285,80,0*/
+        /*2931*/
+        console.log(translate(285)); //2
+        console.log(translate(2931)); //3
+    </script>
+</body>
+
+</html>

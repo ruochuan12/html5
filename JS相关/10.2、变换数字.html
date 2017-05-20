@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10.2、变换数字</title>
+</head>
+<a href="http://www.echojb.com/javascript/2017/05/20/393897.html">对一个整数进行若干次变换，直到这个数只剩下一位数字，变换规则：将这个数变成所有位数上的数字的乘积，输出变换的次数</a>
+285,0
+<body>
+    <script>
+        function GetResult(n){
+            var count = 0;
+            while(n>= 10){  //n大于等于10的遍历，即不满足变换规则停止的条件下应该做的事
+                var m = n;  //保存n变量
+                var s = 1;  //乘数设置
+                var str  = m + "=";  //变换规则输出的定义
+                while(m) {   //n存在的遍历
+                    s *= m % 10;  //求取最后一位上的数字，并进行乘积运算
+                    if(m <10){   //输出样式调整
+                        str += m% 10;
+                    }else {
+                        str += m % 10 + "*";
+                    }
+                    m = parseInt(m/10);  //将输入的数减少一位，即末尾数去掉
+                }
+                console.log(str);
+                n = s;
+                count++;
+            }
+            console.log(count);
+            return n;
+        }
+        console.log(GetResult(3369));
+    </script>
+</body>
+
+</html>
