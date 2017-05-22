@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>8.2、单向数据流-data形式修改</title>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+    <div id="app">
+        <custom-component :count="count"></custom-component>
+    </div>
+    <script>
+        /*
+        *
+        [Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "count" 
+(found in component <custom-component>)
+
+        */
+        Vue.component('custom-component', {
+            props:['count'],
+            template:`<div>
+            <h3>这里是自定义组件</h3>
+            <button @click="changeValue">改变count的值</button>
+            <p>{{childCount}}</p>
+            </div>`,
+            data() {
+                return {
+                    childCount:this.count
+                }
+            },
+            methods: {
+                changeValue(){
+                    this.childCount++;
+                }
+            }
+        });
+        new Vue({
+            el: '#app',
+            data:{
+                count: 0
+            }
+        });
+    </script>
+</body>
+</html>
