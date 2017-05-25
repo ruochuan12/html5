@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+.box{width:400px;height:400px;margin:50px auto; transition:5s linear;}
+.box div{width:180px;height:180px;margin:10px;border:1px solid #000; box-sizing:border-box;float:left;background:url(new_bg.png) no-repeat;}
+.box div:nth-child(1),.box div:nth-child(4){ border-radius:0 70%;}
+.box div:nth-child(2),.box div:nth-child(3){ border-radius:70% 0;}
+.box:hover{ -webkit-transform:rotate(720deg);}
+</style>
+</head>
+<body>
+<div class="box">
+	<div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+</body>
+</html>
