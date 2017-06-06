@@ -24,7 +24,10 @@
         name: 'selection',
         template:`
         <div class="selection-wrap">
-            <input type="text" value="">
+            <div>
+                <span>{{'adven'}}</span>
+                <div class="arrow"></div>
+            </div>
             <ul class="selection">
                 <li class="select-item" v-for="item in selectionList">{{item.label}}</li>
             </ul>
@@ -44,16 +47,16 @@
 		data:{
 			selectionList: [
                 {
-                    label: '轩辕',
-                    value: '12'
+                    label: '轩辕1',
+                    value: '13'
                 },
                 {
-                    label: '轩辕',
-                    value: '12'
+                    label: '轩辕3',
+                    value: '14'
                 },
                 {
-                    label: '轩辕',
-                    value: '12'
+                    label: '轩辕2',
+                    value: '15'
                 }
             ]
 		}
