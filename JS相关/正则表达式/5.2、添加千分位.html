@@ -3,12 +3,41 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无标题文档</title>
+    <title>添加千分位</title>
 </head>
 
 <body>
+    <div><a href="http://www.css88.com/archives/7324" target="_blank">JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…</a></div>
+    <code>
+        <pre>
+        /**
+        * 将数值四舍五入(保留2位小数)后格式化成金额形式
+        *
+        * @param num 数值(Number或者String)
+        * @return 金额格式的字符串,如'1,234,567.45'
+        * @type String
+        */
+        function formatCurrency(num) {
+            num = num.toString().replace(/\$|\,/g,'');
+            if(isNaN(num))
+                num = "0";
+            sign = (num == (num = Math.abs(num)));
+            num = Math.floor(num*100+0.50000000001);
+            cents = num%100;
+            num = Math.floor(num/100).toString();
+            if(cents<10)
+            cents = "0" + cents;
+            for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+            num.substring(num.length-(4*i+3));
+            return (((sign)?'':'-') + num + '.' + cents);
+        }
+        </pre>
+    </code>
     <script>
         var str = '894788971';
+        // 千分符忘记了小数点。
+        
         // 方法一、正则方案
         // Thousand characters 千分符
         function format_1(str) {
