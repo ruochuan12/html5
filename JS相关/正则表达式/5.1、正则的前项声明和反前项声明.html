@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<body>
+    <script>
+    //（？=） 前向声明
+    //（？！） 反前向声明 （与前向声明相反） 如：
+    var str_1 = 'abcacad';
+    var str_2 = 'abcacad';
+    //只匹配后面接有b的a    (？！)：不接b的a
+    var re = /a(?=b)/g;
+    str_1 = str_1.replace(re,'*');    //str 为 *bcacad
+    console.log(str_1);
+    // 有点像非^，但反前项声明是只匹配a
+    // str_2 = str_2.replace(/a(?!b)/g,'*');    //str 为 abc*c*d
+    str_2 = str_2.replace(/a[^b]/g,'*');    //str 为 abc**
+    console.log(str_2);
+    </script>
+</body>
+</html>

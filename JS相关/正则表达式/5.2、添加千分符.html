@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+</head>
+
+<body>
+    <script>
+        var str = '894788971';
+        // 方法一、正则方案
+        // Thousand characters 千分符
+        function format_1(str) {
+            return str.replace(/(?=(?!\b)(\d{3})+$)/g, ',');
+        }
+        // 方法二、字符串方案
+        // 逆向循环和求模
+        function format_2(str) {
+            var result = '';
+            var iNum = str.length%3;
+            var arr = [];
+            for (var i=str.length-1;i>=0;i--) {
+                result=str.charAt(i)+result;
+                if(result.length===3){
+                    arr.unshift(result);
+                    result = '';
+                }
+            };
+            // arr ["894", "788", "971"]
+            if(iNum !== 0){
+                arr.unshift(str.substring(0,iNum));
+            }
+            return arr.join(',');
+        }
+        // 正向循环和多了tmp变量。字符串什么时候可以str[0]这个方案?类似数组的方案。
+        function format_3(str) {
+            var prev = '';
+            var iNum = str.length%3;
+            var iNow = 0;
+            var tmp = '';
+            var arr = [];
+            if(iNum !== 0){
+                prev = str.substring(0,iNum);
+                arr.push(prev);
+            }
+            str = str.substring(iNum);
+            for (var i=0;i<str.length;i++) {
+                iNow++;
+                tmp += str[i];
+                if(iNow===3&&tmp){
+                    arr.push(tmp);
+                    tmp = '';
+                    iNow = 0;
+                }
+            };
+            return arr.join(',');
+        }
+        console.log(format_1(str));
+        console.log(format_2(str));
+        console.log(format_3(str));
+    </script>
+</body>
+
+</html>
