@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6、查找字符串中出现次数最多的，并计算出次数</title>
+</head>
+<body>
+    <script>
+        var str = 'hjdihiugdlfdsadkafheuriwrfdhgkjdlweuqiowopr';
+        // 方方法一 正则加循环
+        function test_1(str){
+            var maxLength = 0;
+            var result = '';
+            while (str !== '') {
+                oldStr =  str;
+                getStr = str.charAt(0);
+                // 正则用这种形式传参数
+                str = str.replace(new RegExp(getStr, 'g'), '');
+                if (oldStr.length - str.length > maxLength) {
+                    maxLength = oldStr.length - str.length;
+                    result = '出现最多的是' + getStr + ',出现次数是' + maxLength;
+                    console.log(result);
+                }
+            }
+            return result;
+        }
+        // 方法二、正则匹配子项，没有使用循环
+        function test_2(str){
+            str =  str.split('').sort().join('');
+            // \1:重复的子项，+:可以出现多次
+            var reg = /(\w)\1+/g;
+            var num = 0;
+            var value = '';
+            str.replace(reg,function($0,$1){
+                console.log($0);
+                if (num < $0.length) {
+                    num = $0.length;
+                    value = $1;
+                }
+            });
+            return '出现最多的是' + value + ',出现次数是' + num;
+        }
+        // 方法三、对象属性法
+        function test_3(str){
+            var obj = {};
+            var num = 0;
+            var value = '';
+            for (var i=0;i<str.length;i++) {
+                if (!obj[str[i]]) {
+                    obj[str[i]] = [];
+                }
+                obj[str[i]].push(str[i]);
+            }
+            console.log(obj);
+            for (var attr in obj) {
+                if (num < obj[attr].length) {
+                    num = obj[attr].length;
+                    value = obj[attr][0];
+                }
+            }
+            return '出现最多的是' + value + ',出现次数是' + num;
+        }
+        console.log(test_1(str)); // 出现最多的是d,出现次数是6
+        console.log(test_2(str)); // 出现最多的是d,出现次数是6
+        console.log(test_3(str));
+    </script>
+</body>
+</html>
