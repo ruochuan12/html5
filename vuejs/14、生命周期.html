@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>14、生命周期---head里面是元数据</title>
+    <script src="./js/vue.js"></script>
+    <script src="https://unpkg.com/jquery@3.2.1"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="m in menuLeft" v-on:click="goContent(m,$event)">
+                {{m}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                menuLeft: [6, 5, 4, 3]
+            },
+            methods: {
+                goContent(m, $event) {
+                    console.log(m,$event);
+                }
+            },
+            ready() {
+                console.log($("body").find("li")); // 有值 [li, li, li, li, prevObject: jQuery.fn.init(1)]
+                console.log($("ul").children("li")); // 有值 [li, li, li, li, prevObject: jQuery.fn.init(1)]
+                $('body').find('li').html('这里有值了'); // html修改了
+            }
+        });
+    </script>
+</body>
+
+</html>
