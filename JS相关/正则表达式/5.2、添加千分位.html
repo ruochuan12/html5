@@ -36,7 +36,9 @@
     </code>
     <script>
         var str = '894788971';
+        var str_2 = '-894788971.123435';
         // 千分符忘记了小数点。
+        // 也忘记了正负数
         
         // 方法一、正则方案
         // Thousand characters 千分符
@@ -85,9 +87,16 @@
             };
             return arr.join(',');
         }
+        // 负数且带小数点的
+        function format_4() {
+            str.replace(/(?=(?!\b)(\d{3})+)(\.?\d+)/g,function($0,$1){
+                console.log($0,$1);
+            });
+        }
         console.log(format_1(str));
         console.log(format_2(str));
         console.log(format_3(str));
+        console.log(format_4(str_2));
     </script>
 </body>
 
