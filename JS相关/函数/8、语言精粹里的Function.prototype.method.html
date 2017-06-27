@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>8、语言精粹里的Function.prototype.method</title>
+</head>
+<body>
+    <div>
+        <a href="https://github.com/mqyqingfeng/Blog/issues/2">JavaScript深入之从原型到原型链</a>
+    </div>
+    <div>
+        <a href="http://louiszhai.github.io/2015/12/17/prototype/">详解prototype与__proto__</a>
+    </div>
+	<pre>
+	<code>
+		document.writeln('Hello world');
+        Function.prototype.method = function(name, func){
+            this.prototype[name] = func;
+            return this;
+        }
+	</code>
+	</pre>
+	<script>
+	 document.writeln('Hello world');
+     Function.prototype.method = function(name, func){
+         this.prototype[name] = func;
+         return this;
+     }
+	</script>
+</body>
+</html>
