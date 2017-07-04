@@ -51,8 +51,14 @@
     </code>
     <script>
         var str = '894788971';
+        var str_2 = '-894788971.123435';
         // 千分符忘记了小数点。
+<<<<<<< HEAD
 
+=======
+        // 也忘记了正负数
+        
+>>>>>>> 99c613fef2cd8e5f95b80046330a647a429b2282
         // 方法一、正则方案
         // Thousand characters 千分符
         function format_1(str) {
@@ -111,12 +117,19 @@
                     return m.replace(/(?=(?!\b)(\d{3})+$)/g, ',');
                 })
         };
+        // 负数且带小数点的
+        function format_5() {
+            str.replace(/(?=(?!\b)(\d{3})+)(\.?\d+)/g,function($0,$1){
+                console.log($0,$1);
+            });
+        }
         console.log(format_1(str));
         console.log(format_2(str));
         console.log(format_3(str));
-        console.log(toThousandslsFilter());
+         console.log(toThousandslsFilter());
         console.log(format_4(-3234839.908));
         console.log(format_4());
+        console.log(format_5(str_2));
     </script>
 </body>
 

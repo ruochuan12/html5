@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>9-class</title>
-    <script src="js/vue.js"></script>
+    <title>8-列表渲染-track-by</title>
+    <script src="../js/vue.js"></script>
 </head>
 
 <body>
     <ul id="example-1">
-      <li v-for="item in items" track-by="$index" :class="{'shop-bg-img':{{$index}}===0}">
+      <li v-for="item in items" track-by="$index">
         {{ item }}
       </li>
     </ul>

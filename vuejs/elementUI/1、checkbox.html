@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1、CheckBox</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template v-for="item in list">
+            <!--  :indeterminate="isIndeterminate" -->
+            <el-checkbox v-model="item.isCheckAll" @change="handleCheckAllChange($event, item)">{{item.name}}--{{item.isCheckAll}}</el-checkbox>
+            <!--<div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>-->
+        </template>
+    </div>
+    <script>
+        const cityOptions = ['上海', '北京', '广州', '深圳'];
+        var Main = {
+            data() {
+                return {
+                    list: [{
+                            id: 1,
+                            name: '这里是bug1',
+                            children: [{
+                                id: 2,
+                                name: '这里是bug2',
+                                children: []
+                            }]
+                        },
+                        {
+                            id: 3,
+                            name: '这里是bug3',
+                            children: [{
+                                id: 4,
+                                name: '这里是bug4',
+                                children: []
+                            }]
+                        },
+                        {
+                            id: 5,
+                            name: '这里是bug5',
+                            children: [{
+                                id: 6,
+                                name: '这里是bug6',
+                                children: []
+                            }]
+                        }
+                    ],
+                    checkAll: true,
+                    checkedCities: ['上海', '北京'],
+                    cities: cityOptions,
+                    isIndeterminate: true
+                };
+            },
+            methods: {
+                handleCheckAllChange(event,item) {
+                    // this.checkedCities = event.target.checked ? cityOptions : [];
+                    // this.isIndeterminate = false;
+                    console.log(item.isCheckAll);
+                },
+                handleCheckedCitiesChange(value) {
+                    let checkedCount = value.length;
+                    this.checkAll = checkedCount === this.cities.length;
+                    this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+                }
+            }
+        };
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+    </script>
+</body>
+
+</html>

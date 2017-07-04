@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var reg = /(https?:)\/\/([^\/]+)(\/[^\?]*)?(\?[^#]*)?(#.*)?/;
+        var url = 'http://192.168.3.193:5004/api/user/login/login';
+        var arr = url.match(reg);
+        console.log(arr);
+        var array = [{id:10,name:'role'},{id:1,name:'user'}];
+        console.log(array.filter(item => {
+            if(['role'].indexOf(item.name)>-1){
+                return item;
+            }
+        }));
+    </script>
+</body>
+
+</html>
