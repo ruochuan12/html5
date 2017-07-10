@@ -8,6 +8,21 @@
 
 <body>
     <div><a href="http://www.css88.com/archives/7324" target="_blank">JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…</a></div>
+    <div>
+        <a href="https://idiotwu.me/milli-formatting-digitals-with-regex/">千位分隔符的完整攻略</a>
+    </div>
+    <div>
+        <a href="http://www.cnblogs.com/wangmeijian/p/4163936.html">5种方式将数字转成千分位</a>
+    </div>
+    <div>
+        <a href="http://www.cnblogs.com/freeyiyi1993/p/4603525.html">千位分隔符(js 实现)</a>
+    </div>
+    <div>
+        <a href="https://heeroluo.net/article/detail/115">从千分位格式化谈JS性能优化</a>
+    </div>
+    <div>
+        <a href="https://zhuanlan.zhihu.com/p/27309508">正则表达式位置匹配攻略</a>
+    </div>
     <code>
         <pre>
         /**
@@ -38,8 +53,12 @@
         var str = '894788971';
         var str_2 = '-894788971.123435';
         // 千分符忘记了小数点。
+<<<<<<< HEAD
+
+=======
         // 也忘记了正负数
         
+>>>>>>> 99c613fef2cd8e5f95b80046330a647a429b2282
         // 方法一、正则方案
         // Thousand characters 千分符
         function format_1(str) {
@@ -49,37 +68,37 @@
         // 逆向循环和求模
         function format_2(str) {
             var result = '';
-            var iNum = str.length%3;
+            var iNum = str.length % 3;
             var arr = [];
-            for (var i=str.length-1;i>=0;i--) {
-                result=str.charAt(i)+result;
-                if(result.length===3){
+            for (var i = str.length - 1; i >= 0; i--) {
+                result = str.charAt(i) + result;
+                if (result.length === 3) {
                     arr.unshift(result);
                     result = '';
                 }
             };
             // arr ["894", "788", "971"]
-            if(iNum !== 0){
-                arr.unshift(str.substring(0,iNum));
+            if (iNum !== 0) {
+                arr.unshift(str.substring(0, iNum));
             }
             return arr.join(',');
         }
         // 正向循环和多了tmp变量。字符串什么时候可以str[0]这个方案?类似数组的方案。
         function format_3(str) {
             var prev = '';
-            var iNum = str.length%3;
+            var iNum = str.length % 3;
             var iNow = 0;
             var tmp = '';
             var arr = [];
-            if(iNum !== 0){
-                prev = str.substring(0,iNum);
+            if (iNum !== 0) {
+                prev = str.substring(0, iNum);
                 arr.push(prev);
             }
             str = str.substring(iNum);
-            for (var i=0;i<str.length;i++) {
+            for (var i = 0; i < str.length; i++) {
                 iNow++;
                 tmp += str[i];
-                if(iNow===3&&tmp){
+                if (iNow === 3 && tmp) {
                     arr.push(tmp);
                     tmp = '';
                     iNow = 0;
@@ -87,8 +106,19 @@
             };
             return arr.join(',');
         }
+        // 方案四、千分符 正则、依旧没有考虑小数点
+        function toThousandslsFilter(num) {
+            return (+num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+        // 正则考虑小数和负数
+        function format_4(num) {
+            return (+num || 0).toString()
+                .replace(/^\-?\d+/g, function (m) {
+                    return m.replace(/(?=(?!\b)(\d{3})+$)/g, ',');
+                })
+        };
         // 负数且带小数点的
-        function format_4() {
+        function format_5() {
             str.replace(/(?=(?!\b)(\d{3})+)(\.?\d+)/g,function($0,$1){
                 console.log($0,$1);
             });
@@ -96,7 +126,10 @@
         console.log(format_1(str));
         console.log(format_2(str));
         console.log(format_3(str));
-        console.log(format_4(str_2));
+         console.log(toThousandslsFilter());
+        console.log(format_4(-3234839.908));
+        console.log(format_4());
+        console.log(format_5(str_2));
     </script>
 </body>
 

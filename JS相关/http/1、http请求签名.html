@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <a href=""></a>
+    </div>
+    <script>
+        // p2=v2&p1=v1&method=cancel&pn=vn
+        var str = 'p2=v2&p1=v1&method=cancel&pn=vn';
+        sortArr = str.split('&').sort();
+        console.log(sortArr);
+        lastStr = sortArr.join('').split('=').join('');
+        console.log(lastStr);
+        // methodcancelp1v1p2v2pnvn
+    </script>
+</body>
+</html>

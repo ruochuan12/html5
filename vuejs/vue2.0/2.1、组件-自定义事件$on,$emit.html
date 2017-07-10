@@ -17,7 +17,8 @@
     </div>
     <script>
         Vue.component('button-counter', {
-          template: '<button v-on:click="increment">{{ counter }}</button>',
+          template: `<button v-on:click="increment">{{ counter }}</button>
+          <div v-on:click="increment">{{ counter }}</div>`,
           data: function () {
             return {
               counter: 0
