@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2、选择搜索</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-select v-model="value8" filterable placeholder="请选择" @change="search" :filter-method="filter">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
+        </template>
+    </div>
+    <script>
+        var Main = {
+            data() {
+                return {
+                    options: [{
+                        value: 1,
+                        label: '黄金糕'
+                    }, {
+                        value: 2,
+                        label: '双皮奶'
+                    }, {
+                        value: 3,
+                        label: '蚵仔煎'
+                    }, {
+                        value: 4,
+                        label: '龙须面'
+                    }, {
+                        value: 5,
+                        label: '北京烤鸭'
+                    }],
+                    value8: '',
+                    inputTimer: null
+                }
+            },
+            methods: {
+                search(value) {
+                    console.log('search', value);
+                    clearTimeout(this.inputTimer);
+                },
+                filter(value) {
+                    // 自定义过滤
+                    clearTimeout(this.inputTimer);
+                    console.log('filter');
+                    this.inputTimer = setTimeout(() => {
+                        // debugger;
+                        console.log('userName', value);
+                        // 调接口获取模糊查询的值
+                        this.options = [{
+                            value: '选项1',
+                            label: '黄金糕'
+                        }];
+                    },1000);
+                    
+                }
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#app');
+    </script>
+</body>
+
+</html>
