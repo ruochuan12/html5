@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+body{background:#000; text-align:center; font:50px/200px "微软雅黑";}
+h1{ display:inline-block;color:rgba(255,255,255,0.3); background:-webkit-linear-gradient(-30deg,rgba(255,255,255,0) 100px,rgba(255,255,255,1) 180px,rgba(255,255,255,1) 240px,rgba(255,255,255,0) 300px) -300px 0 no-repeat; -webkit-background-clip:text;}
+</style>
+</head>
+<body>
+<h1>MioaV妙味课堂</h1>
+<script>
+var oH1=document.getElementsByTagName("h1")[0];
+var oTimer=null;
+var iLeft=-300;
+document.title=0;
+function toMove()
+{
+	oTimer=setInterval(function(){
+		iLeft+=10;
+		if(iLeft==1000)
+		{
+			iLeft=-300;
+			clearInterval(oTimer);
+		}
+		oH1.style.backgroundPosition=iLeft+"px 0px";
+			
+	},20);
+}
+toMove();
+setInterval(function(){
+	toMove();	
+},5000);
+</script>
+</body>
+</html>
