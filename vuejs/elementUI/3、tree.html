@@ -6,24 +6,18 @@
     <title>3、tree</title>
     <script src="https://unpkg.com/vue"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4.0/lib/theme-default/index.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <script src="https://unpkg.com/element-ui@1.4.0/lib/index.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        <el-tree :data="data2" show-checkbox="" default-expand-all="" node-key="id" ref="tree" highlight-current :props="defaultProps">
-        </el-tree>
-
-        <div class="buttons">
-            <el-button @click="getCheckedNodes">通过 node 获取</el-button>
-            <el-button @click="getCheckedKeys">通过 key 获取</el-button>
-            <el-button @click="setCheckedNodes">通过 node 设置</el-button>
-            <el-button @click="setCheckedKeys">通过 key 设置</el-button>
-            <el-button @click="resetChecked">清空</el-button>
-        </div>
-    </div>
+    
+<div id="app">
+<el-tree :data="data3" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]">
+</el-tree>
+</div>
     <script>
         var Main = {
             methods: {
