@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>4、组件显示弹窗dialogTable/单向数据流</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4.0/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <script src="https://unpkg.com/element-ui@1.4.0/lib/index.js"></script>
+</head>
+
+<body>
+    
+<div id="app">
+<el-button type="text" @click="showDialog">打开嵌套表格的 Dialog</el-button>
+<dialog-table :params="params" :dialog-table-visible="dialogTableVisible" @on-result-change="onResultChange"></dialog-table>
+
+<div>
+    <a href="http://www.cnblogs.com/xxcanghai/p/6124699.html?_t=t" target="_blank">如何在Vue2中实现组件props双向绑定</a>
+</div>
+</div>
+    <script>
+        Vue.component('dialog-table', {
+            props:{
+                params: {
+                    type: Object,
+                    default() {
+                        return {
+                            id: null
+                        };
+                    }
+                },
+                'dialog-table-visible': {
+                    type: Boolean,
+                    default: false
+                }
+            },
+            template:`<el-dialog title="收货地址" :visible.sync="dialogTableVisible2" @close="changeValue">
+                <el-table :data="gridData">
+                    <el-table-column property="date" label="日期" width="150"></el-table-column>
+                    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+                    <el-table-column property="address" label="地址"></el-table-column>
+                </el-table>
+            </el-dialog>`,
+            data() {
+                return {
+                    dialogTableVisible2:this.dialogTableVisible,
+                    gridData: []
+                }
+            },
+            created() {
+                console.log(this.dialogTableVisible2);
+            },
+            watch: {
+               dialogTableVisible(val) {
+                   console.log('val',val);
+                   console.log(`this.dialogTableVisible`,this.dialogTableVisible, this.params);
+                   this.dialogTableVisible2 = val;
+                   console.log(`this.params`,this.dialogTableVisible, this.params);
+                   if(this.params.id !==null){
+                       console.log(`this.params.id`,this.params.id);
+                       let i = 0;
+                       setTimeout(() => {
+                           console.log(i++);
+                            this.gridData = [{
+                                date: '2016-05-02',
+                                name: '王小虎',
+                                address: '上海市普陀区金沙江路 1518 弄'
+                                }, {
+                                date: '2016-05-04',
+                                name: '王小虎',
+                                address: '上海市普陀区金沙江路 1518 弄'
+                                }, {
+                                date: '2016-05-01',
+                                name: '王小虎',
+                                address: '上海市普陀区金沙江路 1518 弄'
+                                }, {
+                                date: '2016-05-03',
+                                name: '王小虎',
+                                address: '上海市普陀区金沙江路 1518 弄'
+                            }];
+                        }, 2000);
+                   }
+               },
+               dialogTableVisible2(val) {
+                   console.log('dialogTableVisible2',val);
+                   this.$emit("on-result-change",val);
+               }
+            },
+            // computed: {
+            //     childComputed(){
+            //         return this.dialogTableVisible2;
+            //     }
+            // },
+            methods: {
+                changeValue(){
+                    // if(this.dialogTableVisible2) {
+                    //     this.dialogTableVisible2 = !this.dialogTableVisible2;
+                    // }
+                    console.log('close-this.dialogTableVisible2', this.dialogTableVisible2);
+                    
+                }
+            }
+        });
+        var Main = {
+            methods: {},
+
+            data() {
+                return {
+                    gridData2: [{
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                        }, {
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                        }, {
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                        }, {
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }],
+                    params: {
+                        id: null
+                    },
+                    dialogTableVisible: false,
+                    formLabelWidth: '120px'
+                };
+            },
+            methods: {
+                showDialog(){
+                    this.dialogTableVisible = true;
+                    this.params.id = 1;
+                },
+                onResultChange(val) {
+                    console.log(`onResultChange`,val);
+                    this.dialogTableVisible = val;
+                }
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#app');
+    </script>
+</body>
+
+</html>
