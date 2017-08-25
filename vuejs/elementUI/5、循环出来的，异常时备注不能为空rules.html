@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>5、循环出来的，异常时备注不能为空rules</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4.2/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <script src="https://unpkg.com/element-ui@1.4.2/lib/index.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+            <p><a href="http://blog.csdn.net/mengyue0828/article/details/56484866"> CSDN: el-form-item 设置 prop 报错：please transfer a valid prop path to form item!</a></p>
+            <p><a href="https://github.com/ElemeFE/element/issues/2327">github: el-form-item 设置 prop 报错：please transfer a valid prop path to form item!</a></p>
+        <el-form :model="netWorkCheckRecordForm2" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+            <!-- <el-form-item prop="email" label="邮箱" :rules="[
+            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+          ]">
+                <el-input v-model="dynamicValidateForm.email"></el-input>
+            </el-form-item>
+            <el-form-item label="域名异常">
+                <el-checkbox v-model="isAbnormal"></el-checkbox>
+            </el-form-item>
+            <el-form-item v-for="(domain, index) in dynamicValidateForm.domains" :label="'域名' + index" :key="domain.key" :prop="'domains.' + index + '.value'"
+                :rules="{
+            required: isAbnormal, message: '域名不能为空', trigger: 'blur'
+          }">
+                {{'domains.' + index + '.value'}}
+                <el-input v-model="domain.value" @change="changeDomain"></el-input>
+                <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+            </el-form-item> -->
+            <ul>
+                <li v-for="(item, index) in netWorkCheckRecordForm2.data">
+                    <el-form-item label="异常">
+                        <el-checkbox v-model="item.isAbnormal"></el-checkbox>
+                    </el-form-item>
+                    <el-form-item :label="'备注'+ index" label-width="120px" :prop="`data.${index}.remark`" :rules="{required: true, message: '异常时备注不能为空', trigger: 'blur'}">
+                        <el-input v-model="item.remark" @change="changeRemark"></el-input>
+                        {{`data.${index}.remark`}}
+                        {{`${index}.${index}.remark`}}
+                    </el-form-item>
+                </li>
+            </ul>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+                <el-button @click="addDomain">新增域名</el-button>
+                <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+    <script>
+        var Main = {
+            data() {
+                return {
+                    // 域名异常
+                    isAbnormal: false,
+                    dynamicValidateForm: {
+                        domains: [{
+                            value: ''
+                        }],
+                        email: ''
+                    },
+                    // 网核表单数据
+                    netWorkCheckRecordForm: {
+                        0: {
+                            auditItemName: '申请人手机',
+                            auditItemNo: 'applicationPhone',
+                            checkInfo: null,
+                            createDate: null,
+                            remark: null,
+                            isAbnormal: false
+                        },
+                        1: {
+                            auditItemName: '家庭成员电话',
+                            auditItemNo: 'relationPhone',
+                            checkInfo: null,
+                            createDate: null,
+                            remark: null,
+                            isAbnormal: false
+                        }
+                    },
+                    // 网核表单数据
+                    netWorkCheckRecordForm2: {
+                        data: [{
+                            auditItemName: '申请人手机',
+                            auditItemNo: 'applicationPhone',
+                            checkInfo: null,
+                            createDate: null,
+                            remark: null,
+                            isAbnormal: false
+                        },
+                        {
+                            auditItemName: '家庭成员电话',
+                            auditItemNo: 'relationPhone',
+                            checkInfo: null,
+                            createDate: null,
+                            remark: null,
+                            isAbnormal: false
+                        }]
+                    }
+                };
+            },
+            methods: {
+                changeDomain(val) {
+                    console.log('changeDomain-item.domain', val);
+                    console.log('dynamicValidateForm', this.dynamicValidateForm.domains);
+                },
+                changeRemark(val) {
+                    console.log('changeRemark-item.remark', val);
+                    console.log('netWorkCheckRecordForm', this.netWorkCheckRecordForm);
+                    console.log('netWorkCheckRecordForm2', this.netWorkCheckRecordForm2);
+                },
+                submitForm(formName) {
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+                            alert('submit!');
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
+                },
+                resetForm(formName) {
+                    this.$refs[formName].resetFields();
+                },
+                removeDomain(item) {
+                    var index = this.dynamicValidateForm.domains.indexOf(item)
+                    if (index !== -1) {
+                        this.dynamicValidateForm.domains.splice(index, 1)
+                    }
+                },
+                addDomain() {
+                    this.dynamicValidateForm.domains.push({
+                        value: '',
+                        key: Date.now()
+                    });
+                }
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#app');
+    </script>
+</body>
+
+</html>

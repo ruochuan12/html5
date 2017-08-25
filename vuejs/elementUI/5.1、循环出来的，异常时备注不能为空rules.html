@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>5.1、循环出来的，异常时备注不能为空rules</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4.2/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <script src="https://unpkg.com/element-ui@1.4.2/lib/index.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+            <p><a href="http://blog.csdn.net/mengyue0828/article/details/56484866"> CSDN: el-form-item 设置 prop 报错：please transfer a valid prop path to form item!</a></p>
+            <p><a href="https://github.com/ElemeFE/element/issues/2327">github: el-form-item 设置 prop 报错：please transfer a valid prop path to form item!</a></p>
+
+        <el-form :model="formData" ref="formData">
+            <el-table :data="formData.data">
+                <el-table-column>
+                    <template scope="scope">
+                        <el-form-item label="姓名" :prop="'data.' + scope.$index  + '.a'" :rules="{ required: true, message: '请输入姓名', trigger: 'blur' }">
+                            <el-input type="text" v-model="scope.row.a"></el-input>
+                        </el-form-item>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-form>
+    </div>
+    <script>
+        var Main = {
+            data() {
+                return {
+                    formData: {
+                        data: [{
+                            a: 'aaa'
+                        }]
+                    }
+                }
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#app');
+    </script>
+</body>
+
+</html>
