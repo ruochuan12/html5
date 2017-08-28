@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>9、经典的闭包获取当前点击的index值</title>
+    <style>
+        .on {
+            background-color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <p>在sf上我回答的一个问题。<a href="https://segmentfault.com/q/1010000010889268?_ea=2451206">js点击标签实现变色，思路有点问题求指正！</a></p>
+    <div class="this_img">1 </div>
+    <div class="this_img">2 </div>
+    <div class="this_img">3 </div>
+    <div class="this_img">4 </div>
+    <div class="this_img">5 </div>
+
+    <a class="s_img">aa</a>
+    <a class="s_img">ab</a>
+    <a class="s_img">ac</a>
+    <a class="s_img">ad</a>
+    <a class="s_img">ae</a>
+    <script>
+        // 1、ES6 let解决
+        function img() {
+            var this_img = document.getElementsByClassName('this_img');
+            var s_img = document.getElementsByClassName('s_img');
+            for (let i = 0; i < this_img.length; i++) {
+                this_img[i].addEventListener("click", function () {
+                    this.className = 'on';
+                    s_img[i].style.color = "red";
+                }, false);
+            }
+        }
+        img();
+        // 2、闭包解决
+        // function img() {
+        //     var this_img = document.getElementsByClassName('this_img');
+        //     var s_img = document.getElementsByClassName('s_img');
+        //     for (var i = 0; i < this_img.length; i++) {
+        //         (function (i) {
+        //             this_img[i].addEventListener("click", function () {
+        //                 this.className = 'on';
+        //                 s_img[i].style.color = "red";
+        //             }, false);
+        //         })(i);
+        //     }
+        // }
+        // 3、ES5或ES6将DOM节点转数组解决
+        // function img() {
+        //     var this_img = document.getElementsByClassName('this_img');
+        //     var s_img = document.getElementsByClassName('s_img');
+        //     var nodes = [].slice.call(this_img); // 也可以用ES6的Array.from将DOM节点转数组 // var nodes = Array.from(this_img);
+        //     nodes.forEach(function (node, index) {
+        //         node.addEventListener("click", function () {
+        //             node.className = 'on';
+        //             s_img[index].style.color = "red";
+        //         }, false);
+        //     });
+        // }
+        // 4、或者前面两个答案提供的方案
+        // function img() {
+        //     var this_img = document.getElementsByClassName('this_img');
+        //     var s_img = document.getElementsByClassName('s_img');
+        //     for (var i = 0; i < this_img.length; i++) {
+        //         this_img[i].index = i;
+        //         this_img[i].onclick = function () {
+        //             this.className = 'on';
+        //             s_img[this.index].style.color = "red";
+        //         };
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
