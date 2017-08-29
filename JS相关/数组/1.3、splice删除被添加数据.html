@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.3、splice删除并添加数据</title>
+</head>
+
+<body>
+    <script>
+        var arr = [{
+            a: 1
+        }, {
+            b: 2
+        }, {
+            c: 3
+        }];
+        var arr2 = [1,2];
+        // arr2是会变的。所以arr也是会变的，所以splice时需要arr.length-2
+        for (var i = 0; i < arr2.length; i++) {
+            arr.splice(2+i,arr.length-2,{
+                d: 4+i
+            });
+        }
+        console.log(arr);
+    </script>
+</body>
+
+</html>

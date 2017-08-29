@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>document</title>
+    <script src="../js/vue2.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p><a href="http://www.jianshu.com/p/d3036001f6d3#">Vue 进阶教程之：非父子组件通信方法（非Vuex）</a></p>
+    <!-- <input type="text"> -->
+    <ele></ele>
+    <input type="text" v-model="value">
+    <p>{{value}}</p>
+</div>
+<script>
+    Vue.component('ele', {
+        data:function(){
+            return {
+                value: ''
+            }
+        },
+        render(createElement){
+            var that = this;
+            createElement('input', {
+                domProps:{
+                    value: that.value
+                },
+                on: {
+                    input: function(event) {
+                        console.log('event', event);
+                        that.value = event.target.value;
+                    }
+                }
+            })
+        }
+    })
+    new Vue({
+        el:'#app',
+        data: {
+            value: ''
+        }
+    });
+</script>
+</body>
+</html>
