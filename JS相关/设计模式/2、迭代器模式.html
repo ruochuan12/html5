@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <code>
+        <pre>
+            // 1、实现自己的迭代器
+            var each = function(arr, callback) {
+                for (var i = 0,l=arr.length; i < l;i++) {
+                    callback.call(arr[i], i, arr[i]);
+                }
+            };
+            each([1,2,3], function(i,n){
+                console.log([i,n]);
+            });
+            // 2、迭代器优化
+            // var iteratorUploadObj = function() {
+            //     for (var i = 0, fn; fn = arguments[i++];){
+            //         var uploadObj = fn();
+            //         if (uploadObj !== false) {
+            //             return uploadObj;
+            //         }
+            //     }
+            // };
+            // var uploadObj = iteratorUploadObj(getActiveUploadObj, getFlashUploadObj, getFormUploadObj);
+        </pre>
+    </code>
+    <script>
+        // 1、实现自己的迭代器
+        var each = function(arr, callback) {
+            for (var i = 0,l=arr.length; i < l; i++) {
+                callback.call(arr[i], i, arr[i]);
+            }
+        };
+        each([1,2,3], function(i,n){
+            console.log([i,n]);
+        });
+        // 2、迭代器优化
+        // var iteratorUploadObj = function() {
+        //     for (var i = 0, fn; fn = arguments[i++];){
+        //         var uploadObj = fn();
+        //         if (uploadObj !== false) {
+        //             return uploadObj;
+        //         }
+        //     }
+        // };
+        // var uploadObj = iteratorUploadObj(getActiveUploadObj, getFlashUploadObj, getFormUploadObj);
+        // 3、传参
+        var getActiveUploadObj = function(){
+            let that = this;
+            console.log('that.name', arguments, [].slice.call(arguments));
+            console.log(that);
+            console.log(this);
+        };
+        var iteratorUploadObj = function() {
+            for (var i = 0, fn; fn = arguments[i++];){
+                var uploadObj = fn();
+                if (uploadObj !== false) {
+                    return uploadObj;
+                }
+            }
+        };
+        var uploadObj = iteratorUploadObj(getActiveUploadObj(1,2,3,4));
+    </script>
+</body>
+
+</html>

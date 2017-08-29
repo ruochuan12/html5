@@ -68,6 +68,7 @@
             return obj && typeof obj === 'object' && typeof obj.length === 'number' && typeof obj.splice ===
                 'function';
         }
+        // 但复杂环境下，鸭子辨型也无效。
     </script>
 </body>
 
