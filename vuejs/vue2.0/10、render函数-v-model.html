@@ -16,38 +16,143 @@
 </head>
 <body>
 <div id="app">
-    <p><a href="http://www.jianshu.com/p/d3036001f6d3#">Vue 进阶教程之：非父子组件通信方法（非Vuex）</a></p>
+    <p><a href="https://cn.vuejs.org/v2/guide/render-function.html#createElement-参数">render createElement 函数</a></p>
     <!-- <input type="text"> -->
-    <ele></ele>
-    <input type="text" v-model="value">
-    <p>{{value}}</p>
+    <div>
+        <my-input @emitRenderValueFunc="emitRenderValueFunc"></my-input>
+        <div>这里是$emit返回的renderValue：{{renderValue}}</div>
+    </div>
+    <div class="template-input">
+        <p>template-input</p>
+        <input type="text" v-model="value" placeholder="这是template模板input">
+        <p>您在template-ipnut输入的是：{{value}}</p>
+    </div>
+    <code>
+            <pre>
+                {
+                    // 和`v-bind:class`一样的 API
+                    'class': {
+                        foo: true,
+                        bar: false
+                    },
+                    // 和`v-bind:style`一样的 API
+                    style: {
+                        color: 'red',
+                        fontSize: '14px'
+                    },
+                    // 正常的 HTML 特性
+                    attrs: {
+                        id: 'foo'
+                    },
+                    // 组件 props
+                    props: {
+                        myProp: 'bar'
+                    },
+                    // DOM 属性
+                    domProps: {
+                        innerHTML: 'baz'
+                    },
+                    // 事件监听器基于 `on`
+                    // 所以不再支持如 `v-on:keyup.enter` 修饰器
+                    // 需要手动匹配 keyCode。
+                    on: {
+                        click: this.clickHandler
+                    },
+                    // 仅对于组件，用于监听原生事件，而不是组件内部使用 `vm.$emit` 触发的事件。
+                    nativeOn: {
+                        click: this.nativeClickHandler
+                    },
+                    // 自定义指令. 注意事项：不能对绑定的旧值设值
+                    // Vue 会为您持续追踪
+                    directives: [
+                        {
+                        name: 'my-custom-directive',
+                        value: '2',
+                        expression: '1 + 1',
+                        arg: 'foo',
+                        modifiers: {
+                            bar: true
+                        }
+                        }
+                    ],
+                    // Scoped slots in the form of
+                    // { name: props => VNode | Array\<\VNode> }
+                    scopedSlots: {
+                        default: props => createElement('span', props.text)
+                    },
+                    // 如果组件是其他组件的子组件，需为 slot 指定名称
+                    slot: 'name-of-slot',
+                    // 其他特殊顶层属性
+                    key: 'myKey',
+                    ref: 'myRef'
+                    }
+            </pre>
+        </code>
 </div>
 <script>
-    Vue.component('ele', {
+    Vue.component('my-input', {
+        name: 'my-input',
         data:function(){
             return {
-                value: ''
+                renderValue: ''
             }
         },
-        render(createElement){
+        render:function(createElement){
             var that = this;
-            createElement('input', {
-                domProps:{
-                    value: that.value
-                },
-                on: {
-                    input: function(event) {
-                        console.log('event', event);
-                        that.value = event.target.value;
-                    }
-                }
-            })
+            return createElement('div', {
+                class: 'my-input'
+                }, [
+                    createElement('p', {
+                        // DOM 属性
+                        domProps: {
+                            innerHTML: '这是my-input'
+                        }
+                    }),
+                    createElement('input', {
+                        domProps:{
+                            value: that.renderValue,
+                            placeholder: '我是render函数生成的input'
+                        },
+                        on: {
+                            input: function(event) {
+                                console.log('event', event, event.target.value);
+                                that.renderValue = event.target.value;
+                                that.$emit('emitRenderValueFunc', that.renderValue);
+                            }
+                        }
+                    }),
+                    createElement('p', {
+                        // DOM 属性
+                        domProps: {
+                            textContent: '<input/>您在my-input输入的是:' + that.renderValue
+                        },
+                        on: {
+                            click: function(ev) {
+                                // console.log(ev);
+                                console.log('on，哎呀，身为render函数生成p标签的我被点击了');
+                            }
+                        },
+                        nativeOn: {
+                            click: function() {
+                                console.log('nativeOn，哎呀，身为render函数生成p标签的我被点击了');
+                            }
+                        }
+                    })
+                ]
+            );
         }
     })
     new Vue({
         el:'#app',
         data: {
-            value: ''
+            value: '',
+            renderValue: ''
+        },
+        methods: {
+            emitRenderValueFunc: function(val) {
+                that.renderValue = val;
+                console.log('emitRenderValueFunc', val);
+            }
         }
     });
 </script>
