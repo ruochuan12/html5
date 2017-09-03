@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="registerForm" method="post">
+        请输入用户名：<input type="text" name="userName"/>
+        请输入密码：<input type="password" name="password"/>
+        请输入手机号码：<input type="text" name="phoneNumber"/>
+        <button>提交</button>
+    </form>
+    <script>
+        // 策略对象
+        var strategies = {
+            isNonEmpty: function(value, errorMsg) {
+                if (value === '') {
+                    return errorMsg;
+                }
+            },
+            minLength: function(value,length,errorMsg){
+                if (value.length < length) {
+                    return errrorMsg;
+                }
+            },
+            isMobile:function(value,errorMsg) {
+                if (!/^1[3|5|8][0-9]{9}$/.test(value)) {
+                    return errorMsg;
+                }
+            }
+        };
+        // Validator 类
+        var Validator = function() {
+            this.cache = [];
+        }
+        Validator.prototype.add = function(dom, rules){
+            
+        };
+    </script>
+</body>
+
+</html>
