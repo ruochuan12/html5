@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>2.2组件-自定义事件</title>
+    <title>document</title>
     <script src="../js/vue2.js"></script>
 </head>
 <body>
 <div id="counter-example">
+	<h2>
+			通过在子组件上引用ref,从而获得子组件实例，进行相应操作。<br/>
+			----父子通信 之 父调用子
+	</h2>
+	<p>
+		<a href="http://www.cnblogs.com/QRL909109/p/6166209.html">
+			vue2.0--组件通信(非vuex法)
+		</a>
+	</p>
     <p>{{total}}</p>
+    <button-counter ref="child" v-on:increase="increaseTotal"></button-counter>
     <button-counter v-on:increase="increaseTotal"></button-counter>
     <button-counter v-on:increase="increaseTotal"></button-counter>
-    <button-counter v-on:increase="increaseTotal"></button-counter>
-    <div v-if="total===0">total=0</div>
+	<div v-if="total===0">total=0</div>
+	<button @click="callChild">调用子组件</button>
 </div>
 <script>
 	Vue.component('button-counter',{
@@ -36,6 +46,16 @@
 		methods:{
 			increaseTotal:function(){
 				this.total +=1;
+			},
+			// 子调用父
+			callChild() {
+				// 获取子组件实例
+				let child = this.$refs.child;
+				console.log('child', child);
+				// 改变子组件数据
+				child.count += 20;
+				// 调用子组件方法 increase
+				child.increase();
 			}
 		}
 	});

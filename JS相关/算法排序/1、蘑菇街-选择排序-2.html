@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>T2-蘑菇街在线笔试-选择排序</title>
+    <meta charset="UTF-8">
+    <title>T2-蘑菇街在线笔试-选择排序</title>
 </head>
+
 <body>
-<script type="text/javascript">
-	function selectionSort(array) {
-    if (Object.prototype.toString.call(array).slice(8, -1) === 'Array') {
-        var count = 0;
-        var len = array.length,
-        temp;
-        for (var i = 0; i < len - 1; i++) {
-            var min = array[i];
-            for (var j = i + 1; j < len; j++) {
-                if (array[j] < min) {
-                    temp = min;
-                    min = array[j];
-                    /*如果min在循环中改变了，就需要交换数据*/
-                    count++;
-                    array[j] = temp;
+    <script type="text/javascript">
+        function selectionSort(array) {
+            if (Object.prototype.toString.call(array).slice(8, -1) === 'Array') {
+                var count = 0;
+                var len = array.length,
+                    temp;
+                for (var i = 0; i < len - 1; i++) {
+                    var min = array[i];
+                    for (var j = i + 1; j < len; j++) {
+                        if (array[j] < min) {
+                            temp = min;
+                            min = array[j];
+                            /*如果min在循环中改变了，就需要交换数据*/
+                            count++;
+                            array[j] = temp;
+                        }
+                    }
+                    array[i] = min;
                 }
+                // return array;
+                return count;
+            } else {
+                return 'array is not an Array!';
             }
-            array[i] = min;
         }
-        // return array;
-        return count;
-    } else {
-        return 'array is not an Array!';
-    }
-}
-console.log(selectionSort([1,2,3])); 
-</script>
+        console.log(selectionSort([1, 2, 3]));
+    </script>
 </body>
+
 </html>
