@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>document</title>
+    <script src="../js/vue2.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p><a href="https://cn.vuejs.org/v2/guide/render-function.html#createElement-参数">render createElement 函数</a></p>
+    <!-- <input type="text"> -->
+    <div>
+        <my-input @emitRenderValueFunc="emitRenderValueFunc"></my-input>
+        <div>这里是$emit返回的renderValue：{{renderValue}}</div>
+    </div>
+    <div class="template-input">
+        <p>template-input</p>
+        <input type="text" v-model="value" placeholder="这是template模板input">
+        <p>您在template-ipnut输入的是：{{value}}</p>
+    </div>
+</div>
+<script>
+    Vue.component('my-input', {
+        name: 'my-input',
+        data:function(){
+            return {
+                renderValue: ''
+            }
+        },
+        render:function(createElement){
+            var that = this;
+            return createElement('div', {
+                class: 'my-input'
+                }, [
+                    createElement('p', {
+                        // DOM 属性
+                        domProps: {
+                            innerHTML: '这是my-input'
+                        }
+                    }),
+                    createElement('input', {
+                        domProps:{
+                            value: that.renderValue,
+                            placeholder: '我是render函数生成的input'
+                        },
+                        on: {
+                            input: function(event) {
+                                console.log('event', event, event.target.value);
+                                that.renderValue = event.target.value;
+                                that.$emit('emitRenderValueFunc', that.renderValue);
+                            }
+                        }
+                    }),
+                    createElement('p', {
+                        // DOM 属性
+                        domProps: {
+                            textContent: '<input/>您在my-input输入的是:' + that.renderValue
+                        },
+                        on: {
+                            click: function(ev) {
+                                // console.log(ev);
+                                console.log('on，哎呀，身为render函数生成p标签的我被点击了');
+                            }
+                        },
+                        nativeOn: {
+                            click: function() {
+                                console.log('nativeOn，哎呀，身为render函数生成p标签的我被点击了');
+                            }
+                        }
+                    })
+                ]
+            );
+        }
+    })
+    new Vue({
+        el:'#app',
+        data: {
+            value: '',
+            renderValue: ''
+        },
+        methods: {
+            emitRenderValueFunc: function(val) {
+                that.renderValue = val;
+                console.log('emitRenderValueFunc', val);
+            }
+        }
+    });
+</script>
+</body>
+</html>
