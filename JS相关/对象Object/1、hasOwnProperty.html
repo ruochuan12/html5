@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+       <a href="http://louiszhai.github.io/2017/04/28/array/#every">underscore库源码解析3</a>
+    </p>
+    <code>
+        <pre>
+            var ObjProto = Object.prototype;
+            var hasOwnProperty = ObjProto.hasOwnProperty;
+            _.has = function(obj, key){
+                return obj != null && hasOwnProperty.call(obj, key);
+            };
+        </pre>
+    </code>
+    <script>
+        var obj = {a:1};
+        // Object.prototype.hasOwnProperty()
+        var has = Object.prototype.hasOwnProperty.call(obj, 'a');
+        var has2 = obj.hasOwnProperty('a');
+        // 不是很推荐此种方案。
+        var has3 = window['obj'].hasOwnProperty('a');
+        console.log('has', has); // true
+        console.log('has2', has2); // true
+        console.log('has3', has3); // true
+    </script>
+</body>
+</html>

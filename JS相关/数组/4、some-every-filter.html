@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+       <a href="http://louiszhai.github.io/2017/04/28/array/#every">【深度长文】JavaScript数组所有API全解密</a>
+    </p>
+    <code>
+        <pre>
+        /*
+            every() 方法使用传入的函数测试所有元素，只要其中有一个函数返回值为 false，那么该方法的结果为 false；如果全部返回 true，那么该方法的结果才为 true。因此 every 方法存在如下规律：
+            若需检测数组中存在元素大于100 （即 one > 100），那么我们需要在传入的函数中构造 “false” 返回值 （即返回 item <= 100），同时整个方法结果为 false 才表示数组存在元素满足条件；（简单理解为：若是单项判断，可用 one false ===> false）
+            若需检测数组中是否所有元素都大于100 （即all > 100）那么我们需要在传入的函数中构造 “true” 返回值 （即返回 item > 100），同时整个方法结果为 true 才表示数组所有元素均满足条件。(简单理解为：若是全部判断，可用 all true ===> true）
+            语法同上述forEach，具体还可以参考 详解JS遍历 中every的讲解。
+        */
+        /*
+            some() 方法刚好同 every() 方法相反，some 测试数组元素时，只要有一个函数返回值为 true，则该方法返回 true，若全部返回 false，则该方法返回 false。some 方法存在如下规律：
+            若需检测数组中存在元素大于100 (即 one > 100)，那么我们需要在传入的函数中构造 “true” 返回值 (即返回 item > 100)，同时整个方法结果为 true 才表示数组存在元素满足条件；（简单理解为：若是单项判断，可用 one true ===> true）
+            若需检测数组中是否所有元素都大于100（即 all > 100），那么我们需要在传入的函数中构造 “false” 返回值 （即返回 item <= 100），同时整个方法结果为 false 才表示数组所有元素均满足条件。（简单理解为：若是全部判断，可用 all false ===> false）
+            你注意到没有，some方法与includes方法有着异曲同工之妙，他们都是探测数组中是否拥有满足条件的元素，一旦找到，便返回true。多观察和总结这种微妙的关联关系，能够帮助我们深入理解它们的原理。
+        */
+        </pre>
+    </code>
+    <script>
+        // 除了页码相关参数，其余参数都为空字符串、null、或者为undefined时，不筛选
+        var data = {
+            userName: 1,
+            roleName: 1,
+            authName: 1,
+            pageNum: 1,
+            pageSize: 20
+        };
+        var checkIsEmpty = function() {
+            var filterArr = Object.keys(data).filter((key) => {
+                if (['pageSize', 'pageNum'].indexOf(key) === -1) {
+                    return key;
+                }
+            });
+            console.log('filterArr', filterArr);
+            var isEmpty = filterArr.every((key) => {
+                return [undefined, null, ''].indexOf(data[key]) > -1;
+            });
+            return isEmpty;
+        }
+        console.log('isEmpty', checkIsEmpty());
+    </script>
+</body>
+</html>
