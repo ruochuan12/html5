@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>jsonp-百度下拉搜索框</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<style>
+	#Q{
+		width: 500px;
+		height: 30px;
+		font-size: 16px;
+		border: 1px solid #CCC;
+	}
+	ul,
+	li{
+		padding: 0;margin: 0;
+	}
+	#ul1{
+		border: 1px solid #CCC;	
+		border-top: none;
+		width: 500px;
+		display: none;
+	}
+	#ul1 li{
+		list-style: none;
+		height: 30px;
+		text-indent: 4px;
+		line-height: 30px;
+	}
+	#ul1 li a{
+		display: inline-block;
+		text-decoration: none;
+		height: 30px;
+		color: #000;
+	}
+	#ul1 li:hover{
+		background-color: #ccf;
+	}
+	</style>
+	<script>
+		function lxchuan12(data){
+			console.log(data);
+		}
+	</script>
+	<script>
+		window.onload=function(){
+			var oQ = document.getElementById('Q');
+			var oUl = document.getElementById('ul1');
+			//所有主流浏览器都支持 onkeyup 事件属性
+			oQ.onkeyup = function(){ 
+			//oQ.oninput = function(){ //事件也行,不过不支持IE6,7,8
+			//参见：（ 总结oninput、onchange与onpropertychange事件的用法和区别 ）http://blog.csdn.net/freshlover/article/details/39050609
+			$.ajax({ 
+                type: "GET", 	
+                url: "http://hq.sinajs.cn/list=sh000001",
+                dataType: "jsonp",
+                // jsonp: "callback",	// 后端也需要配合serverjsonp.php，需要设置相同的值如callback
+                success: function(data) {
+                    if (data.success) {
+                        $("#searchResult").html(data.msg);
+                    } else {
+                        $("#searchResult").html("出现错误：" + data.msg);
+                    }  
+                },
+                error: function(jqXHR){     
+                    alert("发生错误：" + jqXHR.status);  
+                }
+            });
+				// if(this.value ===""){
+					oScript = document.createElement('script');
+					// oScript.src = 'http://suggestion.baidu.com/su?wd='+this.value+'&cb=lxchuan12';
+                    oScript.src = 'http://hq.sinajs.cn/list=sh000001';
+					document.body.appendChild(oScript);
+				// }else{
+				// 	oUl.style.display = 'none';
+				// }
+
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="Q">
+	<ul id="ul1">
+	</ul>
+</body>
+</html>
