@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2.1基础多选</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui@1.4.4/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-select v-model="roleIdList" multiple placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+            <button @click="getArrList">获取id集合数组进行保存</button>
+          </template>
+    </div>
+    <script>
+        var Main = {
+            data() {
+              return {
+                options: [{
+                  value: '选项1',
+                  label: '黄金糕'
+                }, {
+                  value: '选项2',
+                  label: '双皮奶'
+                }, {
+                  value: '选项3',
+                  label: '蚵仔煎'
+                }, {
+                  value: '选项4',
+                  label: '龙须面'
+                }, {
+                  value: '选项5',
+                  label: '北京烤鸭'
+                }],
+                // 角色列表
+                roleList: [
+                    {
+                        value: '选项1',
+                        label: '黄金糕'
+                    },
+                    {
+                        value: '选项2',
+                        label: '双皮奶'
+                    },
+                    {
+                        value: '选项6',
+                        label: '南昌炒粉'
+                    }
+                ],
+                // 角色id集合数组 // ['选项1','选项2','南昌炒粉'] ---- ['选项1','选项2','选项6']
+                roleIdList: []
+              }
+            },
+            created() {
+                // 渲染select
+                this.renderSelect();
+            },
+            methods: {
+                // 渲染select输入框
+                renderSelect() {
+                    // 下拉列表
+                    var optionIdList = this.options.map(function(item){
+                        return item.value;
+                    });
+                    // 1、没有对应id的，变成name
+                    this.roleIdList = this.roleList.map(function(item) {
+                        console.log(item);
+                        if (optionIdList.indexOf(item.value) > -1) {
+                            return item.value;
+                        } else {
+                            return item.label;
+                        }
+                    });
+                    console.log('optionIdList', optionIdList);
+                    console.log('this.roleIdList', this.roleIdList);
+                },
+                // 保存的时候存id
+                getArrList() {
+                    let that = this;
+                    // 2、提交的时候，把对应的name转成id
+                    var saveIdList = [];
+                    [...this.options, ...this.roleList].forEach(function(item) {
+                        console.log(item);
+                        if (that.roleIdList.indexOf(item.label) > -1) {
+                            saveIdList.push(item.value);
+                        }
+                        // 如果在里面
+                        if (that.roleIdList.indexOf(item.value) > -1) {
+                            // 已经存在了，就不添加进去了。
+                            if (saveIdList.indexOf(item.value) === -1) {
+                                saveIdList.push(item.value);
+                            }
+                        }
+                    });
+                    // 深拷贝：JSON.parse(JSON.stringify(data))
+                    console.log('saveIdList', saveIdList, this.roleIdList);
+                }
+            }
+          }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+    </script>
+</body>
+
+</html>
