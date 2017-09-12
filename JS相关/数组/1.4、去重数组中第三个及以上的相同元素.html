@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div>
+        <pre>
+            // arr [1,2,2,3,3,3,4,4,4,4];----=>arr2  [1,2,2,3,3,4,4]
+            // 去重数组的第三个及以上的元素
+        </pre>
+    </div>
+    <script>
+        // arr [1,2,2,3,3,3,4,4,4,4];----=>arr2  [1,2,2,3,3,4,4]
+        // 去重数组的第三个及以上的元素
+        var arr = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
+        // 去重数组，保留个数
+        function uniq(arr, keepCount) {
+            var keep = keepCount || 2;
+            // result 为二维数组：[[重复元素，重复次数]]
+            var result = [];
+            var finalResult = [];
+            var arrSort = arr.sort();
+            for (var i = 0; i < arrSort.length;) {
+                var count = 0;
+                for (var j = i; j < arrSort.length; j++) {
+                    if (arr[i] === arr[j]) {
+                        count++;
+                    }
+                }
+                result.push([arr[i], count]);
+                i += count;
+            }
+            console.log('result', result);
+            for (var k = 0; k < result.length; k++) {
+                // result 为数组：[重复元素，重复次数]
+                // console.log('finalResult',finalResult);
+                console.log('元素:', result[k][0],'重复次数为:',result[k][1]);
+                if (result[k][1] >= keep) {
+                    finalResult.push(result[k][0], result[k][0]);
+                } else {
+                    finalResult.push(result[k][0]);
+                }
+            }
+            return finalResult;
+        }
+        var arr2 = uniq(arr);
+        console.log(arr2);
+    </script>
+</body>
+
+</html>
