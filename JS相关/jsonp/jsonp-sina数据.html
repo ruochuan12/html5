@@ -39,7 +39,7 @@
 	</style>
 	<script>
 		function lxchuan12(data){
-			console.log(data);
+			console.log('lxchuan12回调函数', data);
 		}
 	</script>
 	<script>
@@ -50,27 +50,28 @@
 			oQ.onkeyup = function(){ 
 			//oQ.oninput = function(){ //事件也行,不过不支持IE6,7,8
 			//参见：（ 总结oninput、onchange与onpropertychange事件的用法和区别 ）http://blog.csdn.net/freshlover/article/details/39050609
-			$.ajax({ 
-                type: "GET", 	
-                url: "http://hq.sinajs.cn/list=sh000001",
-                dataType: "jsonp",
-                // jsonp: "callback",	// 后端也需要配合serverjsonp.php，需要设置相同的值如callback
-                success: function(data) {
-                    if (data.success) {
-                        $("#searchResult").html(data.msg);
-                    } else {
-                        $("#searchResult").html("出现错误：" + data.msg);
-                    }  
-                },
-                error: function(jqXHR){     
-                    alert("发生错误：" + jqXHR.status);  
-                }
-            });
+			// $.ajax({ 
+            //     type: "GET", 	
+            //     url: "http://hq.sinajs.cn/list=sh000001",
+            //     dataType: "jsonp",
+            //     jsonp: "callback",	// 后端也需要配合serverjsonp.php，需要设置相同的值如callback
+            //     success: function(data) {
+            //         if (data.success) {
+            //             $("#searchResult").html(data.msg);
+            //         } else {
+            //             $("#searchResult").html("出现错误：" + data.msg);
+            //         }  
+            //     },
+            //     error: function(jqXHR){     
+            //         alert("发生错误：" + jqXHR.status);  
+            //     }
+            // });
 				// if(this.value ===""){
 					oScript = document.createElement('script');
-					// oScript.src = 'http://suggestion.baidu.com/su?wd='+this.value+'&cb=lxchuan12';
-                    oScript.src = 'http://hq.sinajs.cn/list=sh000001';
+					oScript.src = 'http://suggestion.baidu.com/su?wd='+this.value+'&cb=lxchuan12';
+                    // oScript.src = 'http://hq.sinajs.cn/list=sh000001';
 					document.body.appendChild(oScript);
+					console.log(oScript);
 				// }else{
 				// 	oUl.style.display = 'none';
 				// }
