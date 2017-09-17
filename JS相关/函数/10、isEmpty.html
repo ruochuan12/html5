@@ -20,6 +20,15 @@
         //     if(isArrayLike(obj)&& (_.isArray(obj) || _.isString(obj) ||_.isArguments(obj))) return obj.length === 0;
         //     return _.keys(obj).length === 0;
         // };
+        // if(typeof Object.create !== "function")
+        // {
+        //     Object.create = function (obj)
+        //     {
+        //         function F(){}
+        //         F.prototype = obj;
+        //         return new F();
+        //     };
+        // }
 	</script>
 </body>
 </html>
