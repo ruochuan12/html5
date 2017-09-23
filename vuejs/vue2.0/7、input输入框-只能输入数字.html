@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7-input输入框count</title>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+<div id="example">
+    <div>
+        <p>只能输入正整数,fixNumber @keyup事件触发和watch触发</p>
+        <input type="text" v-model="count">
+        <input type="text" placeholder="只能输入数字" v-model="value" @change="setParseInt" @input="setParseInt">
+        <p>{{count}}</p>
+    </div>
+</div>
+<script>
+	new Vue({
+		el:'#example',
+		data:{
+			count:'',
+            value:'',
+            product:{
+                amount: 0
+            }
+		},
+        watch:{
+            count(){
+                console.log(this.count);
+                // Number('') ----> 0，清空后值为0
+                this.count = (typeof this.count === 'string' && this.count !== '')?Number(this.count.replace(/\D+/g,'')):this.count;
+            }
+        },
+        computed:{
+            // count(){
+            //     console.log('computed');
+            // }
+        },
+		methods:{
+			fixNumber() {
+                this.count = typeof this.count === 'string'?Number(this.count.replace(/\D+/g,'')):this.count;
+            },
+            // 输入数字
+            // @change 和 @input就可以阻止输入非数字了
+            setParseInt(event) {
+                // let value = event.target.value;
+                console.log(this.value);
+                this.value = this.value.replace(/\D+/g,'');
+                // let reg = /^[1-9]*\d*$/g;
+                // let matchArr = reg.exec(value)
+                // this.value = matchArr === null ? '' : matchArr[0];
+                // return value;
+            }
+		}
+	});
+</script>
+</body>
+</html>
