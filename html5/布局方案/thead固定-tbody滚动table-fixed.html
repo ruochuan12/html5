@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>转载自·威易网CSS教程</title>
+    <style>
+        table tbody {
+            display: block;
+            height: 195px;
+            overflow-y: scroll;
+        }
+
+        table thead,
+        tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table thead {
+            width: calc( 100% - 1em)
+        }
+
+        table thead th {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="http://www.cnblogs.com/yetbobo/p/5046106.html" target="_blank">
+            表头固定内容可滚动表格的3种实现方法</a>
+    </div>
+    <div>
+        找了好久才找到一篇可以简单粗暴就能用的，所以拿过来算是收藏了。里面有一个css2里的命令是我没用过的也是这里面关键的：table-layout:fixed; 原理很简单，有爱研究的童鞋可以去css官网看看说明文档。 
+        <a href="http://www.cnblogs.com/webSong/p/6242444.html" target="_blank">table表格，让thead固定，tbody有滚动条，关键是都对齐的纯css写法。</a>
+    </div>
+    <table width="80%" border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>出生年月</th>
+                <th>手机号码</th>
+                <th>单位</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>张三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张三封</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴与四十大盗</td>
+            </tr>
+            <tr>
+                <td>张小三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>腾讯科技</td>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>浏阳河就业</td>
+            </tr>
+            <tr>
+                <td>张三疯子</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张大三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张三五</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张刘三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td>18</td>
+                <td>1990-9-9</td>
+                <td>13682299090</td>
+                <td>阿里巴巴</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
