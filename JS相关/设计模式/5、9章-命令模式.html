@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="btns">
+        <button>刷新菜单界面</button>
+        <button>添加子菜单</button>
+        <button>删除子菜单</button>
+    </div>
+    <script>
+        var btns = document.querySelectorAll('.btns button');
+        var bindClick = function(button, func){
+            button.addEventListener('click', func);
+        };
+        var MenuBar = {
+            refresh: function(){
+                console.log('刷新菜单界面');
+            }
+        }
+        var SubMenu = {
+            add: function(){
+                console.log('添加子菜单');
+            },
+            del: function(){
+                console.log('删除子菜单');
+            }
+        };
+        bindClick(btns[0], MenuBar.refresh);
+        bindClick(btns[1], SubMenu.add);
+        bindClick(btns[2], SubMenu.del);
+    </script>
+</body>
+
+</html>

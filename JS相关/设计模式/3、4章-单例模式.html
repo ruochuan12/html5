@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var Singleton = function (name) {
+            this.name = name;
+        }
+        Singleton.prototype.getName = function() {
+            alert(this.name);
+        }
+        Singleton.getIntance = (function() {
+            var instance = null;
+            return function(name) {
+                if (!instance) {
+                    instance = new Singleton(name);
+                }
+                return instance;
+            }
+        })();
+        var a = Singleton.getIntance('sven1');
+        var b = Singleton.getIntance('sven2');
+        console.log(a, b); // Singleton {name: "sven1"}name: "sven1"__proto__: Object
+        console.log(a === b); // true
+        // console.log(a, b);
+        // JavaScript 单例模式、闭包
+        var getSingle = function (fn) {
+            var result;
+            return function(){
+                // result 变量因为身在闭包中，它永远不会被销毁。
+                return result || (result = fn.apply(this, arguments));
+            }
+        }
+    </script>
+</body>
+
+</html>
