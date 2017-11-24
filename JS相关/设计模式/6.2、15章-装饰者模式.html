@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 回到JavaScript的装饰者
+        var plane = {
+            fire: function(){
+                console.log('发射普通子弹');
+            }
+        }
+        var missileDecorator = function(){
+            console.log('发射导弹');
+        }
+        var atomDecorator = function(){
+            console.log('发射原子弹');
+        }
+        var fire1 = plane.fire;
+        plane.fire = function(){
+            fire1();
+            missileDecorator();
+        }
+        var fire2 = plane.fire;
+        plane.fire = function(){
+            fire2();
+            atomDecorator();
+        }
+        plane.fire();
+        // 分别输出：发射普通子弹、发射导弹、发射原子弹
+    </script>
+</body>
+
+</html>
