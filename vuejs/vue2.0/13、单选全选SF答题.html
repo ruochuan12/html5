@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SF上的Vue 全选 单选问题</title>
+    <script src="../js/vue2.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a href="https://segmentfault.com/q/1010000012675796?_ea=3106401" target="_blank">SF上的Vue 全选 单选问题</a>
+        <ul>
+            <li @click="singleSelect(row, index)" v-for="(row, index) in goods">
+                是否选中<input type="checkbox" :checked="row.checked"/>{{row.name}}
+            </li>
+        </ul>
+        <button @click="allSelect">全选</button>
+        <input type="checkbox" :checked="isAllSelected"/>
+    </div>
+    <script>
+        new Vue({
+            data: {
+                goods: [{
+                    id: 1,
+                    name: 'xuanyuan1',
+                    checked: false
+                }, {
+                    id: 2,
+                    name: 'xuanyuan2',
+                    checked: false
+                }, {
+                    id: 3,
+                    name: 'xuanyuan3',
+                    checked: false
+                }],
+            },
+            computed:{
+                // 是否全选
+                isAllSelected(){
+                    return this.goods.every((el) => {
+                        return el.checked;
+                    })
+                }
+            },
+            methods: {
+                // 全选：
+                allSelect() {
+                    this.goods = this.goods.map(el => {
+                        el.checked = !!!el.checked;
+                        return el;
+                    })
+                },
+
+                // 单选
+                singleSelect(row, index) {
+                    row.checked = !!!row.checked;
+                    this.goods.splice(index, 1, row);
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>
