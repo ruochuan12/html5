@@ -10,10 +10,16 @@
             margin: 0;
             padding: 0;
         }
+        body{
+            padding: 20px;
+        }
         a{
             text-decoration: none;
         }
-        li {
+        .checked-item {
+            height: 30px;
+            cursor: pointer;
+            line-height: 30px;
             list-style: none;
         }
     </style>
@@ -23,27 +29,44 @@
     <div id="app">
         <a href="https://segmentfault.com/q/1010000012675796?_ea=3106401" target="_blank">SF上的Vue 全选 单选问题</a>
         <ul>
-            <li @click="singleSelect(row, index)" v-for="(row, index) in goods">
-                是否选中<input type="checkbox" :checked="row.checked"/>{{row.name}}
+            <li class="checked-item" @click="singleSelect(row, index)" v-for="(row, index) in goods">
+                <input type="checkbox" :checked="row.checked"/>{{row.name}}
             </li>
         </ul>
-        <button @click="allSelect">全选</button>
-        <input type="checkbox" :checked="isAllSelected"/>
+        <div>
+            <span @click="allSelect">
+                <input type="checkbox" :checked="isAllSelected"/>
+                <button>全选</button>
+            </span>
+            <span class="checked-count" v-if="checkedGoodIds.length > 0">已选择：{{checkedGoodIds.length}}项</span>
+        </div>
     </div>
     <script>
         new Vue({
             data: {
                 goods: [{
                     id: 1,
-                    name: 'xuanyuan1',
+                    name: '选项1-xuanyuan1',
                     checked: false
                 }, {
                     id: 2,
-                    name: 'xuanyuan2',
+                    name: '选项2-xuanyuan2',
                     checked: false
                 }, {
                     id: 3,
-                    name: 'xuanyuan3',
+                    name: '选项3-xuanyuan3',
+                    checked: false
+                }, {
+                    id: 4,
+                    name: '选项4-xuanyuan4',
+                    checked: false
+                }, {
+                    id: 5,
+                    name: '选项5-xuanyuan5',
+                    checked: false
+                }, {
+                    id: 6,
+                    name: '选项6-xuanyuan6',
                     checked: false
                 }],
             },
@@ -53,20 +76,33 @@
                     return this.goods.every((el) => {
                         return el.checked;
                     })
+                },
+                // 选中商品的id
+                checkedGoodIds(){
+                    let filterArr = this.goods.filter((el) => {
+                        return el.checked;
+                    });
+                    return filterArr.map((el) => {
+                        return el.id;
+                    })
                 }
             },
             methods: {
-                // 全选：
+                // 全选、全不选
                 allSelect() {
+                    let checked = true;
+                    // 全选
+                    if(this.isAllSelected){
+                        checked = false;
+                    }
                     this.goods = this.goods.map(el => {
-                        el.checked = !!!el.checked;
+                        el.checked = checked;
                         return el;
                     })
                 },
-
                 // 单选
                 singleSelect(row, index) {
-                    row.checked = !!!row.checked;
+                    row.checked = !row.checked;
                     this.goods.splice(index, 1, row);
                 }
             }
