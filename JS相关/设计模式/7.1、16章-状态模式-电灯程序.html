@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>状态模式</title>
+</head>
+
+<body>
+    <script>
+        var Light = function(){
+            this.state = 'off';
+            this.button = null;
+        }
+        Light.prototype.init = function(){
+            var button = document.createElement('button');
+            var self = this;
+            button.innerHTML = '开关';
+            this.button = document.body.appendChild(button);
+            this.button.onclick = function(){
+                self.buttonWasPressed();
+            };
+        }
+        Light.prototype.buttonWasPressed = function(){
+            console.log(this.state);
+            if(this.state === 'off'){
+                console.log('开灯');
+                this.state = 'on';
+            }
+            else if(this.state === 'on'){
+                console.log('关灯');
+                this.state = 'off'
+            }
+        }
+        // 新型电灯
+        // Light.prototype.buttonWasPressed = function () {
+        //     if (this.state === 'off') {
+        //         console.log('弱光');
+        //         this.state = 'weakLight';
+        //     } else if (this.state === 'weakLight') {
+        //         console.log('强光');
+        //         this.state = 'strongLight';
+        //     } else if (this.state === 'strongLight') {
+        //         console.log('关灯');
+        //         this.state = 'off';
+        //     }
+        // };
+        var ligth = new Light();
+        ligth.init();
+    </script>
+</body>
+
+</html>
