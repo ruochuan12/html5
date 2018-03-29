@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4.3-4章-优先队列</title>
+</head>
+<body>
+    <div>
+        <pre>
+            实现一个优先队列，有两种选项：设置优先级，然后在正确的位置添加元素；或者用入列操
+            作添加元素，然后按照优先级移除它们。在这个示例中，我们将会在正确的位置添加元素，因此
+            可以对它们使用默认的出列操作：
+        </pre>
+    </div>
+    <script>
+        // 优先队列
+        function PriorityQueue() {
+            let items = [];
+            function QueueElement(element, priority) { // {1}
+                this.element = element;
+                this.priority = priority;
+            }
+            this.enqueue = function (element, priority) {
+                let queueElement = new QueueElement(element, priority);
+                let added = false;
+                for (let i = 0; i < items.length; i++) {
+                    if (queueElement.priority < items[i].priority) { // {2}
+                        items.splice(i, 0, queueElement); // {3}
+                        added = true;
+                        break; // {4}
+                    }
+                }
+                if (!added) {
+                    items.push(queueElement); // {5}
+                }
+            };
+            this.print = function () {
+                for (let i = 0; i < items.length; i++) {
+                    // console.log(items, 'items', typeof items[i], Object.prototype.toString.call(items[i]));
+                    console.log(`${items[i].element} - ${items[i].priority}`);
+                }
+            };
+            //其他方法和默认的Queue实现相同
+            this.dequeue = function(){
+                return items.shift();
+            };
+            this.front = function(){
+                return items[0];
+            };
+            this.isEmpty = function(){
+                return items.length === 0;
+            };
+            this.size = function(){
+                return items.length;
+            };
+        }
+        let priorityQueue = new PriorityQueue();
+        priorityQueue.enqueue("John", 2);
+        priorityQueue.enqueue("Jack", 1);
+        priorityQueue.enqueue("Camila", 1);
+        console.log(Object.getPrototypeOf(priorityQueue.front()).__proto__ === Object.prototype); // true
+        console.log(priorityQueue.size()); // 3
+        console.log(priorityQueue.isEmpty()); // false
+        priorityQueue.dequeue();
+        priorityQueue.dequeue();
+        priorityQueue.print(); // John - 2
+    </script>
+</body>
+</html>

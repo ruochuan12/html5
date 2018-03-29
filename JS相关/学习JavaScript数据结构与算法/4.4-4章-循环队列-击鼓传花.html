@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4.4-4章-循环队列-击鼓传花</title>
+</head>
+<body>
+    <p>
+        <pre>
+            还有另一个修改版的队列实现，就是循环队列。循环队列的一个例子就是击鼓传花游戏（Hot
+            Potato）。在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止，
+            这个时候花在谁手里，谁就退出圆圈结束游戏。重复这个过程，直到只剩一个孩子（胜者）。
+            在下面这个示例中，我们要实现一个模拟的击鼓传花游戏：
+        </pre>
+    </p>
+    <script>
+        function Queue(){
+            var items = [];
+            this.enqueue = function(element){
+                items.push(element);
+            }
+            this.dequeue = function(){
+                return items.shift();
+            };
+            this.front = function(){
+                return items[0];
+            };
+            this.isEmpty = function(){
+                return items.length === 0;
+            };
+            this.size = function(){
+                return items.length;
+            };
+            this.print = function(){
+                console.log(items.toString());
+            };
+        }
+        function hotPotato(nameList, num) {
+            let queue = new Queue(); // {1}
+            for (let i = 0; i < nameList.length; i++) {
+                queue.enqueue(nameList[i]); // {2}
+            }
+            let eliminated = '';
+            while (queue.size() > 1) {
+                for (let i = 0; i < num; i++) {
+                    queue.enqueue(queue.dequeue()); // {3}
+                }
+                eliminated = queue.dequeue();   // {4}
+                console.log(eliminated + '在击鼓传花游戏中被淘汰。 ');
+            }
+            return queue.dequeue(); // {5}
+        }
+        let names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl'];
+        // 改变num 模拟不同场景
+        // 可以改变传入hotPotato函数的数字，模拟不同的场景。
+        let winner = hotPotato(names, 7);
+        console.log('The winner is: ' + winner);
+    </script>
+</body>
+</html>

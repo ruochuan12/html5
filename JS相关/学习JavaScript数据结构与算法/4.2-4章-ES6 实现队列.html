@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4.2-4章-ES6 实现队列</title>
+</head>
+<body>
+    <div>
+            <pre>和第3章一样，我们也可以用ECMAScript 6语法编写Queue类。在这种方法中，我们要用一
+            个WeakMap来保存私有属性items，并用外层函数（闭包）来封装Queue类。</pre>
+        <a href="http://es6.ruanyifeng.com/?search=weak&x=0&y=0#docs/set-map#WeakMap" target="_blank">点击查看 WeakMap</a>
+    </div>
+    <script>
+        // ES6 实现队列
+        let Queue2 = (function () {
+            const items = new WeakMap();
+            console.log(items, 'items');
+            class Queue2 {
+                constructor(){
+                    items.set(this, []);
+                }
+                enqueue(element){
+                    let q = items.get(this);
+                    q.push(element);
+                }
+                dequeue(){
+                    let q = items.get(this);
+                    let r = q.shift();
+                    return r;
+                }
+                front(){
+                    let q = items.get(this);
+                    let r = q[0];
+                    return r;
+                }
+                size(){
+                    let q = items.get(this);
+                    let r = q.length;
+                    return r;
+                }
+                isEmpty(){
+                    let q = items.get(this);
+                    let r = q.length === 0;
+                    return r;
+                }
+                print(){
+                    let q = items.get(this);
+                    console.log(q.toString());
+                }
+            }
+            return Queue2;
+        })();
+        var queue = new Queue2();
+        console.log(queue.isEmpty()); // true
+        queue.enqueue('John');
+        queue.enqueue('Jack');
+        queue.enqueue('Camila');
+        queue.print(); // John,Jack,Camila
+        console.log(queue.size()); // 3
+        console.log(queue.isEmpty()); // false
+        queue.dequeue();
+        queue.dequeue();
+        queue.print();  // Camila
+    </script>
+</body>
+</html>
