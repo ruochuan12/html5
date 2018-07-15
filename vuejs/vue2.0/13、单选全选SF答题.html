@@ -16,7 +16,7 @@
         a{
             text-decoration: none;
         }
-        .checked-item {
+        .checked-item, li {
             height: 30px;
             cursor: pointer;
             line-height: 30px;
@@ -26,6 +26,7 @@
 </head>
 
 <body>
+    <h2>Vuejs 实现</h2>
     <div id="app">
         <a href="https://segmentfault.com/q/1010000012675796?_ea=3106401" target="_blank">SF上的Vue 全选 单选问题</a>
         <ul>
@@ -40,6 +41,34 @@
             </span>
             <span class="checked-count" v-if="checkedGoodIds.length > 0">已选择：{{checkedGoodIds.length}}项</span>
         </div>
+    </div>
+    <h2>原生JS实现 点击checkbox</h2>
+    <div id="orginal-js">
+        <ul id="orginal-ul">
+            <li class="item">
+                <input type="checkbox" class="input-item">选项1-xuanyuan1
+            </li>
+            <li class="item">
+                <input type="checkbox" class="input-item">选项2-xuanyuan2
+            </li>
+            <li class="item">
+                <input type="checkbox" class="input-item">选项3-xuanyuan3
+            </li>
+            <li class="item">
+                <input type="checkbox" class="input-item">选项4-xuanyuan4
+            </li>
+            <li class="item">
+                <input type="checkbox" class="input-item">选项5-xuanyuan5
+            </li>
+            <li class="item">
+                <input type="checkbox" class="input-item">选项6-xuanyuan6
+            </li>
+            <li class="item">
+                <input id="checkAll" type="checkbox" class="input-item">
+                <button>全选</button>
+                <span>已选择：项</span>
+            </li>
+        </ul>
     </div>
     <script>
         new Vue({
@@ -107,6 +136,28 @@
                 }
             }
         }).$mount('#app')
+    </script>
+    <script>
+        let initCheckbox = (checkAll = document.querySelector('#checkAll'), optionsArr = [...document.querySelectorAll('#orginal-ul .input-item')]) => {
+            checkAll.addEventListener('change', () => {
+                // console.log(11);
+                optionsArr.forEach(el => {
+                    el.checked = checkAll.checked;
+                    console.log('forEach');
+                    // el.querySelector('.input-item').checked = true;
+                });
+            });
+            optionsArr.forEach((el) => {
+                // el.checked = true;
+                el.addEventListener('change', () => {
+                    // el.checked = !el.checked;
+                    // console.log(22, el.checked);
+                    checkAll.checked = optionsArr.every(item => item.checked);
+                });
+                // el.querySelector('.input-item').checked = true;
+            });
+        };
+        initCheckbox();
     </script>
 </body>
 
