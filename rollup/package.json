@@ -1,0 +1,17 @@
+{
+  "name": "rollup",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "rollup-plugin-json": "^3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c -o bundle.js"
+  },
+  "author": "luoxiaochuan <lxchuan12@163.com>",
+  "license": "ISC",
+  "description": ""
+}
