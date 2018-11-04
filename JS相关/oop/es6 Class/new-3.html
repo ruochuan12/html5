@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 例子3
+        function Student(name){
+            this.name = name;
+            // this.doSth();
+        }
+        Student.prototype.doSth = function() {
+            console.log(this.name);
+        };
+        var student1 = new Student('轩辕');
+        var student2 = new Student('Rowboat');
+        console.log(student1, student1.doSth()); // {name: '轩辕'} '轩辕'
+        console.log(student2, student2.doSth()); // {name: 'Rowboat'} 'Rowboat'
+        student1.__proto__ === Student.prototype; // true
+        student2.__proto__ === Student.prototype; // true
+        // __proto__ 是浏览器实现的查看原型方案。
+        // 用ES5 则是：
+        Object.getPrototypeOf(student1) === Student.prototype; // true
+        Object.getPrototypeOf(student2) === Student.prototype; // true
+    </script>
+</body>
+</html>

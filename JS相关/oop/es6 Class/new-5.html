@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 模拟实现 new 操作符
+         * @param  {Function} ctor [构造函数]
+         * @return {Object|Function|Regex|Date|Error}      [返回结果]
+         */
+        function newOperator(ctor){
+            if(typeof ctor !== 'function'){
+              throw 'newOperator function the first param must be a function';
+            }
+            // ES6 new.target 是指向构造函数
+            newOperator.target = ctor;
+            // 1.创建一个全新的对象，
+            // 2.并且执行[[Prototype]]链接
+            // 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
+            var newObj = Object.create(ctor.prototype);
+            // ES5 arguments转成数组 当然也可以用ES6 [...arguments], Aarry.from(arguments);
+            var argsArr = [].slice.call(arguments);
+            // 删除ctor构造函数 这个参数
+            argsArr.shift();
+            // 3.生成的新对象会绑定到函数调用的`this`。
+            // 获取到ctor函数返回结果
+            var ctorReturnResult = ctor.apply(newObj, argsArr);
+
+            // Null（空） null
+            // Undefined（未定义） undefined
+            // Number（数字） 1
+            // String（字符串）'1'
+            // Boolean（布尔） true
+            // Symbol（符号）（第六版新增） symbol
+            
+            // Object（对象） {}
+                // Function（函数） function(){}
+                // Array（数组） []
+                // Date（日期） Date
+                // RegExp（正则表达式）/a/
+                // Error （错误）new Error()
+            // 这些类型中合并起来只有Object和Function两种类型 typeof null 也是null所以要除去null
+            if(typeof ctorReturnResult === 'object' && ctorReturnResult !== null){
+                return ctorReturnResult;
+            }
+            if(typeof ctorReturnResult === 'function'){
+                return ctorReturnResult;
+            }
+            // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
+            return newObj;
+        }
+        // 例子5
+        function Student(name, age){
+            this.name = name;
+            this.age = age;
+            // this.doSth();
+            // return Error();
+        }
+        Student.prototype.doSth = function() {
+            console.log(this.name);
+        };
+        var student1 = newOperator(Student, '轩辕', 18);
+        var student2 = newOperator(Student, 'Rowboat', 18);
+        // var student1 = new Student('轩辕');
+        // var student2 = new Student('Rowboat');
+        console.log(student1); // {name: '轩辕'} '轩辕'
+        console.log(student1.doSth()); // {name: '轩辕'} '轩辕'
+
+        console.log(student2, student2.doSth()); // {name: 'Rowboat'} 'Rowboat'
+        student1.__proto__ === Student.prototype; // true
+        student2.__proto__ === Student.prototype; // true
+        // __proto__ 是浏览器实现的查看原型方案。
+        // 用ES5 则是：
+        Object.getPrototypeOf(student1) === Student.prototype; // true
+        Object.getPrototypeOf(student2) === Student.prototype; // true
+    </script>
+</body>
+</html>

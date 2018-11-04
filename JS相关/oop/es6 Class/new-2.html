@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 例子2
+        function Student(name){
+            console.log('赋值前-this', this); // {}
+            this.name = name;
+            console.log('赋值后-this', this); // {name: '轩辕Rowboat'}
+        }
+        var student = new Student('轩辕Rowboat');
+        console.log(student); // {name: '轩辕Rowboat'}
+    </script>
+</body>
+</html>

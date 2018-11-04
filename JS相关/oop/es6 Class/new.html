@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function newOperator（Constr，args）{
+            var thisValue = Object.create（Constr.prototype）; //（1）
+            var result = Constr.apply（thisValue，args）;
+            if（typeof result ==='object'&& result！== null）{
+                返回结果; //（2）
+            }
+            返回thisValue;
+        }
+    </script>
+</body>
+</html>

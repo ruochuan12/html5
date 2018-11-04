@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var anotherObject = {
+            name: '轩辕Rowboat'
+        };
+        var myObject = Object.create(anotherObject, {
+            age: {
+                value：18,
+            },
+        });
+        // 获得它的原型
+        Object.getPrototypeOf(anotherObject) === Object.prototype; // true 说明anotherObject的原型是Object.prototype
+        Object.getPrototypeOf(myObject); // {name: "轩辕Rowboat"} // 说明myObject的原型是{hi: "Hello"}
+        myObject.hasOwnProperty('name'); // false;
+        myObject.hasOwnProperty('age'); // true
+        myObject.name; // '轩辕Rowboat'
+        myObject.age; // 18;
+    </script>
+</body>
+</html>

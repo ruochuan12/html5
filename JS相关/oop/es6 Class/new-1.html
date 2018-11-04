@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 例子1
+        function Student(){
+        }
+        var student = new Student();
+        console.log(student); // {}
+        // student 是一个对象。
+        console.log(Object.prototype.toString.call(student)); // [object Object]
+        // 我们知道平时声明对象也可以用new Object(); 只是看起来更复杂
+        var obj = new Object();
+        console.log(obj) // {}
+        console.log(Object.prototype.toString.call(student)); // [object Object]
+
+        typeof Student === 'function' // true
+        typeof Object === 'function' // true
+        student.constructor === Student;
+    </script>
+</body>
+</html>
