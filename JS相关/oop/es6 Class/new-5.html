@@ -42,10 +42,9 @@
                 // RegExp（正则表达式）/a/
                 // Error （错误）new Error()
             // 这些类型中合并起来只有Object和Function两种类型 typeof null 也是null所以要除去null
-            if(typeof ctorReturnResult === 'object' && ctorReturnResult !== null){
-                return ctorReturnResult;
-            }
-            if(typeof ctorReturnResult === 'function'){
+            var isObject = typeof ctorReturnResult === 'object' && ctorReturnResult !== null;
+            var isFunction = typeof ctorReturnResult === 'function';
+            if(isObject || isFunction){
                 return ctorReturnResult;
             }
             // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>bind模拟实现-1</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            name: '轩辕Rowboat',
+        };
+        function run(a, b){
+            console.log(this, 'this', typeof this);
+            console.log(this.name);
+            console.log([a, b]);
+        }
+        var func = run.bind(obj, 1);
+        var funcResult = func(2); // '轩辕Rowboat', [1, 2]
+        console.log(funcResult, 'funcResult');
+        // var newFuncResult = new func(2); // undefined, [1, 2]
+        // console.log(newFuncResult, 'newFuncResult');
+    </script>
+</body>
+</html>

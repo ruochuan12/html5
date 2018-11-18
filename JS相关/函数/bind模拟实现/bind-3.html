@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>bind模拟实现-1</title>
+</head>
+<body>
+    <script>
+        // TODO 函数名字 不可写
+        Function.prototype.bindFn = function bind(thisArgs){
+            var self = this;
+            var args = [].slice.call(arguments, 1);
+            var boundFnName = 'bound ' + self.name;
+            console.log(boundFnName, 'boundFnName');
+            var boundFn = function(){
+                var boundArgs = [].slice.call(arguments);
+                return self.apply(thisArgs, args.concat(boundArgs));
+            }
+            // boundFn.name = boundFnName;
+            // Function.prototype.name = (function functionName(fun) {
+            //   var ret = fun.toString();
+            //   ret = ret.substr('function '.length);
+            //   ret = ret.substr(0, ret.indexOf('('));
+            //   return ret;
+            // })();
+            return boundFn;
+        }
+        var obj = {
+            name: '轩辕Rowboat',
+        };
+        function run(a, b){
+            console.log(this.name);
+            console.log([a, b]);
+        }
+        var func = run.bindFn(obj, 1);
+        func(2); // '轩辕Rowboat', [1, 2]
+        console.log(run.bindFn.name); // 'bind'
+        console.log(func.name); // 'bound run'
+        console.log((function(){}).bindFn().name); // 'bound '
+    </script>
+</body>
+</html>

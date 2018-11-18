@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>bind模拟实现-1</title>
+</head>
+<body>
+    <srcipt src="https://github.com/es-shims/es5-shim/blob/37e7f3ebca4c42296adf9e753c3a956dd8c84fae/es5-shim.js"></srcipt>
+    <script>
+        var obj = {
+            name: '轩辕Rowboat',
+        };
+        function run(a, b){
+            console.log(this.name);
+            console.log([a, b]);
+        }
+        var func = run.bind(obj, 1);
+        func(2); // '轩辕Rowboat', [1, 2]
+        console.log(run.bind.name); // 'bind'
+        console.log(func.name); // 'bound run'
+        console.log((function(){}).bind().name); // 'bound '
+    </script>
+</body>
+</html>
