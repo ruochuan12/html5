@@ -2,23 +2,24 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>bind模拟实现-1</title>
+    <title>bind模拟实现-2</title>
 </head>
 <body>
     <script>
         var obj = {
             name: '轩辕Rowboat',
         };
-        function run(a, b){
-            console.log(this, 'this', typeof this);
-            console.log(this.name);
-            console.log([a, b]);
+        function original(a, b){
+            console.log('this', this); // original {}
+            console.log('typeof this', typeof this); // object
+            this.name = b;
+            console.log('name', this.name); // 2
+            console.log('this', this);
+            console.log([a, b]); // 1, 2
         }
-        var func = run.bind(obj, 1);
-        var funcResult = func(2); // '轩辕Rowboat', [1, 2]
-        console.log(funcResult, 'funcResult');
-        // var newFuncResult = new func(2); // undefined, [1, 2]
-        // console.log(newFuncResult, 'newFuncResult');
+        var bound = original.bind(obj, 1);
+        var newBoundResult = new bound(2);
+        console.log(newBoundResult, 'newBoundResult'); // original {name: 2}
     </script>
 </body>
 </html>

@@ -2,73 +2,34 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>bind模拟实现-1</title>
+    <title>bind模拟实现-4</title>
 </head>
 <body>
-    <!-- <srcipt src="https://github.com/es-shims/es5-shim/blob/37e7f3ebca4c42296adf9e753c3a956dd8c84fae/es5-shim.js"></srcipt> -->
     <script>
-        var $Object = Object;
-        var array_push = Array.prototype.push;
-        var array_slice = Array.prototype.slice;
-        var array_concat = Array.prototype.concat;
-        var max = Math.max;
-        var isCallable = function isCallable(value){
-            if(!value){
-                return false;
+        // 第二版 实现new绑定
+        Function.prototype.bindFn = function bind(thisArg){
+            if(typeof this !== 'function'){
+                throw new TypeError(this + 'must be a function');
             }
-        };
-        var Empty = function Empty() {};
-        Function.prototype.bindFn = function bind(that) {
-            var target = this;
-            // if (!isCallable(target)) {
-            //     throw new TypeError('Function.prototype.bind called on incompatible ' + target);
-            // }
-            var args = array_slice.call(arguments, 1);
-            var bound;
-            var binder = function () {
-                if (this instanceof bound) {
-                    var result = target.apply(
-                        this,
-                        array_concat.call(args, array_slice.call(arguments))
-                    );
-                    if ($Object(result) === result) {
-                        return result;
-                    }
-                    return this;
-                } else {
-                    return target.apply(
-                        that,
-                        array_concat.call(args, array_slice.call(arguments))
-                    );
+            // 存储函数本身
+            var self = this;
+            // 去除thisArg的其他参数 转成数组
+            var args = [].slice.call(arguments, 1);
+            // bind后的函数名 bound + 函数名
+            var boundFnName = 'bound ' + self.name;
+            // 声明一个对象，便于存储函数名，函数名是ES6新增的
+            //  var obj[boundFnName] = function 这种写法返回的函数名为空字符串''
+            var obj = {
+                // 暂且采用 ES6的计算属性名语法，也可以用ES5的Object.defineProperty()来模拟，或者可以不实现函数名
+                [boundFnName]: function(){
+                    // bind返回的函数 的参数转成数组
+                    var boundArgs = [].slice.call(arguments);
+                    // apply修改this指向，把两个函数的参数合并传给self函数，并执行self函数
+                    return self.apply(thisArg, args.concat(boundArgs));
                 }
             };
-            var boundLength = max(0, target.length - args.length);
-            var boundArgs = [];
-            for (var i = 0; i < boundLength; i++) {
-                array_push.call(boundArgs, '$' + i);
-            }
-            console.log(target.name);
-            bound = Function('binder', 'return function ' + 'bound' + target.name + '(' + boundArgs.join(',') + '){ return binder.apply(this, arguments); }')(binder);
-
-            if (target.prototype) {
-                Empty.prototype = target.prototype;
-                bound.prototype = new Empty();
-                Empty.prototype = null;
-            }
-            return bound;
+            return obj[boundFnName];
         }
-        var obj = {
-            name: '轩辕Rowboat',
-        };
-        function run(a, b){
-            console.log(this.name);
-            console.log([a, b]);
-        }
-        var func = run.bindFn(obj, 1);
-        func(2); // '轩辕Rowboat', [1, 2]
-        console.log(run.bindFn.name); // 'bind'
-        console.log(func.name); // 'bound run'
-        console.log((function(){}).bindFn().name); // 'bound '
     </script>
 </body>
 </html>

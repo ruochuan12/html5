@@ -9,15 +9,19 @@
         var obj = {
             name: '轩辕Rowboat',
         };
-        function run(a, b){
+        function original(a, b){
             console.log(this.name);
             console.log([a, b]);
         }
-        var func = run.bind(obj, 1);
-        func(2); // '轩辕Rowboat', [1, 2]
-        console.log(run.bind.name); // 'bind'
-        console.log(func.name); // 'bound run'
+        var bound = original.bind(obj, 1);
+        var boundResult = bound(2); // '轩辕Rowboat', [1, 2]
+        console.log(boundResult); // undefined
+        console.log(original.bind.name); // 'bind'
+        console.log(original.bind.length); // 1
+        console.log(original.bind().length); // 2 返回original函数的形参个数
+        console.log(bound.name); // 'bound original'
         console.log((function(){}).bind().name); // 'bound '
+        console.log((function(){}).bind().length); // 1
     </script>
 </body>
 </html>
