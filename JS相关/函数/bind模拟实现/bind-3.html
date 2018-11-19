@@ -12,10 +12,11 @@
             var args = [].slice.call(arguments, 1);
             var boundFnName = 'bound ' + self.name;
             console.log(boundFnName, 'boundFnName');
-            var boundFn = function(){
+            var obj = {};
+            obj[boundFnName] = function boundFnName(){
                 var boundArgs = [].slice.call(arguments);
                 return self.apply(thisArgs, args.concat(boundArgs));
-            }
+            };
             // boundFn.name = boundFnName;
             // Function.prototype.name = (function functionName(fun) {
             //   var ret = fun.toString();
@@ -23,7 +24,8 @@
             //   ret = ret.substr(0, ret.indexOf('('));
             //   return ret;
             // })();
-            return boundFn;
+            console.log(obj, 'obj');
+            return obj[boundFnName];
         }
         var obj = {
             name: '轩辕Rowboat',
