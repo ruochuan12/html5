@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>bind模拟实现-7</title>
+</head>
+<body>
+    <script>
+        // 最终版 删除注释 详细注释版请看上文
+        Function.prototype.bind = Function.prototype.bind || function bind(thisArg){
+            if(typeof this !== 'function'){
+                throw new TypeError(this + ' must be a function');
+            }
+            var self = this;
+            var args = [].slice.call(arguments, 1);
+            var bound = function(){
+                var boundArgs = [].slice.call(arguments);
+                var finalArgs = args.concat(boundArgs);
+                if(this instanceof bound){
+                    if(self.prototype){
+                        function Empty(){}
+                        Empty.prototype = self.prototype;
+                        bound.prototype = new Empty();
+                    }
+                    var result = self.apply(this, finalArgs);
+                    var isObject = typeof result === 'object' && result !== null;
+                    var isFunction = typeof result === 'function';
+                    if(isObject || isFunction){
+                        return result;
+                    }
+                    return this;
+                }
+                else{
+                    return self.apply(thisArg, finalArgs);
+                }
+            };
+            return bound;
+        }
+    </script>
+</body>
+</html>

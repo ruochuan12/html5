@@ -5,70 +5,32 @@
     <title>bind模拟实现-5</title>
 </head>
 <body>
-    <!-- <srcipt src="https://github.com/es-shims/es5-shim/blob/master/es5-shim.js"></srcipt> -->
     <script>
-        var $Object = Object;
-        var array_push = Array.prototype.push;
-        var array_slice = Array.prototype.slice;
-        var array_concat = Array.prototype.concat;
-        var max = Math.max;
-        var isCallable = function isCallable(value){
-            if(!value){
-                return false;
+        function Student(name){
+            if(this instanceof Student){
+                this.name = name;
+                console.log('name', name);
             }
-        };
-        var Empty = function Empty() {};
-        Function.prototype.bindFn = function bind(that) {
-            var target = this;
-            // if (!isCallable(target)) {
-            //     throw new TypeError('Function.prototype.bind called on incompatible ' + target);
-            // }
-            var args = array_slice.call(arguments, 1);
-            var bound;
-            var binder = function () {
-                if (this instanceof bound) {
-                    var result = target.apply(
-                        this,
-                        array_concat.call(args, array_slice.call(arguments))
-                    );
-                    if ($Object(result) === result) {
-                        return result;
-                    }
-                    return this;
-                } else {
-                    return target.apply(
-                        that,
-                        array_concat.call(args, array_slice.call(arguments))
-                    );
-                }
-            };
-            var boundLength = max(0, target.length - args.length);
-            var boundArgs = [];
-            for (var i = 0; i < boundLength; i++) {
-                array_push.call(boundArgs, '$' + i);
+            else{
+                throw new Error('必须通过new关键字来调用Student。');
             }
-            console.log(target.name);
-            bound = Function('binder', 'return function ' + 'bound' + target.name + '(' + boundArgs.join(',') + '){ return binder.apply(this, arguments); }')(binder);
+        }
+        var student = new Student('轩辕');
+        var notAStudent = Student.call(student, 'Rowboat'); // 不抛出错误，且执行了。
+        console.log(student, 'student', notAStudent, 'notAStudent');
 
-            if (target.prototype) {
-                Empty.prototype = target.prototype;
-                bound.prototype = new Empty();
-                Empty.prototype = null;
+        function Student2(name){
+            if(typeof new.target !== 'undefined'){
+                this.name = name;
+                console.log('name', name);
             }
-            return bound;
+            else{
+                throw new Error('必须通过new关键字来调用Student2。');
+            }
         }
-        var obj = {
-            name: '轩辕Rowboat',
-        };
-        function original(a, b){
-            console.log(this.name);
-            console.log([a, b]);
-        }
-        var bound = original.bindFn(obj, 1);
-        bound(2); // '轩辕Rowboat', [1, 2]
-        console.log(original.bindFn.name); // 'bind'
-        console.log(bound.name); // 'bound original'
-        console.log((function(){}).bindFn().name); // 'bound '
+        var student2 = new Student2('轩辕');
+        var notAStudent2 = Student2.call(student2, 'Rowboat');
+        console.log(student2, 'student2', notAStudent2, 'notAStudent2'); // 抛出错误
     </script>
 </body>
 </html>
