@@ -2,17 +2,45 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>bind模拟实现-5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bind模拟实现-6</title>
+    <style>
+        a{
+            display: block;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <a href="https://juejin.im/post/5bec4183f265da616b1044d7" target="_blank">
+            面试官问：能否模拟实现bind
+        </a>
+        <p>文章中的例子和测试代码放在`github`中。</p>
+        <a href="https://github.com/lxchuan12/html5/tree/gh-pages/JS%E7%9B%B8%E5%85%B3/%E5%87%BD%E6%95%B0/bind%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0" target="_blank">
+            bind模拟实现 github
+        </a>
+        <br/>
+        <a href="http://lxchuan12.github.io/html5/JS%E7%9B%B8%E5%85%B3/%E5%87%BD%E6%95%B0/bind%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/bind-0.html">
+            bind模拟实现 预览地址 bind-0~8.html
+        </a>
+        <p>`F12`看控制台输出，结合`source`面板查看效果更佳。</p>
+    </div>
     <!-- <srcipt src="https://github.com/es-shims/es5-shim/blob/master/es5-shim.js"></srcipt> -->
     <script>
+        var $Array = Array;
+        var ArrayPrototype = $Array.prototype;
         var $Object = Object;
-        var array_push = Array.prototype.push;
-        var array_slice = Array.prototype.slice;
-        var array_concat = Array.prototype.concat;
+        var array_push = ArrayPrototype.push;
+        var array_slice = ArrayPrototype.slice;
+        var array_join = ArrayPrototype.join;
+        var array_concat = ArrayPrototype.concat;
+        var $Function = Function;
+        var FunctionPrototype = $Function.prototype;
+        var apply = FunctionPrototype.apply;
         var max = Math.max;
-        // 简版 原始的更复杂。
+        // 简版 源码更复杂些。
         var isCallable = function isCallable(value){
             if(typeof value !== 'function'){
                 return false;
@@ -20,7 +48,9 @@
             return true;
         };
         var Empty = function Empty() {};
-        Function.prototype.bindFn = function bind(that) {
+        // 源码是 defineProperties
+        // 源码是bind笔者改成bindFn便于测试
+        FunctionPrototype.bindFn = function bind(that) {
             var target = this;
             if (!isCallable(target)) {
                 throw new TypeError('Function.prototype.bind called on incompatible ' + target);
@@ -29,7 +59,8 @@
             var bound;
             var binder = function () {
                 if (this instanceof bound) {
-                    var result = target.apply(
+                    var result = apply.call(
+                        target,
                         this,
                         array_concat.call(args, array_slice.call(arguments))
                     );
@@ -38,7 +69,8 @@
                     }
                     return this;
                 } else {
-                    return target.apply(
+                    return apply.call(
+                        target,
                         that,
                         array_concat.call(args, array_slice.call(arguments))
                     );
@@ -50,7 +82,7 @@
                 array_push.call(boundArgs, '$' + i);
             }
             // 这里是Function构造方式生成形参length $1, $2, $3...
-            bound = Function('binder', 'return function ' + 'bound' + target.name + '(' + boundArgs.join(',') + '){ return binder.apply(this, arguments); }')(binder);
+            bound = $Function('binder', 'return function (' + array_join.call(boundArgs, ',') + '){ return binder.apply(this, arguments); }')(binder);
 
             if (target.prototype) {
                 Empty.prototype = target.prototype;
@@ -58,7 +90,7 @@
                 Empty.prototype = null;
             }
             return bound;
-        }
+        };
         var obj = {
             name: '轩辕Rowboat',
         };

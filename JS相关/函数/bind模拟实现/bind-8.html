@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>bind模拟实现-4</title>
+    <title>bind模拟实现-8</title>
     <style>
         a{
             display: block;
@@ -42,6 +42,7 @@
                 var boundArgs = [].slice.call(arguments);
                 var finalArgs = args.concat(boundArgs);
                 // new 调用时，其实this instanceof bound判断也不是很准确。es6 new.target很好的解决这一问题。
+                console.log(this, 'this');
                 if(this instanceof bound){
                     // 这里是实现上文描述的 new 的第 1, 2, 4 步
                     // 1.创建一个全新的对象
@@ -77,6 +78,15 @@
                 }
             };
 
+            Object.defineProperties(bound, {
+                'length': {
+                    value: self.length,
+                },
+                'name': {
+                    value: 'bound ' + self.name,
+                }
+            });
+
             return bound;
         }
 
@@ -91,25 +101,12 @@
             console.log('name', this.name); // 2
             console.log('this', this);
             console.log([a, b]); // 1, 2
-            return false;
+            return function (){};
         }
         var bound = original.bindFn(obj, 1);
+        console.log(bound.length, 'length', bound.name, 'name');
         var newBoundResult = new bound(2);
         console.log(newBoundResult, 'newBoundResult'); // original {name: 2}
-
-        // 对比 与 原始bind函数
-        var originalBind = function(a, b){
-            console.log('this', this); // original {}
-            console.log('typeof this', typeof this); // object
-            this.name = b;
-            console.log('name', this.name); // 2
-            console.log('this', this);
-            console.log([a, b]); // 1, 2
-            return false;
-        }
-        var originalBindBound = originalBind.bind(obj, 1);
-        var newOriginalBindBoundResult = new originalBindBound(2);
-        console.log(newOriginalBindBoundResult, 'newOriginalBindBoundResult');
     </script>
 </body>
 </html>
