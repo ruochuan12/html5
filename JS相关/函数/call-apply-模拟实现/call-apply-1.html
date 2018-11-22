@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>call-apply-1</title>
+</head>
+<body>
+    <script>
+		Function.prototype.callFn = function(thisArg, arg1, arg2){
+			// 注意：this指向调用call的那个对象或函数
+
+			// 1. 调用内部的IsCallable(this)检查是否可调用，返回false则抛TypeError
+			if (![[IsCallable]](this)) throw new TypeError();
+			
+			// 2. 创建一个空列表
+			// 3. 将arg1及后面的入参保存到argList中
+			var argList = [].slice.call(arguments, 1);
+
+			// 4. 调用内部的[[Call]]函数
+			return [[Call]](this, thisArg, argList);
+		}
+
+        // Null（空） null
+            // Undefined（未定义） undefined
+            // Number（数字） 1
+            // String（字符串）'1'
+            // Boolean（布尔） true
+            // Symbol（符号）（第六版新增） symbol
+            
+            // Object（对象） {}
+                // Function（函数） function(){}
+                // Array（数组） []
+                // Date（日期） Date
+                // RegExp（正则表达式）/a/
+                // Error （错误）new Error()
+            // 这些类型中合并起来只有Object和Function两种类型 typeof null 也是null所以要除去null
+
+        // typeof 7种类型 undefined number string boolean symbol object function
+
+        var name = 'window';
+        console.log();
+        function original(name){
+            var type = Object.prototype.toString.call(this);
+            console.log(typeof original);
+            console.log('type:', type);
+            // this.name = name;
+            console.log('name:', this.name);
+            console.log('this:', this, this.name);
+            return this;
+        };
+        var student = {
+            name: '轩辕Rowboat'
+        };
+        var result = original.call(function i(){}, '轩辕Rowboat');
+        console.log('result:', result);
+    </script>
+</body>
+</html>
