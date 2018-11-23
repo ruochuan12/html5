@@ -44,6 +44,7 @@
         function original(name){
             var type = Object.prototype.toString.call(this);
             console.log(typeof original);
+            console.log(this === value);
             console.log('type:', type);
             // this.name = name;
             console.log('name:', this.name);
@@ -51,9 +52,12 @@
             return this;
         };
         var student = {
-            name: '轩辕Rowboat'
+            name: '轩辕Rowboat',
+            original: original,
         };
-        var result = original.call(function i(){}, '轩辕Rowboat');
+        var value = student;
+        // var result = original.call(value, '轩辕Rowboat');
+        var result = student.original.call(value, '轩辕Rowboat');
         console.log('result:', result);
     </script>
 </body>
