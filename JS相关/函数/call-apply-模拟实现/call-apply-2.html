@@ -8,18 +8,21 @@
 </head>
 <body>
     <script>
+        "use strict"
+        function getGlobal(){
+            return this;
+        }
         // TODO:
         // 1. "use strict" 
-        // 2. 同名覆盖问题 多余_fn
+        // 2. 同名覆盖问题 多余__fn this fn
+        // 深拷贝this、存储原始__fn、Symbol
         // 3. eval替换
-        "use strict"
         Function.prototype.callFn = function call(thisArg){
             if(typeof this !== 'function'){
                 throw new TypeError(this + ' is not a function');
             }
             if(thisArg === undefined || thisArg === null){
-                "use strict";
-                thisArg = window;
+                thisArg = getGlobal();
             }
             else{
                 thisArg = new Object(thisArg);
@@ -29,14 +32,15 @@
             console.log(Object.prototype.toString.call(this));
             console.log(thisArg, this);
 
-            // var thisArgBak = JSON.parse(JSON.stringify(thisArg));
-
-            // thisArg._fn = this;
+            var originalFn = thisArg.__fn;
             thisArg.__fn = this;
             var args = [...arguments].slice(1);
-            // thisArg[this.name] = this;
-            var result = thisArg.__fn(...args);
+            console.log(thisArg.__fn);
+            // thisArg[this.name] = this;...args
+            // var result = thisArg.__fn();
+            var result = thisArg.__fn && thisArg.__fn(...args);
             delete thisArg.__fn;
+            thisArg.__fn = originalFn;
             return result;
         };
 
@@ -47,7 +51,7 @@
             console.log(this === value);
             console.log('type:', type);
             this.name = name;
-            console.log('this:', this);
+            console.log('this:', this, this.__fn);
             console.log('args:', [name, age], arguments);
             console.log('this.name:', this.name);
             return this;
@@ -56,11 +60,11 @@
             name: '轩辕Rowboat',
             age: 18,
             doSth: 'doSth',
-            // _fn: doSth,
+            __fn: 'doSth',
         };
-        var value = student;
+        var value = undefined;
         // var result = doSth.call(value, '轩辕Rowboat');
-        var result = doSth.callFn(undefined, 'this.name', 'this.age', 'args[2]');
+        var result = doSth.callFn(value, 'this.name', 'this.age', 'args[2]');
         console.log('result:', result);
 
     </script>
