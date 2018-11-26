@@ -8,40 +8,50 @@
 </head>
 <body>
     <script>
-        "use strict"
+        // "use strict"
         function getGlobal(){
             return this;
         }
         // TODO:
-        // 1. "use strict" 
-        // 2. 同名覆盖问题 多余__fn this fn
-        // 深拷贝this、存储原始__fn、Symbol
+        // 1. "use strict" null
+        // 2. 同名覆盖问题 多余__fn this 
         // 3. eval替换
         Function.prototype.callFn = function call(thisArg){
+            // var undefined = 3;
+            console.log(undefined, '-----');
             if(typeof this !== 'function'){
                 throw new TypeError(this + ' is not a function');
             }
+            var args = [...arguments].slice(1);
+
             if(thisArg === undefined || thisArg === null){
-                thisArg = getGlobal();
+                thisArg = getGlobal() || null;
+                this(...args);
+                return thisArg;
             }
             else{
                 thisArg = new Object(thisArg);
+                var originalVal = thisArg.__fn;
+                thisArg.__fn = this;
+                console.log(thisArg.__fn);
+                // var result = thisArg.__fn();
+                var result = thisArg.__fn(...args);
+                delete thisArg.__fn;
+                thisArg.__fn = originalVal;
+                return result;
             }
+            console.log('thisArg:', thisArg);
 
             console.log(Object.prototype.toString.call(thisArg));
             console.log(Object.prototype.toString.call(this));
             console.log(thisArg, this);
 
-            var originalFn = thisArg.__fn;
-            thisArg.__fn = this;
-            var args = [...arguments].slice(1);
-            console.log(thisArg.__fn);
-            // thisArg[this.name] = this;...args
-            // var result = thisArg.__fn();
-            var result = thisArg.__fn && thisArg.__fn(...args);
-            delete thisArg.__fn;
-            thisArg.__fn = originalFn;
-            return result;
+            
+            // if(thisArg === Object(thisArg)){
+                
+            // }
+            // else{
+            // };
         };
 
         var name = 'window';
@@ -50,10 +60,10 @@
             console.log(typeof doSth);
             console.log(this === value);
             console.log('type:', type);
-            this.name = name;
-            console.log('this:', this, this.__fn);
+            // this.name = name;
+            // console.log('this:', this, this.__fn);
             console.log('args:', [name, age], arguments);
-            console.log('this.name:', this.name);
+            // console.log('this.name:', this.name);
             return this;
         };
         var student = {

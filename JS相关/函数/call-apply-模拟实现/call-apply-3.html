@@ -7,11 +7,26 @@
     <title>call-apply-2</title>
 </head>
 <body>
-    <script src="https://github.com/azproduction/function-call-apply/blob/master/index.js"></script>
+    <!-- <script src="https://github.com/azproduction/function-call-apply/blob/master/index.js"></script> -->
+    <script src="https://rawgit.com/azproduction/function-call-apply/master/index.js"></script>
     <script>
+        Function.prototype.applyFn = function apply(thisArg, argArray) {
+            return functionCallApply.apply(this, thisArg, argArray);
+        };
+
+        Function.prototype.callFn = function call(thisArg) {
+            var argumentsNumber = arguments.length - 1,
+                argArray = new Array(argumentsNumber);
+
+            for (var i = 0; i < argumentsNumber; i++) {
+                argArray[i] = arguments[i + 1];
+            }
+
+            return functionCallApply.apply(this, thisArg, argArray);
+        };
         // uuid
         // https://github.com/tastejs/todomvc/blob/32ee33e6f98ed1581443b398afdd67bfc1969714/examples/react-alt/js/utils.js
-        var functionCallApply = this.functionCallApply || require('https://github.com/azproduction/function-call-apply/blob/master/index.js');
+        // var functionCallApply = this.functionCallApply || require('https://github.com/azproduction/function-call-apply/blob/master/index.js');
 
         var call = functionCallApply.call,
             apply = functionCallApply.apply;
