@@ -8,6 +8,7 @@
 </head>
 <body>
     <script>
+        // 伪代码
 		Function.prototype.callFn = function(thisArg, arg1, arg2){
 			// 注意：this指向调用call的那个对象或函数
 
@@ -41,9 +42,9 @@
 
         var name = 'window';
         console.log();
-        function original(name){
+        function doSth(name){
             var type = Object.prototype.toString.call(this);
-            console.log(typeof original);
+            console.log(typeof doSth);
             console.log(this === value);
             console.log('type:', type);
             // this.name = name;
@@ -53,11 +54,11 @@
         };
         var student = {
             name: '轩辕Rowboat',
-            original: original,
+            doSth: doSth,
         };
         var value = student;
-        // var result = original.call(value, '轩辕Rowboat');
-        var result = student.original.call(value, '轩辕Rowboat');
+        var result = student.doSth('轩辕Rowboat');
+        // var result = student.doSth.call(value, '轩辕Rowboat');
         console.log('result:', result);
     </script>
 </body>

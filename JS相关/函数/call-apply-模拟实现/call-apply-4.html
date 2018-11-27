@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>call-apply-2</title>
+</head>
+<body>
+    <!-- <script src="https://github.com/azproduction/function-call-apply/blob/master/index.js"></script> -->
+    <script src="https://rawgit.com/azproduction/function-call-apply/master/index.js"></script>
+    <script>
+        Function.prototype.applyFn = function apply(thisArg, argArray) {
+            return functionCallApply.apply(this, thisArg, argArray);
+        };
+
+        Function.prototype.callFn = function call(thisArg) {
+            var argumentsNumber = arguments.length - 1,
+                argArray = new Array(argumentsNumber);
+
+            for (var i = 0; i < argumentsNumber; i++) {
+                argArray[i] = arguments[i + 1];
+            }
+
+            return functionCallApply.apply(this, thisArg, argArray);
+        };
+        // uuid
+        // https://github.com/tastejs/todomvc/blob/32ee33e6f98ed1581443b398afdd67bfc1969714/examples/react-alt/js/utils.js
+        // var functionCallApply = this.functionCallApply || require('https://github.com/azproduction/function-call-apply/blob/master/index.js');
+
+        var call = functionCallApply.call,
+            apply = functionCallApply.apply;
+
+        // var name = 'window';
+        var doSth = function (name, age){
+            var type = Object.prototype.toString.call(this);
+            console.log(typeof doSth);
+            console.log(this === value);
+            console.log('type:', type);
+            this.name = name;
+            console.log('this:', this, this.__fn);
+            console.log('args:', [name, age], arguments);
+            console.log('this.name:', this.name);
+            return this;
+        };
+        var student = {
+            name: '轩辕Rowboat',
+            age: 18,
+            doSth: 'doSth',
+            __fn: 'doSth',
+        };
+        var value = student;
+        // var result = doSth.call(value, '轩辕Rowboat');
+        var result = doSth.call(value, 'this.name', 'this.age', 'args[2]');
+        console.log('result:', result);
+
+    </script>
+</body>
+</html>
