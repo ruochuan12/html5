@@ -36,30 +36,40 @@
                 // Date（日期） Date
                 // RegExp（正则表达式）/a/
                 // Error （错误）new Error()
-            // 这些类型中合并起来只有Object和Function两种类型 typeof null 也是null所以要除去null
 
         // typeof 7种类型 undefined number string boolean symbol object function
-
-        var name = 'window';
-        console.log();
-        function doSth(name){
+        // "use strict"
+        var doSth = function (name){
             var type = Object.prototype.toString.call(this);
-            console.log(typeof doSth);
-            console.log(this === value);
-            console.log('type:', type);
+            console.log('this === firstArg:',this === firstArg); // true
             // this.name = name;
-            console.log('name:', this.name);
-            console.log('this:', this, this.name);
+            console.log('this:', this); // {name: '轩辕Rowboat', doSth: ƒ}
+            console.log('this-type:', type); // [object Object]
+            console.log('this.name:', this.name); // 轩辕Rowboat
+            console.log('argName:', name); // argName
             return this;
         };
+
+        var name = 'window';
+
         var student = {
             name: '轩辕Rowboat',
             doSth: doSth,
         };
-        var value = student;
-        var result = student.doSth('轩辕Rowboat');
-        // var result = student.doSth.call(value, '轩辕Rowboat');
-        console.log('result:', result);
+        // typeof 7种类型 undefined number string boolean symbol object function
+        var firstArg = student;
+        // var firstArg = null; // 非严格模式下 this指向window 严格模式下 指向 null
+        // var firstArg = undefined; // 非严格模式下 this指向window 严格模式下 指向 undefined
+        // var firstArg = 1; // this 指向 Number{1}
+        // var firstArg = '1'; // this 指向 String{1}
+        // var firstArg = true; // this 指向 Boolean{true}
+        // var firstArg = Symbol(); // this 指向 Symbol {Symbol()}
+        // var firstArg = {}; // this 指向 Object{}
+        // var firstArg = function f(){}; // this 指向 function f(){}
+
+        var result = student.doSth('argName');
+        // var result = student.doSth.call(firstArg, 'argName');
+        console.log('result:', result); // {name: '轩辕Rowboat', doSth: ƒ }
     </script>
 </body>
 </html>

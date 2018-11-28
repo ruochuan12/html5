@@ -51,11 +51,10 @@
             console.log(thisArg, this);
         };
 
-        var name = 'window';
         var doSth = function (name, age){
             var type = Object.prototype.toString.call(this);
             console.log(typeof doSth);
-            console.log(this === value);
+            console.log(this === firstArg);
             console.log('type:', type);
             // this.name = name;
             // console.log('this:', this, this.__fn);
@@ -63,15 +62,19 @@
             // console.log('this.name:', this.name);
             return this;
         };
+
+
+        var name = 'window';
+
         var student = {
             name: '轩辕Rowboat',
             age: 18,
             doSth: 'doSth',
             __fn: 'doSth',
         };
-        var value = student;
-        // var result = doSth.call(value, '轩辕Rowboat');
-        var result = doSth.applyFn(value, ['this.name', 'this.age', 'args[2]']);
+        var firstArg = student;
+        // var result = doSth.call(firstArg, '轩辕Rowboat');
+        var result = doSth.applyFn(firstArg, ['this.name', 'this.age', 'args[2]']);
         console.log('result:', result);
     </script>
 </body>

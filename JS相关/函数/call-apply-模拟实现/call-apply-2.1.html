@@ -8,9 +8,25 @@
 </head>
 <body>
     <script>
-        "use strict"
+        // "use strict"
         function getGlobal(){
             return this;
+        }
+        // 生成UUID 通用唯一识别码
+        function generateUUID(){
+            var i, random;
+			var uuid = '';
+
+			for (i = 0; i < 32; i++) {
+				random = Math.random() * 16 | 0;
+				if (i === 8 || i === 12 || i === 16 || i === 20) {
+					uuid += '-';
+				}
+				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
+					.toString(16);
+            }
+            // 大概生成 这样一串 '18efca2d-6e25-42bf-a636-30b8f9f2de09'
+			return uuid;
         }
         Function.prototype.callFn = function call(thisArg){ // `call` 方法的 `length` 属性是 `1`。
             // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
@@ -34,14 +50,22 @@
                 }
                 thisArg = global;
             }
-            // TODO:
-            // - [ ] __fn 同名覆盖问题
-            // - [ ] 使用了ES6扩展符...
             thisArg = new Object(thisArg);
-            thisArg.__fn = this;
+            // 先存储一份，后续恢复该值
+            // 大概生成 这样一串 '18efca2d-6e25-42bf-a636-30b8f9f2de09'
+            var __fn = generateUUID();
+            console.log(__fn);
+            var originalVal = thisArg[__fn];
+            // 如果有原始值
+            var hasOriginalVal = thisArg.hasOwnProperty(__fn);
+            thisArg[__fn] = this;
+            console.log(thisArg[__fn]);
             // 4.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。
-            var result = thisArg.__fn(...args);
-            delete thisArg.__fn;
+            var result = thisArg[__fn](...args);
+            delete thisArg[__fn];
+            if(hasOriginalVal){
+                thisArg[__fn] = originalVal;
+            }
             return result;
         };
 
@@ -51,10 +75,10 @@
             console.log(this === firstArg);
             console.log('type:', type);
             // this.name = name;
-            console.log('this:', this);
+            // console.log('this:', this, this.__fn);
             console.log('args:', [name, age], arguments);
             // console.log('this.name:', this.name);
-            return this;
+            return 'this--';
         };
 
         var name = 'window';
@@ -65,7 +89,7 @@
             doSth: 'doSth',
             __fn: 'doSth',
         };
-        var firstArg = null;
+        var firstArg = student;
         // var result = doSth.call(firstArg, '轩辕Rowboat');
         var result = doSth.callFn(firstArg, 'this.name', 'this.age', 'args[2]');
         console.log('result:', result);
