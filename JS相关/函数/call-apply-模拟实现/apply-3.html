@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 浏览器环境 非严格模式下
+        var doSth = function(a, b){
+            console.log(this);
+            console.log(this.name);
+            console.log([a, b]);
+        }
+        var student = {
+            name: '轩辕Rowboat',
+            doSth: doSth,
+        };
+        student.doSth(1, 2); // this === student // true // '轩辕Rowboat' // [1, 2]
+        doSth.apply(student, [1, 2]); // this === student // true // '轩辕Rowboat' // [1, 2]
+    </script>
+</body>
+</html>

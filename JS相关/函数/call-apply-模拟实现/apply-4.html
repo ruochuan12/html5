@@ -29,6 +29,7 @@
             return code;
         }
 
+        // 浏览器环境 非严格模式
         Function.prototype.applyFn = function apply(thisArg, argsArray){ // `apply` 方法的 `length` 属性是 `2`。
             // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
             if(typeof this !== 'function'){
@@ -49,54 +50,16 @@
 
             if(typeof thisArg === 'undefined' || thisArg === null){
                 // 在外面传入的 thisArg 值会修改并成为 this 值。
-                // thisArg 是 undefined 或 null 时它会被替换成全局对象，所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。
-                var global = getGlobal();
-                // 严格模式 global 为 undefined
-                if(typeof global === 'undefined'){
-                    // call 严格模式 thisArg 为 undefined时，函数里的this为undefined
-                    // call 严格模式 thisArg 为 null时，函数里的this为null 但这里没有模拟实现
-                    // ES6版
-                    // return this(...argsArray);
-                    // eval版
-                    // return eval('this(' + argsArray + ')');
-                    // new Function版
-                    var code = generateFunction(argsArray.length, false);
-                    return (new Function(code))(this, false, argsArray);
-                }
-                thisArg = global;
+                // ES3: thisArg 是 undefined 或 null 时它会被替换成全局对象 浏览器里是window
+                thisArg = window;
             }
+
+            // ES3: 所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。
             thisArg = new Object(thisArg);
-            console.log(argsArray, 'argsArray');
-
-
-            // 4.令 len 为以 "length" 作为参数调用 argArray 的 [[Get]] 内部方法的结果。
-            // 5.令 n 为 ToUint32(len).
-            // 6.令 argList 为一个空列表 .
-            // 7.令 index 为 0.
-            // 8.只要 index < n 就重复
-            // 令 indexName 为 ToString(index).
-            // 令 nextArg 为以 indexName 作为参数调用 argArray 的 [[Get]] 内部方法的结果。
-            // 将 nextArg 作为最后一个元素插入到 argList 里。
-            // 设定 index 为 index + 1.
-            // 万一还是有 先存储一份，删除后，再恢复该值
-            var __fn = '__' + new Date().getTime();
-            console.log(__fn);
-            var originalVal = thisArg[__fn];
-            // 如果有原始值
-            var hasOriginalVal = thisArg.hasOwnProperty(__fn);
             thisArg[__fn] = this;
-            console.log(thisArg[__fn]);
-            // 4.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。
-            // ES6版
-            // var result = thisArg[__fn](...argsArray);
-            // eval版
-            // var result = eval('thisArg[__fn](' + argsArray + ')');
-            var code = generateFunction(argsArray.length, true);
-            var result = (new Function(code))(thisArg, __fn, argsArray);
+            // 9.提供 thisArg 作为 this 值并以 argList 作为参数列表，调用 func 的 [[Call]] 内部方法，返回结果
+            var result = thisArg[__fn](...argsArray);
             delete thisArg[__fn];
-            if(hasOriginalVal){
-                thisArg[__fn] = originalVal;
-            }
             return result;
         };
 

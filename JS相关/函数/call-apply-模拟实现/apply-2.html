@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 浏览器环境 严格模式下
+        'use strict';
+        var doSth2 = function(a, b){
+            console.log(this);
+            console.log([a, b]);
+        }
+        doSth2.call(0, 1, 2); // this 是 0 // [1, 2]
+        doSth2.apply(0); // this 是 0 // [undefined, undefined]
+        doSth2.apply(null, [1, 2]); // this 是 null // [1, 2]
+    </script>
+</body>
+</html>

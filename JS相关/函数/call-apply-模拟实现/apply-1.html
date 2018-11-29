@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 浏览器环境 非严格模式下
+        var doSth = function(a, b){
+            console.log(this);
+            console.log([a, b]);
+        }
+        doSth.apply(null, [1, {b: 2}]); // this是window  // [1, 2]
+        doSth.apply(0, [1, 2]); // this 是 Number(0) // [1, 2]
+        doSth.apply(true); // this 是 Boolean(true) // [undefined, undefined]
+        doSth.call(undefined, 1, 2); // this 是 window // [1, 2]
+        doSth.call('0', 1, {b: 2}); // this 是 String('0') // [1, {a: 1}]
+    </script>
+</body>
+</html>
