@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-        // "use strict"
+        "use strict"
         function getGlobal(){
             return this;
         }
@@ -29,49 +29,55 @@
             return code;
         }
 
-        Function.prototype.callFn = function call(thisArg){ // `call` 方法的 `length` 属性是 `1`。
-            "use strict"
-            console.log('call-this', this);
+        Function.prototype.applyFn = function apply(thisArg, argsArray){ // `call` 方法的 `length` 属性是 `1`。
             // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
             if(typeof this !== 'function'){
                 throw new TypeError(this + ' is not a function');
             }
 
-            // 2.令 `argList` 为一个空列表。
-            // 3.如果调用这个方法的参数多余一个，则从 `arg1` 开始以从左到右的顺序将每个参数插入为 `argList` 的最后一个元素。
-            // ES6版
-            // var args = [...arguments].slice(1);
-            // eval版
-            var argsLength = arguments.length;
-            var args = [];
-            for(var i = 1; i < argsLength; i++){
-                // eval版
-                // args.push('arguments[' + i + ']');
-                // new Function版
-                args.push(arguments[i]);
+            // 2.如果 argArray 是 null 或 undefined, 则
+            // 返回提供 thisArg 作为 this 值并以空参数列表调用 func 的 [[Call]] 内部方法的结果。
+            if(typeof argsArray === 'undefined' || argsArray === null){
+                argsArray = [];
             }
-            console.log(args, 'args');
+            
+            // 3.如果 Type(argArray) 不是 Object, 则抛出一个 TypeError 异常 .
+            if(argsArray !== new Object(argsArray)){
+                throw new TypeError('CreateListFromArrayLike called on non-object');
+            }
 
-            var global = getGlobal();
-            // 严格模式 global 为 undefined
-            if(typeof global === 'undefined'){
-                // call 严格模式 thisArg 为 undefined时，调用函数里的this为undefined
-                // call 严格模式 thisArg 为 null时，调用函数里的this为null 但这里没有模拟实现
-                // call 严格模式 thisArg 为 原始值时，调用函数里的this也为原始值 但这里没有模拟实现
-                // ES6版
-                // return this(...args);
-                // eval版
-                // return eval('this(' + args + ')');
-                // new Function版
-                var code = generateFunction(args.length, false);
-                return (new Function(code))(this, '', args);
-            }
+
             if(typeof thisArg === 'undefined' || thisArg === null){
                 // 在外面传入的 thisArg 值会修改并成为 this 值。
                 // thisArg 是 undefined 或 null 时它会被替换成全局对象，所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。
+                var global = getGlobal();
+                // 严格模式 global 为 undefined
+                if(typeof global === 'undefined'){
+                    // call 严格模式 thisArg 为 undefined时，函数里的this为undefined
+                    // call 严格模式 thisArg 为 null时，函数里的this为null 但这里没有模拟实现
+                    // ES6版
+                    // return this(...argsArray);
+                    // eval版
+                    // return eval('this(' + argsArray + ')');
+                    // new Function版
+                    var code = generateFunction(argsArray.length, false);
+                    return (new Function(code))(this, false, argsArray);
+                }
                 thisArg = global;
             }
             thisArg = new Object(thisArg);
+            console.log(argsArray, 'argsArray');
+
+
+            // 4.令 len 为以 "length" 作为参数调用 argArray 的 [[Get]] 内部方法的结果。
+            // 5.令 n 为 ToUint32(len).
+            // 6.令 argList 为一个空列表 .
+            // 7.令 index 为 0.
+            // 8.只要 index < n 就重复
+            // 令 indexName 为 ToString(index).
+            // 令 nextArg 为以 indexName 作为参数调用 argArray 的 [[Get]] 内部方法的结果。
+            // 将 nextArg 作为最后一个元素插入到 argList 里。
+            // 设定 index 为 index + 1.
             // 万一还是有 先存储一份，删除后，再恢复该值
             var __fn = '__' + new Date().getTime();
             console.log(__fn);
@@ -82,11 +88,11 @@
             console.log(thisArg[__fn]);
             // 4.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。
             // ES6版
-            // var result = thisArg[__fn](...args);
+            // var result = thisArg[__fn](...argsArray);
             // eval版
-            // var result = eval('thisArg[__fn](' + args + ')');
-            var code = generateFunction(args.length, true);
-            var result = (new Function(code))(thisArg, __fn, args);
+            // var result = eval('thisArg[__fn](' + argsArray + ')');
+            var code = generateFunction(argsArray.length, true);
+            var result = (new Function(code))(thisArg, __fn, argsArray);
             delete thisArg[__fn];
             if(hasOriginalVal){
                 thisArg[__fn] = originalVal;
@@ -98,25 +104,25 @@
             var type = Object.prototype.toString.call(this);
             console.log(typeof doSth);
             console.log(this === firstArg);
-            console.log('this-type:', type);
-            this.name = name;
             console.log('this:', this);
+            console.log('this-type:', type);
+            // this.name = name;
             console.log('args:', [name, age], arguments);
             // console.log('this.name:', this.name);
-            return 'this';
+            return this;
         };
 
         var name = 'window';
 
-        var student = Object.freeze({
+        var student = {
             name: '轩辕Rowboat',
             age: 18,
             doSth: 'doSth',
             __fn: 'doSth',
-        });
-        var firstArg = student;
+        };
+        var firstArg = undefined;
         // var result = doSth.call(firstArg, '轩辕Rowboat');
-        var result = doSth.call(firstArg, 'this.name', {age: 20}, ['arg2']);
+        var result = doSth.apply(firstArg, [1,2], {age: 20}, ['arg2']);
         // var result = doSth.call(firstArg, 'this.name', 'this.age', 'arg2');
         console.log('result:', result);
     </script>

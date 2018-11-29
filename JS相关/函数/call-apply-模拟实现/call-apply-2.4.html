@@ -29,9 +29,7 @@
             return code;
         }
 
-        Function.prototype.callFn = function call(thisArg){ // `call` 方法的 `length` 属性是 `1`。
-            "use strict"
-            console.log('call-this', this);
+        Function.prototype.applyFn = function apply(thisArg, argsArray){ // `call` 方法的 `length` 属性是 `1`。
             // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
             if(typeof this !== 'function'){
                 throw new TypeError(this + ' is not a function');
@@ -52,23 +50,23 @@
             }
             console.log(args, 'args');
 
-            var global = getGlobal();
-            // 严格模式 global 为 undefined
-            if(typeof global === 'undefined'){
-                // call 严格模式 thisArg 为 undefined时，调用函数里的this为undefined
-                // call 严格模式 thisArg 为 null时，调用函数里的this为null 但这里没有模拟实现
-                // call 严格模式 thisArg 为 原始值时，调用函数里的this也为原始值 但这里没有模拟实现
-                // ES6版
-                // return this(...args);
-                // eval版
-                // return eval('this(' + args + ')');
-                // new Function版
-                var code = generateFunction(args.length, false);
-                return (new Function(code))(this, '', args);
-            }
+
             if(typeof thisArg === 'undefined' || thisArg === null){
                 // 在外面传入的 thisArg 值会修改并成为 this 值。
                 // thisArg 是 undefined 或 null 时它会被替换成全局对象，所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。
+                var global = getGlobal();
+                // 严格模式 global 为 undefined
+                if(typeof global === 'undefined'){
+                    // call 严格模式 thisArg 为 undefined时，函数里的this为undefined
+                    // call 严格模式 thisArg 为 null时，函数里的this为null 但这里没有模拟实现
+                    // ES6版
+                    // return this(...args);
+                    // eval版
+                    // return eval('this(' + args + ')');
+                    // new Function版
+                    var code = generateFunction(args.length, false);
+                    return (new Function(code))(this, false, args);
+                }
                 thisArg = global;
             }
             thisArg = new Object(thisArg);
@@ -98,25 +96,25 @@
             var type = Object.prototype.toString.call(this);
             console.log(typeof doSth);
             console.log(this === firstArg);
-            console.log('this-type:', type);
-            this.name = name;
-            console.log('this:', this);
+            console.log('type:', type);
+            // this.name = name;
+            // console.log('this:', this, this.__fn);
             console.log('args:', [name, age], arguments);
             // console.log('this.name:', this.name);
-            return 'this';
+            return 'this--';
         };
 
         var name = 'window';
 
-        var student = Object.freeze({
+        var student = {
             name: '轩辕Rowboat',
             age: 18,
             doSth: 'doSth',
             __fn: 'doSth',
-        });
+        };
         var firstArg = student;
         // var result = doSth.call(firstArg, '轩辕Rowboat');
-        var result = doSth.call(firstArg, 'this.name', {age: 20}, ['arg2']);
+        var result = doSth.apply(firstArg, '[1, 2]', {age: 20}, ['arg2']);
         // var result = doSth.call(firstArg, 'this.name', 'this.age', 'arg2');
         console.log('result:', result);
     </script>
