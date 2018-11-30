@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-        // "use strict"
+        "use strict"
         function getGlobal(){
             return this;
         }
@@ -64,7 +64,8 @@
                 // return eval('this(' + args + ')');
                 // new Function版
                 var code = generateFunction(args.length, false);
-                return (new Function(code))(this, '', args);
+                var self = this;
+                return (new Function(code))(self, '', args);
             }
             if(typeof thisArg === 'undefined' || thisArg === null){
                 // 在外面传入的 thisArg 值会修改并成为 this 值。
@@ -114,9 +115,9 @@
             doSth: 'doSth',
             __fn: 'doSth',
         });
-        var firstArg = student;
+        var firstArg = undefined;
         // var result = doSth.call(firstArg, '轩辕Rowboat');
-        var result = doSth.call(firstArg, 'this.name', {age: 20}, ['arg2']);
+        var result = doSth.callFn(firstArg, 'this.name', {age: 20}, ['arg2']);
         // var result = doSth.call(firstArg, 'this.name', 'this.age', 'arg2');
         console.log('result:', result);
     </script>
