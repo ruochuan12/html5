@@ -3,36 +3,36 @@
 之前写过两篇[《面试官问：能否模拟实现`JS`的`new`操作符》](https://juejin.im/post/5bde7c926fb9a049f66b8b52)和[《面试官问：能否模拟实现`JS`的`bind`方法》](https://juejin.im/post/5bec4183f265da616b1044d7)
 
 其中模拟`bind`方法时是使用的`call`和`apply`修改`this`指向。但面试官可能问：能否不用`call`和`apply`来实现呢。意思也就是需要模拟实现`call`和`apply`的了。
->附上之前写文章写过的一段话：已经有很多模拟实现`call`和`apply`的文章，为什么自己还要写一遍呢。学习就好比是座大山，人们沿着不同的路登山，分享着自己看到的风景。你不一定能看到别人看到的风景，体会到别人的心情。只有自己去登山，才能看到不一样的风景，体会才更加深刻。
+>附上之前写文章写过的一段话：已经有很多模拟实现`call`和`apply`的文章，为什么自己还要写一遍呢。学习就好比是座大山，人们沿着不同的路登山，分享着自己看到的风景。你不一定能看到别人看到的风景，体会到别人的心情。只有自己去登山，才能看到不一样的风景，体会才更加深刻。<br>
 ## 先通过`MDN`认识下`call`和`apply`
-[MDN 文档：Function.prototype.call()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)
-**语法**
+[MDN 文档：Function.prototype.call()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)<br>
+**语法**<br>
 ```
 fun.call(thisArg, arg1, arg2, ...)
 ```
-**thisArg**
-在`fun`函数运行时指定的`this`值。需要注意的是，指定的`this`值并不一定是该函数执行时真正的`this`值，如果这个函数处于**非严格模式**下，则指定为`null`和`undefined`的`this`值会自动指向全局对象(浏览器中就是`window`对象)，同时值为原始值(数字，字符串，布尔值)的`this`会指向该原始值的自动包装对象。
-**arg1, arg2, ...**
-指定的参数列表
-**返回值**
-返回值是你调用的方法的返回值，若该方法没有返回值，则返回`undefined`。
+**thisArg**<br>
+在`fun`函数运行时指定的`this`值。需要注意的是，指定的`this`值并不一定是该函数执行时真正的`this`值，如果这个函数处于**非严格模式**下，则指定为`null`和`undefined`的`this`值会自动指向全局对象(浏览器中就是`window`对象)，同时值为原始值(数字，字符串，布尔值)的`this`会指向该原始值的自动包装对象。<br>
+**arg1, arg2, ...**<br>
+指定的参数列表<br>
+**返回值**<br>
+返回值是你调用的方法的返回值，若该方法没有返回值，则返回`undefined`。<br>
 
-[MDN 文档：Function.prototype.apply()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+[MDN 文档：Function.prototype.apply()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)<br>
 ```
 func.apply(thisArg, [argsArray])
 ```
-**thisArg**
-可选的。在 `func` 函数运行时使用的 `this` 值。请注意，`this`可能不是该方法看到的实际值：如果这个函数处于**非严格模式**下，则指定为 `null` 或 `undefined` 时会自动替换为指向全局对象，原始值会被包装。
-**argsArray**
-可选的。一个数组或者类数组对象，其中的数组元素将作为单独的参数传给 `func` 函数。如果该参数的值为 `null` 或  `undefined`，则表示不需要传入任何参数。从`ECMAScript 5` 开始可以使用类数组对象。
-**返回值**
+**thisArg**<br>
+可选的。在 `func` 函数运行时使用的 `this` 值。请注意，`this`可能不是该方法看到的实际值：如果这个函数处于**非严格模式**下，则指定为 `null` 或 `undefined` 时会自动替换为指向全局对象，原始值会被包装。<br>
+**argsArray**<br>
+可选的。一个数组或者类数组对象，其中的数组元素将作为单独的参数传给 `func` 函数。如果该参数的值为 `null` 或  `undefined`，则表示不需要传入任何参数。从`ECMAScript 5` 开始可以使用类数组对象。<br>
+**返回值**<br>
 调用有指定this值和参数的函数的结果。
 直接先看**例子1**
 ## `call` 和 `apply` 的异同
-**相同点：**
-1、`call`和`apply`的第一个参数`thisArg`，都是`func`运行时指定的`this`。而且，`this`可能不是该方法看到的实际值：如果这个函数处于**非严格模式**下，则指定为 `null` 或 `undefined` 时会自动替换为指向全局对象，原始值会被包装。
-2、都可以只传递一个参数。
-**不同点：**`apply`只接收两个参数，第二个参数可以是数组也可以是类数组，其实也可以是对象，后续的参数忽略不计。`call`接收第二个及以后一系列的参数。
+**相同点：**<br>
+1、`call`和`apply`的第一个参数`thisArg`，都是`func`运行时指定的`this`。而且，`this`可能不是该方法看到的实际值：如果这个函数处于**非严格模式**下，则指定为 `null` 或 `undefined` 时会自动替换为指向全局对象，原始值会被包装。<br>
+2、都可以只传递一个参数。<br>
+**不同点：**`apply`只接收两个参数，第二个参数可以是数组也可以是类数组，其实也可以是对象，后续的参数忽略不计。`call`接收第二个及以后一系列的参数。<br>
 看两个简单例子1和2**：
 ```
 // 例子1：浏览器环境 非严格模式下
@@ -59,22 +59,22 @@ doSth2.apply(null, [1, 2]); // this 是 null // [1, 2]
 ```
 `typeof` 有`7`种类型（`undefined number string boolean symbol object function`），笔者都验证了一遍：**更加验证了相同点第一点，严格模式下，函数的`this`值就是`call`和`apply`的第一个参数`thisArg`，非严格模式下，`thisArg`值被指定为 `null` 或 `undefined` 时`this`值会自动替换为指向全局对象，原始值则会被自动包装，也就是`new Object()`**。
 
-重新认识了`call`和`apply`会发现：**它们作用都是一样的，改变函数里的`this`指向为第一个参数`thisArg`，如果明确有多少参数，那可以用`call`，不明确则可以使用`apply`。也就是说完全可以不使用`call`，而使用`apply`代替。**
-也就是说，我们只需要模拟实现`apply`，`call`可以根据参数个数都放在一个数组中，给到`apply`即可。
+重新认识了`call`和`apply`会发现：**它们作用都是一样的，改变函数里的`this`指向为第一个参数`thisArg`，如果明确有多少参数，那可以用`call`，不明确则可以使用`apply`。也就是说完全可以不使用`call`，而使用`apply`代替。**<br>
+也就是说，我们只需要模拟实现`apply`，`call`可以根据参数个数都放在一个数组中，给到`apply`即可。<br>
 ## 模拟实现 `apply`
 既然准备模拟实现`apply`，那先得看看`ES5`规范。[`ES5规范 英文版`](http://es5.github.io/#x15.3.4.3)，[`ES5规范 中文版`](http://yanhaijing.com/es5/#322)。`apply`的规范下一个就是`call`的规范，可以点击打开新标签页去查看，这里摘抄一部分。
->**Function.prototype.apply (thisArg, argArray)**
+>**Function.prototype.apply (thisArg, argArray)**<br>
  当以 `thisArg` 和 `argArray` 为参数在一个 `func` 对象上调用 `apply` 方法，采用如下步骤：
 
->1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
->2.如果 `argArray` 是 `null` 或 `undefined`, 则返回提供 `thisArg` 作为 `this` 值并以空参数列表调用 `func` 的 `[[Call]]` 内部方法的结果。
->3.返回提供 `thisArg` 作为 `this` 值并以空参数列表调用 `func` 的 `[[Call]]` 内部方法的结果。
->4.如果 `Type(argArray)` 不是 `Object`, 则抛出一个 `TypeError` 异常。
->5~8 略
->9.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。
- `apply` 方法的 `length` 属性是 `2`。
+>1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。<br>
+>2.如果 `argArray` 是 `null` 或 `undefined`, 则返回提供 `thisArg` 作为 `this` 值并以空参数列表调用 `func` 的 `[[Call]]` 内部方法的结果。<br>
+>3.返回提供 `thisArg` 作为 `this` 值并以空参数列表调用 `func` 的 `[[Call]]` 内部方法的结果。<br>
+>4.如果 `Type(argArray)` 不是 `Object`, 则抛出一个 `TypeError` 异常。<br>
+>5~8 略<br>
+>9.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。<br>
+ `apply` 方法的 `length` 属性是 `2`。<br>
 
- >在外面传入的 `thisArg` 值会修改并成为 `this` 值。`thisArg` 是 `undefined` 或 `null` 时它会被替换成全局对象，所有其他值会被应用 `ToObject` 并将结果作为 `this` 值，这是第三版引入的更改。
+ >在外面传入的 `thisArg` 值会修改并成为 `this` 值。`thisArg` 是 `undefined` 或 `null` 时它会被替换成全局对象，所有其他值会被应用 `ToObject` 并将结果作为 `this` 值，这是第三版引入的更改。<br>
 
 结合上文和规范，如何将函数里的`this`指向第一个参数`thisArg`呢，这是一个问题。
 这时候请出**例子3**：
@@ -174,30 +174,30 @@ if(hasOriginalVal){
 }
 console.log('student:', student); // { name: '轩辕Rowboat', doSth: 'doSth' }
 ```
-- [ ] 2.使用了`ES6`扩展符`...`
-解决方案一：采用`eval`来执行函数。
->`eval`把字符串解析成代码执行。
-[MDN 文档：eval](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval)
+- [ ] 2.使用了`ES6`扩展符`...`<br>
+解决方案一：采用`eval`来执行函数。<br>
+>`eval`把字符串解析成代码执行。<br>
+[MDN 文档：eval](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval)<br>
 **语法**
 ```
 eval(string)
 ```
-**参数**
-**string**
-表示`JavaScript`表达式，语句或一系列语句的字符串。表达式可以包含变量以及已存在对象的属性。
-**返回值**
-执行指定代码之后的返回值。如果返回值为空，返回`undefined`
+**参数**<br>
+**string**<br>
+表示`JavaScript`表达式，语句或一系列语句的字符串。表达式可以包含变量以及已存在对象的属性。<br>
+**返回值**<br>
+执行指定代码之后的返回值。如果返回值为空，返回`undefined`<br>
 解决方案二：但万一面试官不允许用`eval`呢，毕竟`eval`是魔鬼。可以采用`new Function()`来生成执行函数。
-[MDN 文档：Function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function)
-**语法**
+[MDN 文档：Function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function)<br>
+**语法**<br>
 ```
 new Function ([arg1[, arg2[, ...argN]],] functionBody)
 ```
-**参数**
-**arg1, arg2, ... argN**
-被函数使用的参数的名称必须是合法命名的。参数名称是一个有效的`JavaScript`标识符的字符串，或者一个用逗号分隔的有效字符串的列表;例如`“×”`，`“theValue”`，或`“A，B”`。
-**functionBody**
-一个含有包括函数定义的`JavaScript`语句的字符串。
+**参数**<br>
+**arg1, arg2, ... argN**<br>
+被函数使用的参数的名称必须是合法命名的。参数名称是一个有效的`JavaScript`标识符的字符串，或者一个用逗号分隔的有效字符串的列表;例如`“×”`，`“theValue”`，或`“A，B”`。<br>
+**functionBody**<br>
+一个含有包括函数定义的`JavaScript`语句的字符串。<br>
 接下来看两个例子：
 ```
 简单例子：
@@ -354,9 +354,9 @@ function ArrayPush() {
 ```
 行文至此，就基本结束了，你可能还发现就是写的非严格模式下，`thisArg`原始值会包装成对象，添加函数并执行，再删除。而严格模式下还是原始值这个没有实现，而且万一这个对象是冻结对象呢，`Object.freeze({})`，是无法在这个对象上添加属性的。所以这个方法只能算是非严格模式下的简版实现。最后来总结一下。
 ## 总结
-通过`MDN`认识`call`和`apply`，阅读`ES5`规范，到模拟实现`apply`，再实现`call`。
-就是使用在对象上添加调用`apply`的函数执行，这时的调用函数的`this`就指向了这个`thisArg`，再返回结果。引出了`ES6 Symbol`，`ES6`的扩展符`...`、`eval`、`new Function()`，严格模式等。
-事实上，现实业务场景不需要去模拟实现`call`和`apply`,毕竟是`ES3`就提供的方法。但面试官可以通过这个面试题考察候选人很多基础知识。如：`call`、`apply`的使用。`ES6 Symbol`，`ES6`的扩展符`...`，`eval`，`new Function()`，严格模式，甚至时间复杂度和空间复杂度等。
+通过`MDN`认识`call`和`apply`，阅读`ES5`规范，到模拟实现`apply`，再实现`call`。<br>
+就是使用在对象上添加调用`apply`的函数执行，这时的调用函数的`this`就指向了这个`thisArg`，再返回结果。引出了`ES6 Symbol`，`ES6`的扩展符`...`、`eval`、`new Function()`，严格模式等。<br>
+事实上，现实业务场景不需要去模拟实现`call`和`apply`,毕竟是`ES3`就提供的方法。但面试官可以通过这个面试题考察候选人很多基础知识。如：`call`、`apply`的使用。`ES6 Symbol`，`ES6`的扩展符`...`，`eval`，`new Function()`，严格模式，甚至时间复杂度和空间复杂度等。<br>
 读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 ```
 // 最终版版 删除注释版，详细注释看文章
@@ -411,14 +411,14 @@ Function.prototype.callFn = function call(thisArg){
 }
 ```
 ## 扩展阅读
-[《JavaScript设计模式与开发实践》- 第二章 第 2 章　this、call和apply](http://www.ituring.com.cn/book/tupubarticle/7768)
-[JS魔法堂：再次认识Function.prototype.call](https://cloud.tencent.com/developer/article/1023535)
-[不用call和apply方法模拟实现ES5的bind方法](https://github.com/jawil/blog/issues/16)
-[JavaScript深入之call和apply的模拟实现](https://juejin.im/post/5907eb99570c3500582ca23c)
+[《JavaScript设计模式与开发实践》- 第二章 第 2 章　this、call和apply](http://www.ituring.com.cn/book/tupubarticle/7768)<br>
+[JS魔法堂：再次认识Function.prototype.call](https://cloud.tencent.com/developer/article/1023535)<br>
+[不用call和apply方法模拟实现ES5的bind方法](https://github.com/jawil/blog/issues/16)<br>
+[JavaScript深入之call和apply的模拟实现](https://juejin.im/post/5907eb99570c3500582ca23c)<br>
 ## 关于
-作者：常以**轩辕Rowboat**为名混迹于江湖。前端路上 | PPT爱好者 | 所知甚少，唯善学。
-[个人博客](https://lxchuan12.github.io/)
-[segmentfault个人主页](https://segmentfault.com/u/lxchuan12)
-[掘金个人主页](https://juejin.im/user/57974dc55bbb500063f522fd/posts)
-[知乎](https://www.zhihu.com/people/lxchuan12/activities)
+作者：常以**轩辕Rowboat**为名混迹于江湖。前端路上 | PPT爱好者 | 所知甚少，唯善学。<br>
+[个人博客](https://lxchuan12.github.io/)<br>
+[segmentfault个人主页](https://segmentfault.com/u/lxchuan12)<br>
+[掘金个人主页](https://juejin.im/user/57974dc55bbb500063f522fd/posts)<br>
+[知乎](https://www.zhihu.com/people/lxchuan12/activities)<br>
 [github](https://github.com/lxchuan12)
