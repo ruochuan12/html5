@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        <a href="https://juejin.im/post/5bde7c926fb9a049f66b8b52" target="_blank">面试官问：能否模拟实现JS的new操作符</a>
+    </p>
+    <script>
+        // 去除了注释
+        function newOperator(ctor){
+            if(typeof ctor !== 'function'){
+            throw 'newOperator function the first param must be a function';
+            }
+            newOperator.target = ctor;
+            var newObj = Object.create(ctor.prototype);
+            var argsArr = [].slice.call(arguments, 1);
+            var ctorReturnResult = ctor.apply(newObj, argsArr);
+            // if(Object(ctorReturnResult) === ctorReturnResult){
+            //     return ctorReturnResult;
+            // }
+            var isObject = typeof ctorReturnResult === 'object' && ctorReturnResult !== null;
+            var isFunction = typeof ctorReturnResult === 'function';
+            if(isObject || isFunction){
+                return ctorReturnResult;
+            }
+            return newObj;
+        }
+        // 例子3 多加一个参数
+        function Student(name, age){
+            this.name = name;
+            this.age = age;
+            // this.doSth();
+            // return Error();
+        }
+        Student.prototype.doSth = function() {
+            console.log(this.name);
+        };
+        var student1 = newOperator(Student, '轩辕', 18);
+        var student2 = newOperator(Student, 'Rowboat', 18);
+        // var student1 = new Student('轩辕');
+        // var student2 = new Student('Rowboat');
+        console.log(student1, student1.doSth()); // {name: '轩辕'} '轩辕'
+        console.log(student2, student2.doSth()); // {name: 'Rowboat'} 'Rowboat'
+
+        student1.__proto__ === Student.prototype; // true
+        student2.__proto__ === Student.prototype; // true
+        // __proto__ 是浏览器实现的查看原型方案。
+        // 用ES5 则是：
+        Object.getPrototypeOf(student1) === Student.prototype; // true
+        Object.getPrototypeOf(student2) === Student.prototype; // true
+    </script>
+</body>
+</html>
