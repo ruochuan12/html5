@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <script>
+        let name2 = 'window2';
+        let doSth2 = function(){
+            console.log(this === window);
+            console.log(this.name2);
+        }
+        doSth2() // undefined
+    </script>
+</body>
+</html>

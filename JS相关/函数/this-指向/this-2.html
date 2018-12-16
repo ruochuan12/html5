@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <script>
+        
+    function Vue(options){
+        console.log(options);
+        this.data = options.data;
+        options.mounted();
+    }
+    new Vue({
+        data: {
+            message: 'message',
+        },
+        mounted () {
+            console.log('mounted', this);
+        }
+    });
+    console.log(this);
+    </script>
+</body>
+</html>
