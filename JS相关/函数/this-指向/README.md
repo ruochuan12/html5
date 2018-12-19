@@ -1,11 +1,13 @@
 # 面试官问：this的常见使用场景的指向
-
+函数的`this`在调用时绑定的，完全取决于函数的调用位置（也就是函数的调用方法）。为了搞清楚`this`的指向是什么，必须知道相关函数是如何调用的。
 ## 全局上下文
 非严格模式和严格模式中this都是指向顶层对象（浏览器中是`window`）。
 ```
 this === window // true
 'use strict'
 this === window;
+this.name = '轩辕Rowboat';
+console.log(this.name); // 轩辕Rowboat
 ```
 ## 函数上下文
 ### 普通函数调用模式
@@ -41,15 +43,26 @@ var doSth = function(){
 }
 doSth(); // true，// 报错，因为this是undefined
 ```
-看过的《你不知道的`JavaScript`》上卷的同学，应该知道书上将这种叫做默认绑定。
-对`call`，`apply`熟悉的同学会类比为：
+看过的《你不知道的`JavaScript`》上卷的读者，应该知道书上将这种叫做默认绑定。
+对`call`，`apply`熟悉的读者会类比为：
 ```
 doSth.call(undefined);
 doSth.apply(undefined);
 ```
 效果是一样的，`call`，`apply`作用之一就是用来修改函数中的`this`指向为第一个参数的。
-第一个参数是`undefined`或者`null`，非严格模式下，是指向`window`。严格模式下，就是指向第一个参数。
-后文详细解释。
+第一个参数是`undefined`或者`null`，非严格模式下，是指向`window`。严格模式下，就是指向第一个参数。后文详细解释。<br>
+经常有这类代码（回调函数），其实也是普通函数调用模式。
+```
+var name = '轩辕Rowboat';
+setTimeout(function(){
+    console.log(this.name);
+}, 0);
+// 语法
+setTimeout(fn | code, 0, arg1, arg2, ...)
+// 也可以是一串代码。也可以传递其他函数
+// 类比 setTimeout函数内部调用fn或者执行代码`code`。
+fn.call(undefined, arg1, arg2, ...);
+```
 ### 对象中的函数（方法）调用模式
 ```
 var name = 'window';
@@ -79,7 +92,7 @@ studentDoSth(); // 'window'
 // 用call类比则为：
 studentDoSth.call(undefined);
 ```
-### call、apply、bind调用模式
+### `call、apply、bind` 调用模式
 上文提到`call`、`apply`，这里详细解读一下。先通过`MDN`认识下`call`和`apply`
 [MDN 文档：Function.prototype.call()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)<br>
 **语法**<br>
@@ -110,23 +123,149 @@ doSth2.call(2, '轩辕Rowboat'); // 2, '轩辕Rowboat'
 ```
 虽然一般不会把`thisArg`参数写成值类型。但还是需要知道这个知识。
 之前写过一篇文章：[面试官问：能否模拟实现`JS`的`call`和`apply`方法](https://juejin.im/post/5bf6c79bf265da6142738b29)
-就是利用对象上的函数`this`指向这个对象，来模拟实现`call`和`apply`的。感兴趣的同学可以去看看。
+就是利用对象上的函数`this`指向这个对象，来模拟实现`call`和`apply`的。感兴趣的读者思考如何实现，再去看看笔者的实现。
 
+`bind`和`call`和`apply`类似，第一个参数也是修改`this`指向，只不过返回值是新函数，新函数也能当做构造函数（`new`）调用。
+[MDN Function.prototype.bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+>
+`bind()`方法创建一个新的函数， 当这个新函数被调用时`this`键值为其提供的值，其参数列表前几项值为创建时指定的参数序列。<br>
+**语法：**
+fun.bind(thisArg[, arg1[, arg2[, ...]]])<br>
+**参数：**
+**thisArg**
+调用绑定函数时作为this参数传递给目标函数的值。 如果使用`new`运算符构造绑定函数，则忽略该值。当使用`bind`在`setTimeout`中创建一个函数（作为回调提供）时，作为`thisArg`传递的任何原始值都将转换为`object`。如果没有提供绑定的参数，则执行作用域的`this`被视为新函数的`thisArg`。
+**arg1, arg2, ...**
+当绑定函数被调用时，这些参数将置于实参之前传递给被绑定的方法。
+**返回值**
+返回由指定的`this`值和初始化参数改造的原函数拷贝。
 
+之前也写过一篇文章：[面试官问：能否模拟实现`JS`的`bind`方法](https://juejin.im/post/5bec4183f265da616b1044d7)
+就是利用`call`和`apply`指向这个`thisArg`参数，来模拟实现`bind`的。感兴趣的读者思考如何实现，再去看看笔者的实现。
 ### 构造函数调用模式
+```
+function Student(name){
+    this.name = name;
+    console.log(this); // {name: '轩辕Rowboat'}
+    // 相当于返回了
+    // return this;
+}
+var result = new Student('轩辕Rowboat');
+```
+使用`new`操作符调用函数，会自动执行以下步骤。
+>
+>1. 创建了一个全新的对象。
+>2. 这个对象会被执行`[[Prototype]]`（也就是`__proto__`）链接。
+>3. 生成的新对象会绑定到函数调用的`this`。
+>4. 通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
+>5. 如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
+
+由此可以知道：`new`操作符调用时，`this`指向生成的新对象。
+
+之前也写了一篇文章[面试官问：能否模拟实现`JS`的`new`操作符](https://juejin.im/post/5bde7c926fb9a049f66b8b52)，是使用apply来把this指向到生成的新生成的对象上。感兴趣的读者思考如何实现，再去看看笔者的实现。
 
 ### 原型链中的 this
 
+```
+function Student(name){
+    this.name = name;
+}
+var s1 = new Student('轩辕Rowboat');
+Student.prototype.doSth = function(){
+    console.log(this.name);
+}
+s1.doSth(); // '轩辕Rowboat'
+```
+会发现这个似曾相识。这就是对象上的方法调用模式。自然是指向生成的新对象。
+如果该对象继承自其它对象。同样会通过原型链查找。
+上面代码使用
+`ES6`中`class`写法则是：
+```
+class Student{
+    constructor(name){
+        this.name = name;
+    }
+    doSth(){
+        console.log(this.name);
+    }
+}
+let s1 = new Student('轩辕Rowboat');
+s1.doSth();
+```
+[`babel` `es6`转换成`es5`的结果](https://www.babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=MYGwhgzhAEDKAuBXAJgUwHbwN4Chr-mAHt0J4AnRYeI8gCnTAFtUBKXAz6eACwEsIAOkYtoAXmgjUAbjwEAvnPzIiCHnXZKuxUkRCpBIIgHM6vAcOZtZnRYv3xoEAIzjJqAO5wkaTHQDkgJbxgKnxAEpEHgBGRGDw_qyyLoIqahrSQA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&lineWrap=false&presets=latest%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=)
+```
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Student = function () {
+    function Student(name) {
+        _classCallCheck(this, Student);
+
+        this.name = name;
+    }
+
+    _createClass(Student, [{
+        key: 'doSth',
+        value: function doSth() {
+            console.log(this.name);
+        }
+    }]);
+
+    return Student;
+}();
+
+var s1 = new Student('轩辕Rowboat');
+s1.doSth();
+```
+由此看出，`ES6`的`class`也是通过构造函数模拟实现的，是一种语法糖。
+
 ### 箭头函数调用模式
+先看箭头函数和普通函数的重要区别：
+>1、没有自己的`this`、`super`、`arguments`和`new.target`
+2、不能使用new来调用。
+3、没有原型对象。
+4、内部的this无法改变。
+5、形参名称不能重复。
 
-
+箭头函数中没有`this`绑定，必须通过查找作用域链来决定其值。
+如果箭头函数被非箭头函数包含，则`this`绑定的是最近一层非箭头函数的`this`，否则`this`的值则被设置为全局对象。
+比如
+```
+var name = 'window';
+var student = {
+    name: '轩辕Rowboat',
+    doSth: function(){
+        // var self = this;
+        var arrowDoSth = () => {
+            // console.log(self.name);
+            console.log(this.name);
+        }
+        arrowDoSth();
+    },
+    arrowDoSth2: () => {
+        console.log(this.name);
+    }
+}
+student.doSth(); // '轩辕Rowboat'
+student.arrowDoSth2(); // 'window'
+```
+其实就是相当于箭头函数外的this是缓存的该箭头函数上层的普通函数的this。如果没有普通函数，则是全局对象。
 ### getter 与 setter 中的 this
 
 ### 作为一个DOM事件处理函数
 
 ### 作为一个内联事件处理函数
 
+## 考题
+[小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)
+
+## 总结
+
+## 关于
 
 ## 扩展阅读
-[前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)
-[JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
+[这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)
+[冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
+[]()
