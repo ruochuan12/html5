@@ -160,6 +160,18 @@ var result = new Student('轩辕Rowboat');
 >5. 如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
 
 由此可以知道：`new`操作符调用时，`this`指向生成的新对象。
+**特别提醒一下，new构造的返回值，如果没有显式返回对象或者函数，才是返回生成的新对象**。
+```
+function Student(name){
+    this.name = name;
+    // return function f(){};
+    // return {};
+}
+var result = new Student('轩辕Rowboat');
+console.log(result); {name: '轩辕Rowboat'}
+// 如果返回函数f，则result是函数f，如果是对象{}，则result是对象{}
+```
+很多人或者文章都忽略了这一点，直接简单用`typeof`判断对象。虽然实际使用时不会显示返回，但面试官会问到。
 
 之前也写了一篇文章[面试官问：能否模拟实现`JS`的`new`操作符](https://juejin.im/post/5bde7c926fb9a049f66b8b52)，是使用apply来把this指向到生成的新生成的对象上。感兴趣的读者思考如何实现，再去看看笔者的实现。
 
@@ -251,7 +263,7 @@ var student = {
 student.doSth(); // '轩辕Rowboat'
 student.arrowDoSth2(); // 'window'
 ```
-其实就是相当于箭头函数外的this是缓存的该箭头函数上层的普通函数的this。如果没有普通函数，则是全局对象。
+其实就是相当于箭头函数外的this是缓存的该箭头函数上层的普通函数的`this`。如果没有普通函数，则是全局对象。
 ### getter 与 setter 中的 this
 
 ### 作为一个DOM事件处理函数
@@ -260,6 +272,7 @@ student.arrowDoSth2(); // 'window'
 
 ## 考题
 [小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)
+[从这两套题，重新认识JS的this、作用域、闭包、对象](https://segmentfault.com/a/1190000010981003)
 
 ## 总结
 
@@ -268,4 +281,4 @@ student.arrowDoSth2(); // 'window'
 ## 扩展阅读
 [这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)
 [冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
-[]()
+
