@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <button class="button">onclick</button>
+    <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <button class="btn1" onclick="console.log(this === document.querySelector('.btn1'))">点我呀</button>
+    <button onclick="console.log((function(){return this})());">再点我呀</button>
+    <script>
+        'use strict'
+        var button = document.querySelector('button');
+        button.onclick = function(ev){
+            console.log(this);
+            console.log(this === ev.currentTarget); // true
+        }
+        var list = document.querySelector('.list');
+        list.addEventListener('click', function(ev){
+            console.log(this === list); // true
+            console.log(this === ev.currentTarget); // true
+            console.log(this);
+            console.log(ev.target);
+        }, false);
+    </script>
+</body>
+</html>

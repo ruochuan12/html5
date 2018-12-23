@@ -1,4 +1,8 @@
 # 面试官问：this的常见使用场景的指向
+面试官经常会出很多考题，都会考察`this`指向，也是看候选人对`JS`基础知识是否扎实。
+
+>附上之前写文章写过的一段话：已经有很多关于`this`的文章，为什么自己还要写一遍呢。学习就好比是座大山，人们沿着不同的路登山，分享着自己看到的风景。你不一定能看到别人看到的风景，体会到别人的心情。只有自己去登山，才能看到不一样的风景，体会才更加深刻。<br>
+
 函数的`this`在调用时绑定的，完全取决于函数的调用位置（也就是函数的调用方法）。为了搞清楚`this`的指向是什么，必须知道相关函数是如何调用的。
 ## 全局上下文
 非严格模式和严格模式中this都是指向顶层对象（浏览器中是`window`）。
@@ -175,7 +179,7 @@ console.log(result); {name: '轩辕Rowboat'}
 
 之前也写了一篇文章[面试官问：能否模拟实现`JS`的`new`操作符](https://juejin.im/post/5bde7c926fb9a049f66b8b52)，是使用apply来把this指向到生成的新生成的对象上。感兴趣的读者思考如何实现，再去看看笔者的实现。
 
-### 原型链中的 this
+### 原型链中的调用模式
 
 ```
 function Student(name){
@@ -243,7 +247,7 @@ s1.doSth();
 
 箭头函数中没有`this`绑定，必须通过查找作用域链来决定其值。
 如果箭头函数被非箭头函数包含，则`this`绑定的是最近一层非箭头函数的`this`，否则`this`的值则被设置为全局对象。
-比如
+比如：
 ```
 var name = 'window';
 var student = {
@@ -263,22 +267,108 @@ var student = {
 student.doSth(); // '轩辕Rowboat'
 student.arrowDoSth2(); // 'window'
 ```
-其实就是相当于箭头函数外的this是缓存的该箭头函数上层的普通函数的`this`。如果没有普通函数，则是全局对象。
-### getter 与 setter 中的 this
+其实就是相当于箭头函数外的`this`是缓存的该箭头函数上层的普通函数的`this`。如果没有普通函数，则是全局对象（浏览器中则是`window`）。
+也就是说无法通过`call`、`apply`、`bind`绑定箭头函数的`this`(它自身没有`this`)。而`call`、`apply`、`bind`可以绑定缓存箭头函数上层的普通函数的`this`。
+比如：
+```
+var student = {
+    name: '轩辕Rowboat',
+    doSth: function(){
+        console.log(this.name);
+        return () => {
+            console.log('arrowFn:', this.name);
+        }
+    }
+}
+var person = {
+    name: 'person',
+}
+student.doSth().call(person); // '轩辕Rowboat'  'arrowFn:' '轩辕Rowboat'
+student.doSth.call(person)(); // 'person' 'arrowFn:' 'person'
+```
 
-### 作为一个DOM事件处理函数
+### `DOM`事件处理函数调用
 
-### 作为一个内联事件处理函数
+#### addEventerListener、attachEvent、onclick
+```
+<button class="button">onclick</button>
+<ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<script>
+    var button = document.querySelector('button');
+    button.onclick = function(ev){
+        console.log(this);
+        console.log(this === ev.currentTarget); // true
+    }
+    var list = document.querySelector('.list');
+    list.addEventListener('click', function(ev){
+        console.log(this === list); // true
+        console.log(this === ev.currentTarget); // true
+        console.log(this);
+        console.log(ev.target);
+    }, false);
+</script>
+```
+onclick和
+一些浏览器，比如`IE6~IE8`下使用`attachEvent`，`this`指向是`window`。
+顺便提下：面试官也经常考察`ev.currentTarget`和`ev.target`的区别。
+`ev.currentTarget`是绑定事件的元素，而`ev.target`是当前触发事件的元素。比如这里的分别是`ul`和`li`。
+但也可能点击的是`ul`，这时`ev.currentTarget`和`ev.target`就相等了。
+
+#### 内联事件处理函数调用
+```
+<button class="btn1" onclick="console.log(this === document.querySelector('.btn1'))">点我呀</button>
+<button onclick="console.log((function(){return this})());">再点我呀</button>
+```
+第一个是`button`本身，所以是`true`,第二个是`window`。这里跟严格模式没有关系。
+当然我们现在不会这样用了，但有时不小心写成了这样，也需要了解。
+
+其实`this`的使用场景还有挺多，比如对象`object`中的`getter`、`setter`的`this`，`new Function()`、`eval`。
+但掌握以上几种，去分析其他的，就自然迎刃而解了。
+使用比较多的还是普通函数调用、对象的函数调用、`new`调用、`call、apply、bind`调用、箭头函数调用。
+那么他们的优先级是怎样的呢。
+
+### 优先级
+而箭头函数的`this`是上层普通函数的`this`或者是全局对象（浏览器中是`window`），所以排除，不算优先级。
+
+```
+var person = {
+    name: 'person',
+}
+var Student = {
+    name: '轩辕Rowboat',
+    doSth: function(){
+        console.log(this);
+        return function(){
+            console.log('return:', this);
+        }
+    }
+}
+new Student.doSth.call(person);
+```
+试想一下，如果是`Student.call(person)`先执行的情况下，那`new`执行一个函数。是没有问题的。
+然而事实上，这代码是报错的。优先级是`new`，new Student
+
+
 
 ## 考题
-[小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)
+[小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)<br>
 [从这两套题，重新认识JS的this、作用域、闭包、对象](https://segmentfault.com/a/1190000010981003)
 
 ## 总结
 
-## 关于
-
+读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 ## 扩展阅读
-[这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)
+[这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)<br>
 [冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
 
+## 关于
+作者：常以**轩辕Rowboat**为名混迹于江湖。前端路上 | PPT爱好者 | 所知甚少，唯善学。<br>
+[个人博客](https://lxchuan12.github.io/)<br>
+[segmentfault个人主页](https://segmentfault.com/u/lxchuan12)<br>
+[掘金个人主页](https://juejin.im/user/57974dc55bbb500063f522fd/posts)<br>
+[知乎](https://www.zhihu.com/people/lxchuan12/activities)<br>
+[github](https://github.com/lxchuan12)
