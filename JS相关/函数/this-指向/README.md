@@ -1,4 +1,4 @@
-# 面试官问：this的常见使用场景的指向
+# 面试官问：JS的this常见使用场景的指向
 面试官经常会出很多考题，都会考察`this`指向，也是看候选人对`JS`基础知识是否扎实。
 
 >附上之前写文章写过的一段话：已经有很多关于`this`的文章，为什么自己还要写一遍呢。学习就好比是座大山，人们沿着不同的路登山，分享着自己看到的风景。你不一定能看到别人看到的风景，体会到别人的心情。只有自己去登山，才能看到不一样的风景，体会才更加深刻。<br>
@@ -164,7 +164,7 @@ var result = new Student('轩辕Rowboat');
 >5. 如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
 
 由此可以知道：`new`操作符调用时，`this`指向生成的新对象。
-**特别提醒一下，new构造的返回值，如果没有显式返回对象或者函数，才是返回生成的新对象**。
+**特别提醒一下，`new`调用时的返回值，如果没有显式返回对象或者函数，才是返回生成的新对象**。
 ```
 function Student(name){
     this.name = name;
@@ -239,10 +239,11 @@ s1.doSth();
 
 ### 箭头函数调用模式
 先看箭头函数和普通函数的重要区别：
->1、没有自己的`this`、`super`、`arguments`和`new.target`
-2、不能使用new来调用。
+>1、没有自己的`this`、`super`、`arguments`和`new.target`绑定。
+2、不能使用`new`来调用。
 3、没有原型对象。
-4、形参名称不能重复。
+4、不可以改变`this`的绑定。
+5、形参名称不能重复。
 
 箭头函数中没有`this`绑定，必须通过查找作用域链来决定其值。
 如果箭头函数被非箭头函数包含，则`this`绑定的是最近一层非箭头函数的`this`，否则`this`的值则被设置为全局对象。
@@ -322,7 +323,7 @@ student.doSth.call(person)(); // 'person' 'arrowFn:' 'person'
 <button class="btn1" onclick="console.log(this === document.querySelector('.btn1'))">点我呀</button>
 <button onclick="console.log((function(){return this})());">再点我呀</button>
 ```
-第一个是`button`本身，所以是`true`,第二个是`window`。这里跟严格模式没有关系。
+第一个是`button`本身，所以是`true`，第二个是`window`。这里跟严格模式没有关系。
 当然我们现在不会这样用了，但有时不小心写成了这样，也需要了解。
 
 其实`this`的使用场景还有挺多，比如对象`object`中的`getter`、`setter`的`this`，`new Function()`、`eval`。
@@ -354,46 +355,52 @@ doSth(); // window
 Student.doSth(); // '轩辕Rowboat'
 // call、apply 调用
 Student.doSth.call(person); // 'person'
-new Student.doSth.bind(person);
+new Student.doSth.call(person);
 ```
-试想一下，如果是`Student.call(person)`先执行的情况下，那`new`执行一个函数。是没有问题的。
-然而事实上，这代码是报错的。优先级是`new`，new Student.doSth.call
+试想一下，如果是`Student.doSth.call(person)`先执行的情况下，那`new`执行一个函数。是没有问题的。
+然而事实上，这代码是报错的。[运算符优先级](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)是`new`比点号低，所以是执行`new (Student.doSth.call)(person)`
+而`Function.prototype.call`，虽然是一个函数（`apply`、`bind`也是函数），跟箭头函数一样，不能用`new`调用。所以报错了。
+```
+Uncaught TypeError: Student.doSth.call is not a constructor
+```
+这是因为函数内部有两个不同的方法：`[[Call]]`和`[[Constructor]]`。
+当使用普通函数调用时，`[[Call]]`会被执行。当使用构造函数调用时，`[[Constructor]]`会被执行。`call`、`apply`、`bind`和箭头函数内部没有`[[Constructor]]`方法。
 
-现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。 可以按照下面的
-顺序来进行判断：
->
->1. 函数是否在 `new` 中调用？ 如果是的话 `this` 绑定的是新创建的对象。
-```
-var bar = new foo()
-```
-2. 函数是否通过 `call`、 `apply`（ 显式绑定） 或者硬绑定调用？ 如果是的话， this 绑定的是
-指定的对象。
-```
-var bar = foo.call(obj2)
-```
-3. 函数是否在对象中调用 ？ 如果是的话， `this` 绑定的是那个对象上。
-```
-var bar = obj1.foo()
-```
-4. 如果都不是的话， 使用默认绑定。 如果在严格模式下， 就绑定到 `undefined`， 否则绑定到
-全局对象。
-```
-var bar = foo()
-```
+从上面的例子可以看出普通函数调用优先级最低，其次是对象上的函数。
+`call（apply、bind）`调用方式和`new`调用方式的优先级，在《你不知道的JavaScript》是对比`bind`和`new`，引用了`mdn`的`bind`的`ployfill`实现，`new`调用时bind之后的函数，会忽略`bind`绑定的第一个参数，(`mdn`的实现其实还有一些问题，感兴趣的读者，可以看我之前的文章：[面试官问：能否模拟实现`JS`的`bind`方法](https://juejin.im/post/5bec4183f265da616b1044d7))，说明`new`的调用的优先级最高。
+所以它们的优先级是`new` 调用 > `call、apply、bind` 调用 > 对象上的函数调用 > 普通函数调用。
 
 
 ## 考题
+经常会结合一些运算符来考查。
+比如逗号
+```
+(1, function)
+```
 [小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)<br>
 [从这两套题，重新认识JS的this、作用域、闭包、对象](https://segmentfault.com/a/1190000010981003)
 
 ## 总结
 
-就是这样。 对于正常的函数调用来说， 理解了这些知识你就可以明白 `this` 的绑定原理了。
-不过……凡事总有例外。
+确定this执行函数的绑定需要找到该函数的直接调用站点。一旦检查，四个原则可以应用到调用点，在这个优先顺序：
 
+叫new？使用新构造的对象。
+
+用call或apply（或bind）调用？使用指定的对象。
+
+使用拥有该调用的上下文对象调用？使用该上下文对象。
+
+默认值：undefinedin strict mode，否则为全局对象。
+
+注意意外/无意调用默认绑定规则。如果您想“安全地”忽略this绑定，“DMZ”对象就像ø = Object.create(null)是一个很好的占位符值，可以保护global对象免受意外的副作用。
+
+ES6箭头函数不是使用四个标准绑定规则，而是使用词法作用域进行this绑定，这意味着它们this从其封闭的函数调用中采用绑定（无论它是什么）。它们本质上是self = thisES6前编码的语法替代。
+
+面试官考察`this`指向就可以考察`new、call、apply、bind`，箭头函数等用法。从而扩展到作用域、原型链、继承、严格模式等。
 
 读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 ## 扩展阅读
+[你不知道的JavaScript 上卷](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md)
 [这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)<br>
 [冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
 
@@ -402,5 +409,5 @@ var bar = foo()
 [个人博客](https://lxchuan12.github.io/)<br>
 [segmentfault个人主页](https://segmentfault.com/u/lxchuan12)<br>
 [掘金个人主页](https://juejin.im/user/57974dc55bbb500063f522fd/posts)<br>
-[知乎](https://www.zhihu.com/people/lxchuan12/activities)<br>
+[知乎](https://www.zhihu.com/people/lxchuan12/activities)，开通了前端视野专栏，欢迎关注<br>
 [github](https://github.com/lxchuan12)
