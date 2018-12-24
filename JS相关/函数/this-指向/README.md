@@ -242,8 +242,7 @@ s1.doSth();
 >1、没有自己的`this`、`super`、`arguments`和`new.target`
 2、不能使用new来调用。
 3、没有原型对象。
-4、内部的this无法改变。
-5、形参名称不能重复。
+4、形参名称不能重复。
 
 箭头函数中没有`this`绑定，必须通过查找作用域链来决定其值。
 如果箭头函数被非箭头函数包含，则`this`绑定的是最近一层非箭头函数的`this`，否则`this`的值则被设置为全局对象。
@@ -312,7 +311,7 @@ student.doSth.call(person)(); // 'person' 'arrowFn:' 'person'
     }, false);
 </script>
 ```
-onclick和
+`onclick`和`addEventerListener`是指向绑定事件的元素。
 一些浏览器，比如`IE6~IE8`下使用`attachEvent`，`this`指向是`window`。
 顺便提下：面试官也经常考察`ev.currentTarget`和`ev.target`的区别。
 `ev.currentTarget`是绑定事件的元素，而`ev.target`是当前触发事件的元素。比如这里的分别是`ul`和`li`。
@@ -335,23 +334,52 @@ onclick和
 而箭头函数的`this`是上层普通函数的`this`或者是全局对象（浏览器中是`window`），所以排除，不算优先级。
 
 ```
+var name = 'window';
 var person = {
     name: 'person',
 }
-var Student = {
-    name: '轩辕Rowboat',
-    doSth: function(){
-        console.log(this);
-        return function(){
-            console.log('return:', this);
-        }
+var doSth = function(){
+    console.log(this.name);
+    return function(){
+        console.log('return:', this.name);
     }
 }
-new Student.doSth.call(person);
+var Student = {
+    name: '轩辕Rowboat',
+    doSth: doSth,
+}
+// 普通函数调用
+doSth(); // window
+// 对象上的函数调用
+Student.doSth(); // '轩辕Rowboat'
+// call、apply 调用
+Student.doSth.call(person); // 'person'
+new Student.doSth.bind(person);
 ```
 试想一下，如果是`Student.call(person)`先执行的情况下，那`new`执行一个函数。是没有问题的。
-然而事实上，这代码是报错的。优先级是`new`，new Student
+然而事实上，这代码是报错的。优先级是`new`，new Student.doSth.call
 
+现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。 可以按照下面的
+顺序来进行判断：
+>
+>1. 函数是否在 `new` 中调用？ 如果是的话 `this` 绑定的是新创建的对象。
+```
+var bar = new foo()
+```
+2. 函数是否通过 `call`、 `apply`（ 显式绑定） 或者硬绑定调用？ 如果是的话， this 绑定的是
+指定的对象。
+```
+var bar = foo.call(obj2)
+```
+3. 函数是否在对象中调用 ？ 如果是的话， `this` 绑定的是那个对象上。
+```
+var bar = obj1.foo()
+```
+4. 如果都不是的话， 使用默认绑定。 如果在严格模式下， 就绑定到 `undefined`， 否则绑定到
+全局对象。
+```
+var bar = foo()
+```
 
 
 ## 考题
@@ -359,6 +387,10 @@ new Student.doSth.call(person);
 [从这两套题，重新认识JS的this、作用域、闭包、对象](https://segmentfault.com/a/1190000010981003)
 
 ## 总结
+
+就是这样。 对于正常的函数调用来说， 理解了这些知识你就可以明白 `this` 的绑定原理了。
+不过……凡事总有例外。
+
 
 读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 ## 扩展阅读
