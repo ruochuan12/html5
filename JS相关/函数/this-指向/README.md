@@ -1,6 +1,6 @@
-# 面试官问：JS的this常见使用场景的指向
-面试官经常会出很多考题，都会考察`this`指向，也是看候选人对`JS`基础知识是否扎实。
-
+## 前言
+面试官出很多考题，基本都会变着方式来考察`this`指向，看候选人对`JS`基础知识是否扎实。
+读者可以先拉到底部看总结，再谷歌（或各技术平台）搜索几篇类似文章，看笔者写的文章和别人有什么不同（欢迎在评论区评论不同之处），对比来看，验证与自己现有知识是否有盲点，多看几篇，自然就会完善自身知识。
 >附上之前写文章写过的一段话：已经有很多关于`this`的文章，为什么自己还要写一遍呢。学习就好比是座大山，人们沿着不同的路登山，分享着自己看到的风景。你不一定能看到别人看到的风景，体会到别人的心情。只有自己去登山，才能看到不一样的风景，体会才更加深刻。<br>
 
 函数的`this`在调用时绑定的，完全取决于函数的调用位置（也就是函数的调用方法）。为了搞清楚`this`的指向是什么，必须知道相关函数是如何调用的。
@@ -131,8 +131,7 @@ doSth2.call(2, '轩辕Rowboat'); // 2, '轩辕Rowboat'
 
 `bind`和`call`和`apply`类似，第一个参数也是修改`this`指向，只不过返回值是新函数，新函数也能当做构造函数（`new`）调用。
 [MDN Function.prototype.bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
->
-`bind()`方法创建一个新的函数， 当这个新函数被调用时`this`键值为其提供的值，其参数列表前几项值为创建时指定的参数序列。<br>
+>`bind()`方法创建一个新的函数， 当这个新函数被调用时`this`键值为其提供的值，其参数列表前几项值为创建时指定的参数序列。<br>
 **语法：**
 fun.bind(thisArg[, arg1[, arg2[, ...]]])<br>
 **参数：**
@@ -207,7 +206,7 @@ class Student{
 let s1 = new Student('轩辕Rowboat');
 s1.doSth();
 ```
-[`babel` `es6`转换成`es5`的结果](https://www.babeljs.cn/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=MYGwhgzhAEDKAuBXAJgUwHbwN4Chr-mAHt0J4AnRYeI8gCnTAFtUBKXAz6eACwEsIAOkYtoAXmgjUAbjwEAvnPzIiCHnXZKuxUkRCpBIIgHM6vAcOZtZnRYv3xoEAIzjJqAO5wkaTHQDkgJbxgKnxAEpEHgBGRGDw_qyyLoIqahrSQA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&lineWrap=false&presets=latest%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=)
+`babel` `es6`转换成`es5`的结果，可以去[`babeljs网站转换测试`](https://babeljs.io/)自行试试。
 ```
 'use strict';
 
@@ -370,44 +369,40 @@ Uncaught TypeError: Student.doSth.call is not a constructor
 `call（apply、bind）`调用方式和`new`调用方式的优先级，在《你不知道的JavaScript》是对比`bind`和`new`，引用了`mdn`的`bind`的`ployfill`实现，`new`调用时bind之后的函数，会忽略`bind`绑定的第一个参数，(`mdn`的实现其实还有一些问题，感兴趣的读者，可以看我之前的文章：[面试官问：能否模拟实现`JS`的`bind`方法](https://juejin.im/post/5bec4183f265da616b1044d7))，说明`new`的调用的优先级最高。
 所以它们的优先级是`new` 调用 > `call、apply、bind` 调用 > 对象上的函数调用 > 普通函数调用。
 
+## 总结
+
+如果要判断一个运行中函数的 `this` 绑定， 就需要找到这个函数的直接调用位置。 找到之后
+就可以顺序应用下面这四条规则来判断 `this` 的绑定对象。<br>
+1. `new` 调用：绑定到新创建的对象，注意：显示`return`函数或对象，返回值不是新创建的对象，而是显式返回的函数或对象。<br>
+2. `call` 或者 `apply`（ 或者 `bind`） 调用：严格模式下，绑定到指定的第一个参数。非严格模式下，`null`和`undefined`，指向全局对象（浏览器中是`window`），其余值指向被`new Object()`包装的对象。<br>
+3. 对象上的函数调用：绑定到那个对象。<br>
+4. 普通函数调用： 在严格模式下绑定到 `undefined`，否则绑定到全局对象。<br>
+
+`ES6` 中的箭头函数：不会使用上文的四条标准的绑定规则， 而是根据当前的词法作用域来决定`this`， 具体来说， 箭头函数会继承外层函数，调用的 this 绑定（ 无论 this 绑定到什么），没有外层函数，则是绑定到全局对象（浏览器中是`window`）。 这其实和 `ES6` 之前代码中的 `self = this` 机制一样。
+
+`DOM`事件函数：一般指向绑定事件的`DOM`元素，但有些情况绑定到全局对象（比如`IE6~IE8`的`attachEvent`）。
+
+一定要注意，有些调用可能在无意中使用普通函数绑定规则。 如果想“ 更安全” 地忽略 `this` 绑
+定， 你可以使用一个对象， 比如` ø = Object.create(null)`， 以保护全局对象。
+
+面试官考察`this`指向就可以考察`new、call、apply、bind`，箭头函数等用法。从而扩展到作用域、闭包、原型链、继承、严格模式等。这就是面试官乐此不疲的原因。
+
+读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 
 ## 考题
-经常会结合一些运算符来考查。
-比如逗号
-```
-(1, function)
-```
+`this`指向考题经常结合一些运算符等来考察。看完本文，不妨通过以下两篇面试题测试一下。
 [小小沧海：一道常被人轻视的前端JS面试题](https://www.cnblogs.com/xxcanghai/p/5189353.html)<br>
 [从这两套题，重新认识JS的this、作用域、闭包、对象](https://segmentfault.com/a/1190000010981003)
 
-## 总结
-
-确定this执行函数的绑定需要找到该函数的直接调用站点。一旦检查，四个原则可以应用到调用点，在这个优先顺序：
-
-叫new？使用新构造的对象。
-
-用call或apply（或bind）调用？使用指定的对象。
-
-使用拥有该调用的上下文对象调用？使用该上下文对象。
-
-默认值：undefinedin strict mode，否则为全局对象。
-
-注意意外/无意调用默认绑定规则。如果您想“安全地”忽略this绑定，“DMZ”对象就像ø = Object.create(null)是一个很好的占位符值，可以保护global对象免受意外的副作用。
-
-ES6箭头函数不是使用四个标准绑定规则，而是使用词法作用域进行this绑定，这意味着它们this从其封闭的函数调用中采用绑定（无论它是什么）。它们本质上是self = thisES6前编码的语法替代。
-
-面试官考察`this`指向就可以考察`new、call、apply、bind`，箭头函数等用法。从而扩展到作用域、原型链、继承、严格模式等。
-
-读者发现有不妥或可改善之处，欢迎指出。另外觉得写得不错，可以点个赞，也是对笔者的一种支持。
 ## 扩展阅读
-[你不知道的JavaScript 上卷](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md)
+[你不知道的JavaScript 上卷](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md)<br>
+[冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)<br>
 [这波能反杀：前端基础进阶（五）：全方位解读this](https://www.jianshu.com/p/d647aa6d1ae6)<br>
-[冴羽：JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
 
 ## 关于
 作者：常以**轩辕Rowboat**为名混迹于江湖。前端路上 | PPT爱好者 | 所知甚少，唯善学。<br>
 [个人博客](https://lxchuan12.github.io/)<br>
-[segmentfault个人主页](https://segmentfault.com/u/lxchuan12)<br>
-[掘金个人主页](https://juejin.im/user/57974dc55bbb500063f522fd/posts)<br>
-[知乎](https://www.zhihu.com/people/lxchuan12/activities)，开通了前端视野专栏，欢迎关注<br>
-[github](https://github.com/lxchuan12)
+[`segmentfault`前端视野专栏](https://segmentfault.com/blog/lxchuan12)，开通了**前端视野**专栏，欢迎关注<br>
+[掘金专栏](https://juejin.im/user/57974dc55bbb500063f522fd/posts)，欢迎关注<br>
+[知乎前端视野专栏](https://zhuanlan.zhihu.com/lxchuan12)，开通了**前端视野**专栏，欢迎关注<br>
+[github](https://github.com/lxchuan12)，欢迎`follow`~
