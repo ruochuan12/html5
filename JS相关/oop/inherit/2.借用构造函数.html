@@ -10,7 +10,7 @@
     <script>
         // 2.借用构造函数，有时候也叫经典继承
         function Parent(){
-            this.name = '国王';
+            this.name = '皇帝';
         }
         Parent.prototype.doSth = function(){
             console.log('name:', this.name);
@@ -18,8 +18,8 @@
         }
         function Child(){
             // 继承了Parent
-            Parent.call(this); // this.name = '国王';
-            this.name = '王子';
+            Parent.call(this); // this.name = '皇帝';
+            this.name = '太子';
         }
         var child = new Child();
         console.log('child:', child);

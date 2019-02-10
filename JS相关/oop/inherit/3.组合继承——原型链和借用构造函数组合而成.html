@@ -10,7 +10,7 @@
     <script>
         // 3.组合继承 —— 原型链和借用构造函数组合而成
         function Parent(){
-            this.name = '国王';
+            this.name = '皇帝';
         }
         Parent.prototype.doSth = function(){
             console.log('name:', this.name);
@@ -18,8 +18,8 @@
         }
         function Child(){
             // 继承了Parent的属性
-            Parent.call(this); // this.name = '国王';
-            this.name = '王子';
+            Parent.call(this); // this.name = '皇帝';
+            this.name = '太子';
             this.age = 20;
         }
         Child.prototype = new Parent();
