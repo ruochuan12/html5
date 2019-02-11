@@ -30,6 +30,8 @@
         var child = new Child();
         console.log('child:', child);
         console.log('child.doSth:', child.doSth());
+        // 优点：融合原型链继承和借用构造函数的优点
+        // 缺点：父类调用两次，一次是用new，一次是用call
     </script>
 </body>
 </html>
