@@ -38,6 +38,8 @@ function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function");
     }
+    // Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 
+    // 也就是说执行后 subClass.prototype.__proto__ === superClass.prototype; 这条语句为true
     subClass.prototype = Object.create(superClass && superClass.prototype, {
         constructor: {
             value: subClass,
@@ -87,63 +89,51 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 // ES6
-var Parent =
-    /*#__PURE__*/
-    function () {
-        function Parent(name) {
-            _classCallCheck(this, Parent);
-
-            this.name = name;
+var Parent = function () {
+    function Parent(name) {
+        _classCallCheck(this, Parent);
+        this.name = name;
+    }
+    _createClass(Parent, [{
+        key: "sayName",
+        value: function sayName() {
+            console.log('my name is ' + this.name);
+            return this.name;
         }
-
-        _createClass(Parent, [{
-            key: "sayName",
-            value: function sayName() {
-                console.log('my name is ' + this.name);
-                return this.name;
-            }
-        }], [{
-            key: "sayHello",
-            value: function sayHello() {
-                console.log('hello');
-            }
-        }]);
-
-        return Parent;
-    }();
-
-var Child =
-    /*#__PURE__*/
-    function (_Parent) {
-        _inherits(Child, _Parent);
-
-        function Child(name, age) {
-            var _this;
-
-            _classCallCheck(this, Child);
-
-            _this = _possibleConstructorReturn(this, _getPrototypeOf(Child).call(this, name));
-            _this.age = age;
-            return _this;
+    }], [{
+        key: "sayHello",
+        value: function sayHello() {
+            console.log('hello');
         }
+    }]);
+    return Parent;
+}();
 
-        _createClass(Child, [{
-            key: "sayAge",
-            value: function sayAge() {
-                console.log('my age is ' + this.age);
-                return this.age;
-            }
-        }]);
-
-        return Child;
-    }(Parent);
+var Child = function (_Parent) {
+    _inherits(Child, _Parent);
+    function Child(name, age) {
+        var _this;
+        _classCallCheck(this, Child);
+        _this = _possibleConstructorReturn(this, _getPrototypeOf(Child).call(this, name));
+        _this.age = age;
+        return _this;
+    }
+    _createClass(Child, [{
+        key: "sayAge",
+        value: function sayAge() {
+            console.log('my age is ' + this.age);
+            return this.age;
+        }
+    }]);
+    return Child;
+}(Parent);
 
 var parent = new Parent('Parent');
 var child = new Child('Child', 18);
-console.log('parent: ', parent);
-Parent.sayHello();
-parent.sayName();
-console.log('child: ', child);
-Child.sayHello();
-child.sayName();
-child.sayAge();
+console.log('parent: ', parent); // parent:  Parent {name: "Parent"}
+Parent.sayHello(); // hello
+parent.sayName(); // my name is Parent
+console.log('child: ', child); // child:  Child {name: "Child", age: 18}
+Child.sayHello(); // hello
+child.sayName(); // my name is Child
+child.sayAge(); // my age is 18

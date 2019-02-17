@@ -23,10 +23,10 @@ class Child extends Parent{
 }
 let parent = new Parent('Parent');
 let child = new Child('Child', 18);
-console.log('parent: ', parent);
-Parent.sayHello();
-parent.sayName();
-console.log('child: ', child);
-Child.sayHello();
-child.sayName();
-child.sayAge();
+console.log('parent: ', parent); // parent:  Parent {name: "Parent"}
+Parent.sayHello(); // hello
+parent.sayName(); // my name is Parent
+console.log('child: ', child); // child:  Child {name: "Child", age: 18}
+Child.sayHello(); // hello
+child.sayName(); // my name is Child
+child.sayAge(); // my age is 18
